@@ -1053,6 +1053,37 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       if (p < 2.5 / 2.75) { p -= 2.25 / 2.75; return 7.5625 * p * p + 0.9375; }
       p -= 2.625 / 2.75; return 7.5625 * p * p + 0.984375;
     }
+    // 入りきらない文章：scroll（既定・RPG風に上へ流す）／page（ページ送り）。時刻 local だけで決まるのでシークや文字サイズ変更でも跳ばない
+    function ovMode(e) { var m = e.overflow || cfg.narrationOverflow; return m === "page" ? "page" : "scroll"; }
+    var SCROLL_MS = 220;
+    function ovView(lay, capH, local, mode) {
+      if (lay.h <= capH + 0.5 || lay.lines.length < 2) return { lay: lay, off: 0, clip: false, h: lay.h, pages: 1, page: 0 };
+      var Ls = lay.lines, n = Ls.length, i;
+      if (mode === "page") {
+        var pg = [], p0 = 0, acc = 0;
+        for (i = 0; i < n; i++) { if (acc + Ls[i].h > capH + 0.5 && i > p0) { pg.push([p0, i]); p0 = i; acc = 0; } acc += Ls[i].h; }
+        pg.push([p0, n]);
+        var pi = 0;
+        for (i = 1; i < pg.length; i++) { var fl = Ls[pg[i][0]]; if (fl.items.length && local >= fl.items[0].g.at) pi = i; }
+        var sub = Ls.slice(pg[pi][0], pg[pi][1]), tp = sub[0].top, sh = 0;
+        var nl = { lines: sub.map(function (l) { var c = {}; for (var kk in l) c[kk] = l[kk]; c.top = l.top - tp; sh += l.h; return c; }), w: lay.w, h: 0, fs: lay.fs }; nl.h = sh;
+        return { lay: nl, off: 0, clip: false, h: sh, pages: pg.length, page: pi };
+      }
+      var offs = [], cur = 0;
+      for (i = 0; i < n; i++) offs.push(Math.max(0, Ls[i].top + Ls[i].h - capH));
+      for (i = 1; i < n; i++) if (Ls[i].items.length && local >= Ls[i].items[0].g.at - SCROLL_MS) cur = i;
+      var off = offs[cur];
+      if (cur > 0 && offs[cur] > offs[cur - 1] && Ls[cur].items.length) {
+        var k = clamp01((local - (Ls[cur].items[0].g.at - SCROLL_MS)) / SCROLL_MS); k = 1 - (1 - k) * (1 - k) * (1 - k);
+        off = offs[cur - 1] + (offs[cur] - offs[cur - 1]) * k;
+      }
+      return { lay: lay, off: off, clip: true, h: capH, pages: 1, page: 0, maxOff: offs[n - 1] };
+    }
+    function topFade(ctx, x, y, w, hh, rgb) {
+      var g = ctx.createLinearGradient(0, y, 0, y + hh);
+      g.addColorStop(0, "rgba(" + rgb + ",1)"); g.addColorStop(1, "rgba(" + rgb + ",0)");
+      ctx.fillStyle = g; ctx.fillRect(x, y, w, hh);
+    }
     function drawDialogue(ctx, e, t, w, upperH, s) {
       var local = t - e.start, dur = e.end - e.start;
       var eff = e.effect || "none";
@@ -1103,18 +1134,15 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
         if (fs > fs0 * 0.85 + 0.01) { fs = Math.max(fs0 * 0.85, fs * 0.96); continue; }
         break;
       }
-      // それでも高すぎる長い台詞は、窓に入る分ずつページ送り（文字は縮めない）
+      // それでも高すぎる長い台詞は、既定で吹き出しの中を上へスクロール（overflow:"page" ならページ送り）
+      var bv = null;
       if (bh * extY > availH + 0.5 && lay.lines.length > 1) {
-        var capB = Math.max(lay.lines[0].h, availH / extY - padY * 2), pgs = [], q0 = 0, ac = 0, lq;
-        for (lq = 0; lq < lay.lines.length; lq++) { if (ac + lay.lines[lq].h > capB + 0.5 && lq > q0) { pgs.push([q0, lq]); q0 = lq; ac = 0; } ac += lay.lines[lq].h; }
-        pgs.push([q0, lay.lines.length]);
-        var pj = 0;
-        for (lq = 1; lq < pgs.length; lq++) { var fl2 = lay.lines[pgs[lq][0]]; if (fl2.items.length && local >= fl2.items[0].g.at) pj = lq; }
-        var sub2 = lay.lines.slice(pgs[pj][0], pgs[pj][1]), tp2 = sub2[0].top, sh2b = 0, wmax = 0;
-        lay = { lines: sub2.map(function (l) { var c = {}; for (var kk in l) c[kk] = l[kk]; c.top = l.top - tp2; sh2b += l.h; if (l.w > wmax) wmax = l.w; return c; }), w: lay.w, h: 0, fs: lay.fs };
-        lay.h = sh2b; bh = lay.h + padY * 2;
+        var capB = Math.max(lay.lines[0].h, availH / extY - padY * 2);
+        bv = ovView(lay, capB, local, ovMode(e));
+        lay = bv.lay; bh = bv.h + padY * 2;
       }
-      if (bh * extY > availH + 0.5) { padY = Math.max(fs * 0.15, (availH / extY - lay.h) / 2); bh = lay.h + padY * 2; }
+      var contH = bv ? bv.h : lay.h;
+      if (bh * extY > availH + 0.5) { padY = Math.max(fs * 0.15, (availH / extY - contH) / 2); bh = contH + padY * 2; }
       if (bw * extX > availW + 0.5) { padX = Math.max(fs * 0.3, (availW / extX - lay.w) / 2); bw = lay.w + padX * 2; }
       // 最後の手段：爆発型の飾りのトゲだけ縮める（文字は利用者の倍率×0.85未満にしない）
       var pos = resolvePos(e.position, e.speaker === "left" ? "left" : e.speaker === "center" ? "center" : "right");
@@ -1183,7 +1211,14 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
         ctx.fillStyle = "#111"; ctx.textAlign = "left"; ctx.textBaseline = "middle";
         ctx.fillText(e.name, nx + nfs * 0.55, ny + nh / 2 + 0.5);
       }
-      drawRich(ctx, lay, 0, -lay.h / 2, "center", { local: local, color: colorStr(e.color || (th ? "#f6c2d4" : "black")), family: family, alpha: alpha }, t);
+      if (bv && bv.clip) {
+        var cxl = -bw / 2 + padX * 0.4, cyl = -bv.h / 2;
+        ctx.save(); ctx.beginPath(); ctx.rect(cxl, cyl, bw - padX * 0.8, bv.h); ctx.clip();
+        drawRich(ctx, lay, 0, cyl - bv.off, "center", { local: local, color: colorStr(e.color || (th ? "#f6c2d4" : "black")), family: family, alpha: alpha }, t);
+        if (bv.off > 0.5 && !th && !big) { var bc = toRgb(e.bubble || "#ffffff"); ctx.globalAlpha = alpha; topFade(ctx, cxl, cyl, bw - padX * 0.8, lay.fs * 0.5, bc.r + "," + bc.g + "," + bc.b); }
+        ctx.restore();
+        frameBubbles[frameBubbles.length - 1].scroll = { off: bv.off, max: bv.maxOff, clipH: bv.h };
+      } else drawRich(ctx, lay, 0, -lay.h / 2, "center", { local: local, color: colorStr(e.color || (th ? "#f6c2d4" : "black")), family: family, alpha: alpha }, t);
       ctx.restore();
     }
     function drawImpact(ctx, e, t, w, upperH, s) {
@@ -1271,17 +1306,23 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       var cur = NI.cur;
       if (cur) {
         var ipy = NI.ipy, lay = NI.lay, local0 = t - cur.start;
-        // 入りきらない時は縮めずにページ送り（いま表示中の文字が含まれるページを出す）
-        var capH = wh - ipy * 2, pg = [], p0 = 0, acc = 0;
-        for (var li = 0; li < lay.lines.length; li++) { if (acc + lay.lines[li].h > capH + 0.5 && li > p0) { pg.push([p0, li]); p0 = li; acc = 0; } acc += lay.lines[li].h; }
-        pg.push([p0, lay.lines.length]);
-        var pi = 0;
-        for (var q = 1; q < pg.length; q++) { var fl = lay.lines[pg[q][0]]; if (fl.items.length && local0 >= fl.items[0].g.at) pi = q; }
-        if (pg.length > 1) { var sub = lay.lines.slice(pg[pi][0], pg[pi][1]), tp = sub[0].top, sh = 0; lay = { lines: sub.map(function (l) { var c = {}; for (var kk in l) c[kk] = l[kk]; c.top = l.top - tp; sh += l.h; return c; }), w: lay.w, h: sh, fs: lay.fs }; }
-        narrState.fs = lay.fs; narrState.pages = pg.length; narrState.page = pi;
-        if (pg.length > 1 && pi < pg.length - 1) { ctx.globalAlpha = 0.5 + 0.5 * Math.abs(Math.sin(t / 300)); ctx.fillStyle = "white"; var tx = wx + ww - 18 * s, ty = wy + wh - 12 * s; ctx.beginPath(); ctx.moveTo(tx - 5 * s, ty - 5 * s); ctx.lineTo(tx + 5 * s, ty - 5 * s); ctx.lineTo(tx, ty + 2 * s); ctx.closePath(); ctx.fill(); ctx.globalAlpha = 1; }
-        var ipx = NI.ipx, top = wy + Math.max(ipy, (wh - lay.h) / 2);
-        drawRich(ctx, lay, wx + ipx, top, "left", { local: t - cur.start, fade: 170, color: colorStr(cur.color || "white"), family: MINCHO, lhMul: 1.55 }, t);
+        var capH = wh - ipy * 2, nv = ovView(lay, capH, local0, ovMode(cur));
+        lay = nv.lay;
+        narrState.fs = lay.fs; narrState.pages = nv.pages; narrState.page = nv.page; narrState.scroll = nv.off; narrState.maxOff = nv.maxOff || 0; narrState.mode = nv.clip ? "scroll" : nv.pages > 1 ? "page" : "fit";
+        var ipx = NI.ipx, nopt = { local: local0, fade: 170, color: colorStr(cur.color || "white"), family: MINCHO, lhMul: 1.55 };
+        if (nv.pages > 1 && nv.page < nv.pages - 1) { ctx.globalAlpha = 0.5 + 0.5 * Math.abs(Math.sin(t / 300)); ctx.fillStyle = "white"; var tx = wx + ww - 18 * s, ty = wy + wh - 12 * s; ctx.beginPath(); ctx.moveTo(tx - 5 * s, ty - 5 * s); ctx.lineTo(tx + 5 * s, ty - 5 * s); ctx.lineTo(tx, ty + 2 * s); ctx.closePath(); ctx.fill(); ctx.globalAlpha = 1; }
+        if (nv.clip) {
+          var crx = wx + 4 * s, cry = wy + ipy, crw = ww - 8 * s;
+          narrState.clip = { x: crx, y: cry, w: crw, h: capH, winY: wy, winH: wh };
+          ctx.save(); ctx.beginPath(); ctx.rect(crx, cry, crw, capH); ctx.clip();
+          drawRich(ctx, lay, wx + ipx, cry - nv.off, "left", nopt, t);
+          if (nv.off > 0.5) { ctx.globalAlpha = 1; topFade(ctx, crx, cry, crw, lay.fs * 0.6, "0,0,0"); }
+          ctx.restore();
+        } else {
+          narrState.clip = null;
+          var top = wy + Math.max(ipy, (wh - lay.h) / 2);
+          drawRich(ctx, lay, wx + ipx, top, "left", nopt, t);
+        }
       }
       ctx.restore();
     }
@@ -1962,7 +2003,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       seek: function (ms) { st.t = Math.max(0, Math.min(TOTAL_ALL, ms)); st.started = true; narrState.last = 0; draw(); updateUi(); },
       play: play, pause: pause,
       setTextScale: function (k) { TS = Math.max(0.7, Math.min(1.6, num(k, 1))); narrState.last = 0; draw(); },
-      layoutInfo: function () { return { win: frameWin, bubbles: frameBubbles.slice(), narrFs: narrState.fs, pages: narrState.pages, page: narrState.page, winH: narrState.winH, w: st.w, h: st.h, ts: TS }; }, textScale: function () { return TS; },
+      layoutInfo: function () { return { scroll: narrState.scroll || 0, maxOff: narrState.maxOff || 0, mode: narrState.mode, clip: narrState.clip, win: frameWin, bubbles: frameBubbles.slice(), narrFs: narrState.fs, pages: narrState.pages, page: narrState.page, winH: narrState.winH, w: st.w, h: st.h, ts: TS }; }, textScale: function () { return TS; },
       destroy: function () {
         if (dead) return; pause(); dead = true; clearInterval(ivId);
         st.soundOn = false; st.bgmOn = false; try { bgm.preset = null; rainStop(); bgmAssetStop(); musicStop(); } catch (err) {}
@@ -2014,13 +2055,13 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       }
     }
   }
-  root.Manji = { run: run, parseRich: parseRich, version: "3.2",
+  root.Manji = { run: run, parseRich: parseRich, version: "3.3",
     audio: function () { try { if (!root.__manjiAc) { var A = root.AudioContext || root.webkitAudioContext; if (A) root.__manjiAc = new A(); } var a = root.__manjiAc; if (a && a.state === "suspended") a.resume(); return a || null; } catch (err) { return null; } } };
 })(window);
 
 </script>
 <script>
-var MANJI_RULES={"types":{"narr":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"color":{"t":"color"},"speed":{"t":"num","min":0,"max":1000,"int":false},"se":{"t":"se"},"_req":["type","text"]},"say":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"who":{"t":"str","max":null},"speaker":{"t":"enum","v":["left","right","center"]},"pos":{"t":"pos"},"size":{"t":"num","min":8,"max":60,"int":false},"name":{"t":"str","max":30},"nameColor":{"t":"color"},"color":{"t":"color"},"bubble":{"t":"color"},"speed":{"t":"num","min":0,"max":1000,"int":false},"se":{"t":"se"},"eff":{"t":"enum","v":["none","pop","zoom","bounce","shake","big","thought","shard"]},"_req":["type","text"]},"think":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"who":{"t":"str","max":null},"speaker":{"t":"enum","v":["left","right","center"]},"pos":{"t":"pos"},"size":{"t":"num","min":8,"max":60,"int":false},"name":{"t":"str","max":30},"nameColor":{"t":"color"},"color":{"t":"color"},"bubble":{"t":"color"},"speed":{"t":"num","min":0,"max":1000,"int":false},"se":{"t":"se"},"_req":["type","text"]},"shard":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"pos":{"t":"pos"},"size":{"t":"num","min":8,"max":60,"int":false},"color":{"t":"color"},"se":{"t":"se"},"_req":["type","text"]},"se":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"note":{"t":"str","max":60},"pos":{"t":"pos"},"size":{"t":"num","min":8,"max":60,"int":false},"se":{"t":"se"},"drift":{"t":"enum","v":["approach","leave"]},"color":{"t":"color"},"_req":["type","text"]},"impact":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"pos":{"t":"pos"},"size":{"t":"num","min":16,"max":160,"int":false},"color":{"t":"color"},"stroke":{"t":"color"},"rot":{"t":"num","min":-90,"max":90,"int":false},"lines":{"t":"bool"},"lineColor":{"t":"color"},"se":{"t":"se"},"_req":["type","text"]},"caption":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"pos":{"t":"enum","v":["top","bottom"]},"color":{"t":"color"},"_req":["type","text"]},"fx":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"fx":{"t":"enum","v":["fade","fadein","fadeout","flash","shake","lightning","tint","bright","wave","mosaic","letterbox","iris","wipe","spot","camera","bg","weather","bgm"]},"_req":["type","fx"]}},"fx":{"fade":{"to":{"t":"num","min":0,"max":1,"int":false},"color":{"t":"color"}},"fadein":{"color":{"t":"color"}},"fadeout":{"color":{"t":"color"}},"flash":{"color":{"t":"color"},"strength":{"t":"num","min":0,"max":1,"int":false}},"shake":{"power":{"t":"num","min":0,"max":40,"int":false}},"lightning":{"x":{"t":"num","min":0,"max":1,"int":false},"se":{"t":"se"}},"tint":{"preset":{"t":"enum","v":["sunset","night","dream","horror","sepia","cold","none"]},"add":{"t":"color"},"sub":{"t":"color"},"amount":{"t":"num","min":0,"max":2,"int":false}},"bright":{"level":{"t":"num","min":-1,"max":1,"int":false}},"wave":{"amp":{"t":"num","min":0,"max":40,"int":false},"freq":{"t":"num","min":0,"max":20,"int":false},"speed":{"t":"num","min":0,"max":10,"int":false}},"mosaic":{"size":{"t":"num","min":1,"max":64,"int":false}},"letterbox":{"size":{"t":"num","min":0,"max":0.4,"int":false}},"iris":{"dir":{"t":"enum","v":["in","out"]},"x":{"t":"num","min":0,"max":1,"int":false},"y":{"t":"num","min":0,"max":1,"int":false},"color":{"t":"color"}},"wipe":{"shape":{"t":"enum","v":["circle","diamond","blinds","vblinds","scan","left","right"]},"dir":{"t":"enum","v":["in","out"]},"count":{"t":"num","min":1,"max":40,"int":true},"color":{"t":"color"},"x":{"t":"num","min":0,"max":1,"int":false},"y":{"t":"num","min":0,"max":1,"int":false}},"spot":{"who":{"t":"str","max":null},"at":{"t":"str","max":null},"x":{"t":"num","min":0,"max":1,"int":false},"y":{"t":"num","min":0,"max":1,"int":false},"r":{"t":"num","min":0.02,"max":1,"int":false},"dim":{"t":"num","min":0,"max":1,"int":false}},"camera":{"who":{"t":"str","max":null},"at":{"t":"str","max":null},"x":{"t":"num","min":-0.5,"max":1.5,"int":false},"y":{"t":"num","min":-0.5,"max":1.5,"int":false},"zoom":{"t":"num","min":0.3,"max":4,"int":false},"rot":{"t":"num","min":-360,"max":360,"int":false},"reset":{"t":"bool"}},"bg":{"bg":{"t":"enum","v":["sky","skyline","town","hills","sea","room","floor","none"]},"sky":{"t":"skyc"},"scroll":{"t":"num","min":-400,"max":400,"int":false},"dim":{"t":"num","min":0,"max":1,"int":false},"stars":{"t":"bool"},"c1":{"t":"color"},"c2":{"t":"color"},"spin":{"t":"num","min":-360,"max":360,"int":false},"speed":{"t":"num","min":-400,"max":400,"int":false},"horizon":{"t":"num","min":0,"max":1,"int":false}},"weather":{"kind":{"t":"enum","v":["rain","snow","petals","dust","fog","clear"]},"amount":{"t":"num","min":0,"max":3,"int":false},"wind":{"t":"num","min":-3,"max":3,"int":false}},"bgm":{"preset":{"t":"skyc"}}},"SE":["steps","walk","door","window","fusuma","pour","cup","rustle","wind","heart","ring","signal","thunder","rain","chime","impact","kira","dosa","mogu","bowl","coin","coin-soft","geta-in","geta-out","biwa","kane","taiko","tsukkomi","pon","boing","jan","dodon"],"SLOTS":["center","left","right","near","top","bottom","tl","tr","bl","br","seC","seL","seR"]};
+var MANJI_RULES={"types":{"narr":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"color":{"t":"color"},"speed":{"t":"num","min":0,"max":1000,"int":false},"se":{"t":"se"},"overflow":{"t":"enum","v":["scroll","page"]},"_req":["type","text"]},"say":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"who":{"t":"str","max":null},"speaker":{"t":"enum","v":["left","right","center"]},"pos":{"t":"pos"},"size":{"t":"num","min":8,"max":60,"int":false},"name":{"t":"str","max":30},"nameColor":{"t":"color"},"color":{"t":"color"},"bubble":{"t":"color"},"speed":{"t":"num","min":0,"max":1000,"int":false},"se":{"t":"se"},"overflow":{"t":"enum","v":["scroll","page"]},"eff":{"t":"enum","v":["none","pop","zoom","bounce","shake","big","thought","shard"]},"_req":["type","text"]},"think":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"who":{"t":"str","max":null},"speaker":{"t":"enum","v":["left","right","center"]},"pos":{"t":"pos"},"size":{"t":"num","min":8,"max":60,"int":false},"name":{"t":"str","max":30},"nameColor":{"t":"color"},"color":{"t":"color"},"bubble":{"t":"color"},"speed":{"t":"num","min":0,"max":1000,"int":false},"se":{"t":"se"},"overflow":{"t":"enum","v":["scroll","page"]},"_req":["type","text"]},"shard":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"pos":{"t":"pos"},"size":{"t":"num","min":8,"max":60,"int":false},"color":{"t":"color"},"se":{"t":"se"},"_req":["type","text"]},"se":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"note":{"t":"str","max":60},"pos":{"t":"pos"},"size":{"t":"num","min":8,"max":60,"int":false},"se":{"t":"se"},"drift":{"t":"enum","v":["approach","leave"]},"color":{"t":"color"},"_req":["type","text"]},"impact":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"pos":{"t":"pos"},"size":{"t":"num","min":16,"max":160,"int":false},"color":{"t":"color"},"stroke":{"t":"color"},"rot":{"t":"num","min":-90,"max":90,"int":false},"lines":{"t":"bool"},"lineColor":{"t":"color"},"se":{"t":"se"},"_req":["type","text"]},"caption":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"text":{"t":"str","max":2000},"pos":{"t":"enum","v":["top","bottom"]},"color":{"t":"color"},"_req":["type","text"]},"fx":{"wait":{"t":"num","min":0,"max":600000},"dur":{"t":"num","min":0,"max":600000},"delay":{"t":"num","min":-60000,"max":600000,"int":false},"comment":{"t":"str","max":null},"fx":{"t":"enum","v":["fade","fadein","fadeout","flash","shake","lightning","tint","bright","wave","mosaic","letterbox","iris","wipe","spot","camera","bg","weather","bgm"]},"_req":["type","fx"]}},"fx":{"fade":{"to":{"t":"num","min":0,"max":1,"int":false},"color":{"t":"color"}},"fadein":{"color":{"t":"color"}},"fadeout":{"color":{"t":"color"}},"flash":{"color":{"t":"color"},"strength":{"t":"num","min":0,"max":1,"int":false}},"shake":{"power":{"t":"num","min":0,"max":40,"int":false}},"lightning":{"x":{"t":"num","min":0,"max":1,"int":false},"se":{"t":"se"}},"tint":{"preset":{"t":"enum","v":["sunset","night","dream","horror","sepia","cold","none"]},"add":{"t":"color"},"sub":{"t":"color"},"amount":{"t":"num","min":0,"max":2,"int":false}},"bright":{"level":{"t":"num","min":-1,"max":1,"int":false}},"wave":{"amp":{"t":"num","min":0,"max":40,"int":false},"freq":{"t":"num","min":0,"max":20,"int":false},"speed":{"t":"num","min":0,"max":10,"int":false}},"mosaic":{"size":{"t":"num","min":1,"max":64,"int":false}},"letterbox":{"size":{"t":"num","min":0,"max":0.4,"int":false}},"iris":{"dir":{"t":"enum","v":["in","out"]},"x":{"t":"num","min":0,"max":1,"int":false},"y":{"t":"num","min":0,"max":1,"int":false},"color":{"t":"color"}},"wipe":{"shape":{"t":"enum","v":["circle","diamond","blinds","vblinds","scan","left","right"]},"dir":{"t":"enum","v":["in","out"]},"count":{"t":"num","min":1,"max":40,"int":true},"color":{"t":"color"},"x":{"t":"num","min":0,"max":1,"int":false},"y":{"t":"num","min":0,"max":1,"int":false}},"spot":{"who":{"t":"str","max":null},"at":{"t":"str","max":null},"x":{"t":"num","min":0,"max":1,"int":false},"y":{"t":"num","min":0,"max":1,"int":false},"r":{"t":"num","min":0.02,"max":1,"int":false},"dim":{"t":"num","min":0,"max":1,"int":false}},"camera":{"who":{"t":"str","max":null},"at":{"t":"str","max":null},"x":{"t":"num","min":-0.5,"max":1.5,"int":false},"y":{"t":"num","min":-0.5,"max":1.5,"int":false},"zoom":{"t":"num","min":0.3,"max":4,"int":false},"rot":{"t":"num","min":-360,"max":360,"int":false},"reset":{"t":"bool"}},"bg":{"bg":{"t":"enum","v":["sky","skyline","town","hills","sea","room","floor","none"]},"sky":{"t":"skyc"},"scroll":{"t":"num","min":-400,"max":400,"int":false},"dim":{"t":"num","min":0,"max":1,"int":false},"stars":{"t":"bool"},"c1":{"t":"color"},"c2":{"t":"color"},"spin":{"t":"num","min":-360,"max":360,"int":false},"speed":{"t":"num","min":-400,"max":400,"int":false},"horizon":{"t":"num","min":0,"max":1,"int":false}},"weather":{"kind":{"t":"enum","v":["rain","snow","petals","dust","fog","clear"]},"amount":{"t":"num","min":0,"max":3,"int":false},"wind":{"t":"num","min":-3,"max":3,"int":false}},"bgm":{"preset":{"t":"skyc"}}},"SE":["steps","walk","door","window","fusuma","pour","cup","rustle","wind","heart","ring","signal","thunder","rain","chime","impact","kira","dosa","mogu","bowl","coin","coin-soft","geta-in","geta-out","biwa","kane","taiko","tsukkomi","pon","boing","jan","dodon"],"SLOTS":["center","left","right","near","top","bottom","tl","tr","bl","br","seC","seL","seR"]};
 </script>
 <script>
 /* 漫字 unzip — 最小の zip 読み取り＋inflate（RFC 1951）。外部ライブラリなし。
@@ -2322,7 +2363,7 @@ var ManjiZip = (function () {
     // settings
     var st = {}, S = doc.settings;
     if (S != null && (typeof S !== "object" || Array.isArray(S))) { warns.push("「settings」はオブジェクト { … } で書いてください。無視しました。"); S = null; }
-    var SR = { charMs: { t: "num", min: 0, max: 500 }, tempo: { t: "num", min: 0.25, max: 4 }, endHold: { t: "num", min: 0, max: 600000 }, endText: { t: "str" }, showNames: { t: "bool" }, glow: { t: "bool" }, window: { t: "bool" } };
+    var SR = { charMs: { t: "num", min: 0, max: 500 }, tempo: { t: "num", min: 0.25, max: 4 }, endHold: { t: "num", min: 0, max: 600000 }, endText: { t: "str" }, showNames: { t: "bool" }, glow: { t: "bool" }, window: { t: "bool" }, narrationOverflow: { t: "enum", v: ["scroll", "page"] } };
     if (S) for (var sk in S) {
       if (sk === "slots" || sk === "bgmPresets") {
         if (S[sk] && typeof S[sk] === "object" && !Array.isArray(S[sk])) {
@@ -2466,7 +2507,7 @@ var ManjiZip = (function () {
     var chars = {};
     for (var id in d.cast) { var c = d.cast[id]; chars[id] = { name: c.name || id, color: c.color, textColor: c.textColor, slot: c.pos, side: c.side || sideOf(c.pos), showName: c.showName }; }
     var s = d.settings, cfg = { textScale: FZ[fzI].v, title: d.title, subtitle: d.subtitle || "▶ タップまたは「再生」で開演", characters: chars, script: d.events, mount: "manji" };
-    ["charMs", "tempo", "endHold", "endText", "showNames", "glow", "window", "slots", "bgmPresets"].forEach(function (k) { if (s[k] != null) cfg[k] = s[k]; });
+    ["charMs", "tempo", "endHold", "endText", "showNames", "glow", "window", "slots", "bgmPresets", "narrationOverflow"].forEach(function (k) { if (s[k] != null) cfg[k] = s[k]; });
     if (!isLast) { cfg.endHold = 1200; if (s.endText == null) cfg.endText = "……"; }
     cfg.audioAssets = { se: function (id) { return assetBuf("se", id); }, bgm: function (id) { return assetBuf("bgm", id); } };
     cfg.onWarn = function (m) { addRuntimeWarn(m); };
