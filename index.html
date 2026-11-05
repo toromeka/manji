@@ -1087,17 +1087,38 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       var big = eff === "big";
       ctx.save();
       var family = th ? MINCHO : GOTHIC, weight = th ? "500" : big ? "900" : "600";
-      var maxW = (big || e.speaker === "center" ? 0.6 : 0.42) * w;
-      var padX = fs * (big ? 1.1 : 0.85);
-      var padY = fs * (big ? 0.9 : 0.6);
-      var lay = layoutRich(ctx, e.glyphs, maxW - padX * 2, fs, weight, family, false, 1.4);
-      var bw = lay.w + padX * 2, bh = lay.h + padY * 2;
+      // 拡大後の実寸で組んでから、舞台（メッセージ窓より上）の中に必ず収める
+      var m = 8 * s, effMax = eff === "pop" || eff === "big" ? 1.1 : eff === "bounce" ? 1.15 : eff === "zoom" ? 1.07 : 1, extX = (big ? 1.12 : 1) * effMax, extY = (big ? 1.12 : 1) * effMax, nfs0 = Math.max(10, 12 * s), nameH = e.name ? nfs0 * 1.55 * 0.7 : 0, tailH = th ? 18 * s : (e.speaker === "left" || e.speaker === "right") ? 15 * s : 0;
+      var frac = big || e.speaker === "center" ? 0.6 : 0.42, fracMax = big ? 0.7 : 0.92, fs0 = fs, availH = upperH - m * 2 - nameH - tailH, availW = w - m * 2;
+      var padX, padY, lay, bw, bh, guard = 0, wk = 1;
+      for (;;) {
+        padX = fs * (big ? 1.1 : 0.85); padY = fs * (big ? 0.9 : 0.6);
+        var maxW = Math.min(frac * w, availW / extX) * wk;
+        lay = layoutRich(ctx, e.glyphs, Math.max(fs * 2, maxW - padX * 2), fs, weight, family, false, 1.4);
+        bw = lay.w + padX * 2; bh = lay.h + padY * 2;
+        if (guard++ > 40) break;
+        if (bw * extX > availW + 0.5) { wk *= 0.94; continue; }
+        if (bh * extY <= availH) break;
+        if (frac < fracMax) { frac = Math.min(fracMax, frac + 0.1); continue; }
+        if (fs > fs0 * 0.85 + 0.01) { fs = Math.max(fs0 * 0.85, fs * 0.96); continue; }
+        break;
+      }
+      // 最後の手段：爆発型の飾りのトゲだけ縮める（文字は利用者の倍率×0.85未満にしない）
       var pos = resolvePos(e.position, e.speaker === "left" ? "left" : e.speaker === "center" ? "center" : "right");
-      var m = 8 * s;
-      var cx = Math.max(bw / 2 + m, Math.min(w - bw / 2 - m, pos.x * w));
-      var cy = Math.max(bh / 2 + m + (e.name ? fs : 0), Math.min(upperH - bh / 2 - m * 2, pos.y * upperH));
+      var cx = pos.x * w, cy = pos.y * upperH + dy + floatY;
+      var hw = (bw / 2) * (extX / effMax) * sc * sx, hh = (bh / 2) * (extY / effMax) * sc * sy, topX = nameH * sc, botX = tailH * sc;
+      var x0 = m + hw, x1 = w - m - hw, y0 = m + hh + topX, y1 = upperH - m - hh - botX;
+      cx = x0 > x1 ? w / 2 : Math.max(x0, Math.min(x1, cx + dx));
+      cy = y0 > y1 ? (m + topX + (upperH - m - botX)) / 2 : Math.max(y0, Math.min(y1, cy));
+      var rxB = 0, ryB = 0;
+      if (big) { // 爆発型のトゲは舞台の端で平らにする（文字の箱は必ず中に入る）
+        rxB = Math.max(bw / 2, Math.min((bw / 2) * 1.08 * 1.37, Math.min(cx - m, w - m - cx) / (sc * sx)));
+        ryB = Math.max(bh / 2, Math.min((bh / 2) * 1.2 * 1.37, Math.min(cy - m - topX, upperH - m - botX - cy) / (sc * sy)));
+        hw = Math.max(hw, rxB * sc * sx); hh = Math.max(hh, ryB * sc * sy);
+      }
+      frameBubbles.push({ x0: cx - hw, y0: cy - hh - topX, x1: cx + hw, y1: cy + hh + botX, fs: fs, fs0: fs0, upperH: upperH, w: w, idx: e.idx });
       ctx.globalAlpha = alpha;
-      ctx.translate(cx + dx, cy + dy + floatY);
+      ctx.translate(cx, cy);
       ctx.scale(sc * sx, sc * sy);
       ctx.fillStyle = e.bubble ? colorStr(e.bubble) : "white";
       if (big) {
@@ -1106,7 +1127,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
         for (var k = 0; k < N * 2; k++) {
           var ang = (k / (N * 2)) * PI2;
           var r = k % 2 === 0 ? 1.22 + ((k * 37) % 7) * 0.025 : 0.98;
-          var px = Math.cos(ang) * ax * r, py = Math.sin(ang) * by * r;
+          var px = Math.max(-rxB, Math.min(rxB, Math.cos(ang) * ax * r)), py = Math.max(-ryB, Math.min(ryB, Math.sin(ang) * by * r));
           if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
         }
         ctx.closePath(); ctx.fill();
@@ -1140,7 +1161,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
         }
       }
       if (e.name) {
-        var nfs = Math.max(10, 12 * s);
+        var nfs = nfs0;
         ctx.font = "700 " + nfs + "px " + GOTHIC;
         var nw = ctx.measureText(e.name).width + nfs * 1.1, nh = nfs * 1.55;
         var nx = -bw / 2 + 6 * s, ny = -bh / 2 - nh * 0.7;
@@ -1202,10 +1223,31 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       ctx.fillText(e.plain, x + fs * 0.8, y + bh / 2 + 0.5);
       ctx.restore();
     }
+    // 地の文：文字サイズ（textScale）は常に優先。窓を最大45%まで伸ばし、それでも入らなければページ送り
+    var narrState = { fs: 0, pages: 0, page: 0, winH: 0, target: 0, last: 0 };
+    var narrCache = { key: "", v: null };
+    function curNarr(t) { var cur = null, L = byType.description; for (var k = 0; k < L.length; k++) if (L[k].start <= t && t < L[k].end) cur = L[k]; return cur; }
+    function narrInfo(ctx, t, w, h, s) {
+      var cur = curNarr(t), key = (cur ? cur.idx : -1) + "|" + w + "|" + h + "|" + s;
+      if (narrCache.key === key) return narrCache.v;
+      var pad = 12 * s, ipx = 16 * s, ipy = 10 * s, fs = 21 * s, lay = null;
+      var base = h * 0.23 * Math.max(1, Math.min(1.4, TS)), need = base;
+      if (cur) { lay = layoutRich(ctx, cur.glyphs, w - pad * 2 - ipx * 2, fs, "500", MINCHO, false, 1.55); need = lay.h + ipy * 2 + pad * 1.2; }
+      var v = { cur: cur, lay: lay, ipx: ipx, ipy: ipy, winH: Math.min(h * 0.45, Math.max(base, need)) };
+      narrCache.key = key; narrCache.v = v; return v;
+    }
+    function windowH(ctx, t, w, h, s) {
+      var target = narrInfo(ctx, t, w, h, s).winH, now = Date.now();
+      if (!narrState.winH || Math.abs(narrState.target - target) > h || narrState.last === 0) narrState.winH = target;
+      else { var k = Math.min(1, (now - narrState.last) / 140); narrState.winH += (target - narrState.winH) * k; if (Math.abs(target - narrState.winH) < 0.5) narrState.winH = target; }
+      narrState.target = target; narrState.last = now; return narrState.winH;
+    }
+    var frameBubbles = [];
     function drawWindow(ctx, t, w, h, upperH, s) {
       if (cfg.window === false) return;
       var pad = 12 * s;
       var wx = pad, wy = upperH + pad * 0.2, ww = w - pad * 2, wh = h - wy - pad;
+      var NI = narrInfo(ctx, t, w, h, s);
       ctx.save();
       ctx.globalAlpha = 1;
       roundRectPath(ctx, wx, wy, ww, wh, 6 * s);
@@ -1213,16 +1255,19 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       ctx.strokeStyle = "white"; ctx.lineWidth = Math.max(1.5, 2 * s); ctx.stroke();
       roundRectPath(ctx, wx + 4 * s, wy + 4 * s, ww - 8 * s, wh - 8 * s, 4 * s);
       ctx.globalAlpha = 0.25; ctx.lineWidth = 1; ctx.stroke();
-      var cur = null, L = byType.description;
-      for (var k = 0; k < L.length; k++) if (L[k].start <= t && t < L[k].end) cur = L[k];
+      var cur = NI.cur;
       if (cur) {
-        var ipx = 16 * s, ipy = 10 * s, fs = 21 * s, lay;
-        for (;;) {
-          lay = layoutRich(ctx, cur.glyphs, ww - ipx * 2, fs, "500", MINCHO, false, 1.55);
-          if (lay.h <= wh - ipy * 2 || fs <= 9) break;
-          fs -= 0.5;
-        }
-        var top = wy + Math.max(ipy, (wh - lay.h) / 2);
+        var ipy = NI.ipy, lay = NI.lay, local0 = t - cur.start;
+        // 入りきらない時は縮めずにページ送り（いま表示中の文字が含まれるページを出す）
+        var capH = wh - ipy * 2, pg = [], p0 = 0, acc = 0;
+        for (var li = 0; li < lay.lines.length; li++) { if (acc + lay.lines[li].h > capH + 0.5 && li > p0) { pg.push([p0, li]); p0 = li; acc = 0; } acc += lay.lines[li].h; }
+        pg.push([p0, lay.lines.length]);
+        var pi = 0;
+        for (var q = 1; q < pg.length; q++) { var fl = lay.lines[pg[q][0]]; if (fl.items.length && local0 >= fl.items[0].g.at) pi = q; }
+        if (pg.length > 1) { var sub = lay.lines.slice(pg[pi][0], pg[pi][1]), tp = sub[0].top, sh = 0; lay = { lines: sub.map(function (l) { var c = {}; for (var kk in l) c[kk] = l[kk]; c.top = l.top - tp; sh += l.h; return c; }), w: lay.w, h: sh, fs: lay.fs }; }
+        narrState.fs = lay.fs; narrState.pages = pg.length; narrState.page = pi;
+        if (pg.length > 1 && pi < pg.length - 1) { ctx.globalAlpha = 0.5 + 0.5 * Math.abs(Math.sin(t / 300)); ctx.fillStyle = "white"; var tx = wx + ww - 18 * s, ty = wy + wh - 12 * s; ctx.beginPath(); ctx.moveTo(tx - 5 * s, ty - 5 * s); ctx.lineTo(tx + 5 * s, ty - 5 * s); ctx.lineTo(tx, ty + 2 * s); ctx.closePath(); ctx.fill(); ctx.globalAlpha = 1; }
+        var ipx = NI.ipx, top = wy + Math.max(ipy, (wh - lay.h) / 2);
         drawRich(ctx, lay, wx + ipx, top, "left", { local: t - cur.start, fade: 170, color: colorStr(cur.color || "white"), family: MINCHO, lhMul: 1.55 }, t);
       }
       ctx.restore();
@@ -1498,7 +1543,8 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
     function renderFrame(ctx, w, h, t, started) {
       var dpr = cv.width / Math.max(1, w), W = cv.width, H = cv.height;
       var s = Math.max(0.56, Math.min(1.4, w / 760, h / 428)) * TS;
-      var upperH = h * (cfg.window === false ? 1 : 1 - 0.23 * Math.max(1, Math.min(1.4, TS)));
+      frameBubbles = [];
+      var upperH = cfg.window === false ? h : h - windowH(ctx, started ? t : -1, w, h, s);
       if (bufW.width !== W || bufW.height !== H) { bufW.width = W; bufW.height = H; bctx = null; }
       var b = bctx || (bctx = bufW.getContext("2d"));
       var tt = started ? t : -1, k, L;
@@ -1894,9 +1940,10 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
     });
     var api = {
       st: st, total: TOTAL_ALL, count: items.length, items: items,
-      seek: function (ms) { st.t = Math.max(0, Math.min(TOTAL_ALL, ms)); st.started = true; draw(); updateUi(); },
+      seek: function (ms) { st.t = Math.max(0, Math.min(TOTAL_ALL, ms)); st.started = true; narrState.last = 0; draw(); updateUi(); },
       play: play, pause: pause,
-      setTextScale: function (k) { TS = Math.max(0.7, Math.min(1.6, num(k, 1))); draw(); }, textScale: function () { return TS; },
+      setTextScale: function (k) { TS = Math.max(0.7, Math.min(1.6, num(k, 1))); narrState.last = 0; draw(); },
+      layoutInfo: function () { return { bubbles: frameBubbles.slice(), narrFs: narrState.fs, pages: narrState.pages, page: narrState.page, winH: narrState.winH, w: st.w, h: st.h, ts: TS }; }, textScale: function () { return TS; },
       destroy: function () {
         if (dead) return; pause(); dead = true; clearInterval(ivId);
         st.soundOn = false; st.bgmOn = false; try { bgm.preset = null; rainStop(); bgmAssetStop(); musicStop(); } catch (err) {}
@@ -1948,7 +1995,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       }
     }
   }
-  root.Manji = { run: run, parseRich: parseRich, version: "3.0",
+  root.Manji = { run: run, parseRich: parseRich, version: "3.1",
     audio: function () { try { if (!root.__manjiAc) { var A = root.AudioContext || root.webkitAudioContext; if (A) root.__manjiAc = new A(); } var a = root.__manjiAc; if (a && a.state === "suspended") a.resume(); return a || null; } catch (err) { return null; } } };
 })(window);
 
