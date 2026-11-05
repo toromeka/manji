@@ -13,7 +13,8 @@
    "chapters": 1,
    "events": 45,
    "tagline": "数える声と割り込みの間で見せる一文の早業",
-   "size": 9409
+   "size": 9409,
+   "chars": 426
   },
   {
    "id": "manjuu_kowai",
@@ -26,7 +27,8 @@
    "chapters": 1,
    "events": 69,
    "tagline": "四隅のひそひそ声と、震えながらのモグモグ",
-   "size": 13853
+   "size": 13853,
+   "chars": 919
   },
   {
    "id": "momotaro",
@@ -39,7 +41,8 @@
    "chapters": 1,
    "events": 106,
    "tagline": "どんぶらこから鬼退治まで、演出てんこもり",
-   "size": 15132
+   "size": 15132,
+   "chars": 852
   },
   {
    "id": "kaguyahime",
@@ -52,7 +55,8 @@
    "chapters": 1,
    "events": 92,
    "tagline": "夜空と光の粒で描く、静かな別れの物語",
-   "size": 12851
+   "size": 12851,
+   "chars": 1032
   },
   {
    "id": "botchan",
@@ -65,7 +69,37 @@
    "chapters": 7,
    "events": 613,
    "tagline": "親譲りの無鉄砲、四国の中学校へ赴任す",
-   "size": 26540
+   "size": 26540,
+   "chars": 10179
+  },
+  {
+   "id": "hoichi",
+   "file": "hoichi.manjiz",
+   "title": "耳無芳一の話",
+   "genre": "怪談",
+   "credit": "小泉八雲（戸川明三 訳）・青空文庫",
+   "description": "壇ノ浦の平家の怨霊に招かれ、夜ごと琵琶を語る盲目の芳一。経文に守られた最後の夜、ただ一つ書き忘れたものが……。本文は青空文庫の訳文そのまま（全6話）。",
+   "chapters": 6,
+   "unit": "話",
+   "tagline": "鬼火、雨の墓地、呼ぶ声――本格怪談",
+   "chars": 7806,
+   "duration": 679,
+   "events": 292,
+   "size": 17197
+  },
+  {
+   "id": "asagohan",
+   "file": "asagohan_saiban.manji",
+   "title": "朝ごはん裁判",
+   "genre": "漫才",
+   "credit": "オリジナル漫才（グロック作）",
+   "description": "ホットケーキは朝ごはんか、おやつか。漫才コンビ「こたつみかん」が勝手に開いた“朝ごはん裁判”。",
+   "chapters": 1,
+   "tagline": "ボケ（左）とツッコミ（右）の掛け合い",
+   "chars": 1012,
+   "duration": 122,
+   "events": 67,
+   "size": 10406
   }
  ]
 }

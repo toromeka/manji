@@ -102,7 +102,7 @@
 - `drift`（se のみ）：`approach`（近づく）/`leave`（遠ざかる）。
 - `color`：文字色。`bubble`：吹き出しの地の色。`stroke`：impact の縁色。`lines:false`：集中線なし。
 
-**効果音キー（se）**：`steps` `walk` 足音／`door` 扉／`window` 窓／`fusuma` ふすま／`pour` 注ぐ／`cup` 器を置く／`rustle` 衣ずれ・物音／`wind` 風／`heart` 鼓動／`ring` 耳鳴り／`signal` 電子音・スマホ／`thunder` 雷／`rain` 雨音／`chime` 鐘・チャイム／`impact` ドーン／`kira` キラッ／`dosa` ドサッ（倒れる）／`mogu` 食べる／`bowl` どんぶり／`coin` `coin-soft` 小銭／`geta-in` `geta-out` 下駄（来る・去る）
+**効果音キー（se）**：`steps` `walk` 足音／`door` 扉／`window` 窓／`fusuma` ふすま／`pour` 注ぐ／`cup` 器を置く／`rustle` 衣ずれ・物音／`wind` 風／`heart` 鼓動／`ring` 耳鳴り／`signal` 電子音・スマホ／`thunder` 雷／`rain` 雨音／`chime` 鐘・チャイム／`impact` ドーン／`kira` キラッ／`dosa` ドサッ（倒れる）／`mogu` 食べる／`bowl` どんぶり／`coin` `coin-soft` 小銭／`geta-in` `geta-out` 下駄（来る・去る）／`biwa` 琵琶の一撥／`kane` 寺の鐘（ゴーン）／`taiko` 和太鼓／`dodon` ドドン（決め）／`tsukkomi` ツッコミ（ペシッ）／`pon` 鼓（ポン）／`boing` ボヨーン／`jan` ジャン！（ブラス）
 
 ## 6. 立ち位置（舞台座標）
 舞台は窓より上の領域。`x`：0＝左端〜1＝右端、`y`：0＝上端〜1＝窓のすぐ上。
@@ -137,9 +137,39 @@
 | `camera` | who/at/x,y, zoom 0.3〜4（1）, rot -360〜360, reset true | 寄り・引き・傾き。who は cast の定位置に寄る。解除は `"reset":true` |
 | `bg` | bg, sky, scroll, dim 0〜1, stars, c1, c2, spin, speed, horizon | 背景。bg：`sky` `skyline`（ビル街） `town`（家並み） `hills`（山） `sea`（海） `room`（室内と窓） `floor`（Mode7風の床・夢や異空間） `none`。sky：`day` `sunset` `night` `dawn` `dusk` `dream` `horror` `none` か色。scroll：横の流れ（歩く・電車 20〜60、静止 0） |
 | `weather` | kind, amount 0〜3（1）, wind -3〜3 | kind：`rain` `snow` `petals`（桜） `dust`（光の粒） `fog`（霧） `clear`（全部消す）。止めるのは同じ kind で amount 0 |
-| `bgm` | preset | `calm` おだやか、`tension` 緊迫、`eerie` 不気味、`none` 停止 |
+| `bgm` | preset | 曲名（下の「BGM一覧」）、`none` 停止 |
 
 各 fx で使えない項目を書かないこと（例：`fadein` に `level` は不可）。
+
+### 7.1 BGM一覧
+| preset | 曲名 | 使いどころ | 1ループ |
+|---|---|---|---|
+| `daily` | 日常・おだやか | ふだんの場面、会話、のんびり | 約83秒 |
+| `morning` | 朝・学校 | 朝、登校、明るい始まり | 約64秒 |
+| `nostalgic` | なつかしい・回想 | 思い出、回想、夕暮れ | 約60秒 |
+| `sad` | かなしい | 別れ、涙、喪失 | 約87秒 |
+| `tender` | やさしい・ときめき | 恋心、やさしさ、あたたかい場面 | 約101秒 |
+| `tense` | 緊迫 | 危機、追跡、急ぐ場面 | 約58秒 |
+| `horror` | ホラー・不気味 | 怪談、恐怖、闇 | 約128秒 |
+| `drone` | 不穏・重低音 | 不穏な気配、嵐の前、底知れぬもの | 約77秒 |
+| `battle` | 戦い・アクション | 対決、鬼退治、アクション | 約51秒 |
+| `rakugo` | 落語・軽妙（和風） | 落語、とぼけた会話、江戸の町 | 約69秒 |
+| `wa_solemn` | 和風・荘厳 | 寺、神社、武家、厳かな場面 | 約128秒 |
+| `mukashi` | 昔話・おとぎ話 | 昔話、童話、むかしむかし | 約77秒 |
+| `festive` | 祭り・にぎやか | 祭り、宴、勝利の凱旋 | 約55秒 |
+| `mystery` | 謎・探偵 | 謎解き、怪しい人物、こっそり | 約80秒 |
+| `ending` | エンディング | 結末、エピローグ、おしまい | 約91秒 |
+| `manzai` | 漫才・出囃子 | 漫才の登場、コント、ドタバタ | 約48秒 |
+| `jingle` | 出囃子ジングル（短め） | 漫才の幕開け・場面の区切り（明るく短い） | 約46秒 |
+| `none` | — | BGMを止める | — |
+
+旧名 `calm`→`daily`、`tension`→`tense`、`eerie`→`horror` もそのまま使えます。アーカイブ（.manjiz）では `asset:ID` で m4a/mp3 の BGM も鳴らせます。
+
+**音源について（スーファミ相当）**：最大8音同時（足りないときは優先度の低い音を止めて譲る）、ADSR・フィルター付きの合成楽器、フィードバックエコー＋ローパス。
+楽器：ストリングス、パッド、ピアノ、エレピ、ハープ、撥弦（pluck）、フルート、篠笛（fue）、ブラス、クワイア、オルガン、ベース、シンセベース、オルゴール、鐘（bell）、箏、三味線、琵琶、リード。
+打楽器：キック、スネア、クラップ、ハイハット、和太鼓、締太鼓、鼓、ウッドブロック、心音 など。
+
+**曲の選び方**：場面の気分が変わる所で `bgm` を切り替える（切り替えは自動でクロスフェード）。会話中心の漫才・落語本編は `none` か `rakugo` を小さめに、出囃子だけ `jingle`/`manzai`。怪談は `horror`→山場で `drone`、結末で `wa_solemn` や `ending`。
 
 ## 8. 文字の装飾（text の中に書く）
 | 記法 | 効果 | 使いどころ |
@@ -178,11 +208,11 @@
 | 屋外・時刻 | `bg` で場所、`sky` で時刻（朝 day/dawn、夕 sunset、夜 night） |
 | 天気・季節 | 原文にあるときだけ `weather`（雨・雪・桜） |
 | 驚き・衝撃 | `impact`（＋`shake` 6〜10、`flash`）を wait 0 で同時。**1作品に2〜3回まで** |
-| 緊張・恐怖 | `bgm tension`/`eerie`、`tint horror`（0.6〜0.8）、`bright -0.3`、`{tr}`、`eff shake` |
+| 緊張・恐怖 | `bgm tense`/`horror`/`drone`、`tint horror`（0.6〜0.8）、`bright -0.3`、`{tr}`、`eff shake` |
 | 独白・心の声 | `think`、強い独白は `spot` |
 | 夢・回想・めまい | `wave`（amp 4〜8）、`tint dream`、`shard`、深い夢は `bg floor` |
 | 決め台詞・重大事 | `letterbox`、`camera` の寄り（zoom 1.2〜1.4） |
-| ギャグ・軽い調子 | `eff pop`/`bounce`、`bgm calm` |
+| ギャグ・軽い調子 | `eff pop`/`bounce`、`bgm daily`/`rakugo`、漫才は `jingle` |
 | 終わり | `fadeout`（2000）、`bgm none` |
 
 ### 9.4 色の意味
@@ -303,3 +333,9 @@ manifest.json の形：
 4. 漫字プレーヤーの「漫字スクリプトを読み込む」からそのファイルを選ぶ。
 - 「⛶ 全画面（横向き）」ボタンで、縦持ちでも横向きの大きな画面で再生できます。タップで「戻る・再生・次の章」が出ます。
 - Safari の共有ボタン →「**ホーム画面に追加**」で開くと、アドレスバーが消えてさらに広い全画面になります。
+
+
+## 14. プレーヤーの表示について
+- 概要欄には所要時間と**文字数**（台詞＋地の文、空白を除く）を表示する。アーカイブは合計と各章の文字数を目次に表示。
+- 登場人物一覧は、その人物が**初めて発言した後**に色付きで現れる（ネタバレ防止）。cast に書いた順ではなく登場順。
+- 文字サイズ（小／標準／大／特大）は読者が再生中に切り替える。台本側で `size` を大きくしすぎないこと。
