@@ -1120,7 +1120,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       var family = th ? MINCHO : GOTHIC, weight = th ? "500" : big ? "900" : "600";
       // 拡大後の実寸で組んでから、舞台（メッセージ窓より上）の中に必ず収める
       var m = 8 * s, effMax = eff === "pop" || eff === "big" ? 1.1 : eff === "bounce" ? 1.15 : eff === "zoom" ? 1.07 : 1, extX = (big ? 1.12 : 1) * effMax, extY = (big ? 1.12 : 1) * effMax, nfs0 = Math.max(10, 12 * s), nameH = e.name ? nfs0 * 1.55 * 0.7 : 0, tailH = th ? 18 * s : (e.speaker === "left" || e.speaker === "right") ? 15 * s : 0;
-      var frac = big ? 0.6 : w < 560 ? 0.86 : e.speaker === "center" ? 0.6 : 0.42, fracMax = big ? 0.7 : 0.92, fs0 = fs, availH = upperH - m * 2 - nameH - tailH, availW = w - m * 2;
+      var frac = big ? 0.6 : w < 560 ? 0.86 : e.speaker === "center" ? 0.6 : 0.42, fracMax = big ? 0.7 : 0.92, fs0 = fs, availH = upperH - m * 2 - nameH - tailH - INS.top, availW = w - m * 2;
       var padX, padY, lay, bw, bh, guard = 0, wk = 1;
       for (;;) {
         padX = fs * (big ? 1.1 : 0.85); padY = fs * (big ? 0.9 : 0.6);
@@ -1148,13 +1148,13 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       var pos = resolvePos(e.position, e.speaker === "left" ? "left" : e.speaker === "center" ? "center" : "right");
       var cx = pos.x * w, cy = pos.y * upperH + dy + floatY;
       var hw = (bw / 2) * (extX / effMax) * sc * sx, hh = (bh / 2) * (extY / effMax) * sc * sy, topX = nameH * sc, botX = tailH * sc;
-      var x0 = m + hw, x1 = w - m - hw, y0 = m + hh + topX, y1 = upperH - m - hh - botX;
+      var x0 = m + hw, x1 = w - m - hw, y0 = m + INS.top + hh + topX, y1 = upperH - m - hh - botX;
       cx = x0 > x1 ? w / 2 : Math.max(x0, Math.min(x1, cx + dx));
-      cy = y0 > y1 ? (m + topX + (upperH - m - botX)) / 2 : Math.max(y0, Math.min(y1, cy));
+      cy = y0 > y1 ? (m + INS.top + topX + (upperH - m - botX)) / 2 : Math.max(y0, Math.min(y1, cy));
       var rxB = 0, ryB = 0;
       if (big) { // 爆発型のトゲは舞台の端で平らにする（文字の箱は必ず中に入る）
         rxB = Math.max(bw / 2, Math.min((bw / 2) * 1.08 * 1.37, Math.min(cx - m, w - m - cx) / (sc * sx)));
-        ryB = Math.max(bh / 2, Math.min((bh / 2) * 1.2 * 1.37, Math.min(cy - m - topX, upperH - m - botX - cy) / (sc * sy)));
+        ryB = Math.max(bh / 2, Math.min((bh / 2) * 1.2 * 1.37, Math.min(cy - m - INS.top - topX, upperH - m - botX - cy) / (sc * sy)));
         hw = Math.max(hw, rxB * sc * sx); hh = Math.max(hh, ryB * sc * sy);
       }
       frameBubbles.push({ x0: cx - hw, y0: cy - hh - topX, x1: cx + hw, y1: cy + hh + botX, fs: fs, fs0: fs0, upperH: upperH, w: w, idx: e.idx });
@@ -1313,7 +1313,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
         if (nv.pages > 1 && nv.page < nv.pages - 1) { ctx.globalAlpha = 0.5 + 0.5 * Math.abs(Math.sin(t / 300)); ctx.fillStyle = "white"; var tx = wx + ww - 18 * s, ty = wy + wh - 12 * s; ctx.beginPath(); ctx.moveTo(tx - 5 * s, ty - 5 * s); ctx.lineTo(tx + 5 * s, ty - 5 * s); ctx.lineTo(tx, ty + 2 * s); ctx.closePath(); ctx.fill(); ctx.globalAlpha = 1; }
         if (nv.clip) {
           var crx = wx + 4 * s, cry = wy + ipy, crw = ww - 8 * s;
-          narrState.clip = { x: crx, y: cry, w: crw, h: capH, winY: wy, winH: wh };
+          narrState.clip = { x: crx, y: cry, w: crw, h: capH, winY: wy, winH: wh }; narrState.textRect = { x: crx, y: cry, w: crw, h: capH };
           ctx.save(); ctx.beginPath(); ctx.rect(crx, cry, crw, capH); ctx.clip();
           drawRich(ctx, lay, wx + ipx, cry - nv.off, "left", nopt, t);
           if (nv.off > 0.5) { ctx.globalAlpha = 1; topFade(ctx, crx, cry, crw, lay.fs * 0.6, "0,0,0"); }
@@ -1321,6 +1321,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
         } else {
           narrState.clip = null;
           var top = wy + Math.max(ipy, (wh - lay.h) / 2);
+          narrState.textRect = { x: wx + ipx, y: top, w: lay.w, h: lay.h };
           drawRich(ctx, lay, wx + ipx, top, "left", nopt, t);
         }
       }
@@ -1599,12 +1600,14 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       var s = Math.max(0.56, Math.min(1.4, w / 760, h / 428)) * TS;
       frameBubbles = [];
       // 場面の高さは一定（地の文の無い作品は全面）。吹き出しは「いま実際に描かれている窓の上端」より上に収める
-      var winCur = cfg.window === false ? 0 : windowH(ctx, started ? t : -1, w, h, s);
+      // 画面の下に操作ボタンが出ている間は、その分（INS.bottom）を避けて窓と吹き出しを置く
+      var hW = Math.max(h * 0.5, h - INS.bottom);
+      var winCur = cfg.window === false ? 0 : windowH(ctx, started ? t : -1, w, hW, s);
       var baseWin = h * 0.23 * Math.max(1, Math.min(1.4, TS));
       var upperH = cfg.window === false || !byType.description.length ? h : h - baseWin;
-      var winTop = winCur >= 1 ? h - winCur + 12 * s * 0.2 - Math.max(1.5, 2 * s) / 2 : h;
-      var bubH = Math.min(h, winTop);
-      frameWin = { top: winTop, h: winCur, shown: winCur >= 1 };
+      var winTop = winCur >= 1 ? hW - winCur + 12 * s * 0.2 - Math.max(1.5, 2 * s) / 2 : hW;
+      var bubH = Math.min(hW, winTop);
+      frameWin = { top: winTop, h: winCur, shown: winCur >= 1, bottom: hW, insets: { top: INS.top, bottom: INS.bottom } };
       if (bufW.width !== W || bufW.height !== H) { bufW.width = W; bufW.height = H; bctx = null; }
       var b = bctx || (bctx = bufW.getContext("2d"));
       var tt = started ? t : -1, k, L;
@@ -1694,7 +1697,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
         ctx.setTransform(1, 0, 0, 1, 0, 0);
       }
       ctx.setTransform(dpr, 0, 0, dpr, shx, shy);
-      if (winCur >= 1) drawWindow(ctx, started ? t : -1, w, h, h - winCur, s, Math.min(1, winCur / (baseWin * 0.6)));
+      if (winCur >= 1) drawWindow(ctx, started ? t : -1, w, hW, hW - winCur, s, Math.min(1, winCur / (baseWin * 0.6)));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       var Lb = evalCh("letterbox", tt);
       if (Lb.v > 0.001) { ctx.fillStyle = "black"; ctx.fillRect(0, 0, w, Lb.v * h); ctx.fillRect(0, upperH - Lb.v * h * 0.6, w, Lb.v * h * 0.6 + 1); }
@@ -1872,6 +1875,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       if (rainNode) { if (amt <= 0.05) rainStop(); else rainNode.g.gain.value = 0.07 * Math.min(1, amt); }
     }
     // ───────── 状態・UI ─────────
+    var INS = { top: 0, bottom: 0 };
     var TS = Math.max(0.7, Math.min(1.6, num(cfg.textScale, 1)));
     var st = { t: 0, playing: false, started: false, speed: 1, soundOn: false, bgmOn: false, w: 640, h: 360, lastTick: Date.now(), lastDraw: 0, lastUi: 0, lastError: "" };
     var ac = null;
@@ -2003,7 +2007,8 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       seek: function (ms) { st.t = Math.max(0, Math.min(TOTAL_ALL, ms)); st.started = true; narrState.last = 0; draw(); updateUi(); },
       play: play, pause: pause,
       setTextScale: function (k) { TS = Math.max(0.7, Math.min(1.6, num(k, 1))); narrState.last = 0; draw(); },
-      layoutInfo: function () { return { scroll: narrState.scroll || 0, maxOff: narrState.maxOff || 0, mode: narrState.mode, clip: narrState.clip, win: frameWin, bubbles: frameBubbles.slice(), narrFs: narrState.fs, pages: narrState.pages, page: narrState.page, winH: narrState.winH, w: st.w, h: st.h, ts: TS }; }, textScale: function () { return TS; },
+      setInsets: function (top, bottom) { var a = Math.max(0, num(top, 0)), b2 = Math.max(0, num(bottom, 0)); if (a === INS.top && b2 === INS.bottom) return; INS.top = a; INS.bottom = b2; narrState.last = 0; narrCache.key = ""; draw(); },
+      layoutInfo: function () { return { textRect: frameWin.shown ? narrState.textRect : null, scroll: narrState.scroll || 0, maxOff: narrState.maxOff || 0, mode: narrState.mode, clip: narrState.clip, win: frameWin, bubbles: frameBubbles.slice(), narrFs: narrState.fs, pages: narrState.pages, page: narrState.page, winH: narrState.winH, w: st.w, h: st.h, ts: TS }; }, textScale: function () { return TS; },
       destroy: function () {
         if (dead) return; pause(); dead = true; clearInterval(ivId);
         st.soundOn = false; st.bgmOn = false; try { bgm.preset = null; rainStop(); bgmAssetStop(); musicStop(); } catch (err) {}
@@ -2055,7 +2060,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       }
     }
   }
-  root.Manji = { run: run, parseRich: parseRich, version: "3.3",
+  root.Manji = { run: run, parseRich: parseRich, version: "3.3.1",
     audio: function () { try { if (!root.__manjiAc) { var A = root.AudioContext || root.webkitAudioContext; if (A) root.__manjiAc = new A(); } var a = root.__manjiAc; if (a && a.state === "suspended") a.resume(); return a || null; } catch (err) { return null; } } };
 })(window);
 
@@ -2620,6 +2625,7 @@ var ManjiZip = (function () {
     $("btnFz").addEventListener("click", function (ev) { ev.stopPropagation(); cycleFz(); });
     applyFz();
     renderToc(); renderInfo();
+    if (fs.on) setTimeout(fsInsets, 0);
     prepareAssets(i);
     if (opt.seek) api.seek(opt.seek);
     if (opt.card) showCard(i, function () { if (opt.autoplay) api.play(); });
@@ -2647,6 +2653,7 @@ var ManjiZip = (function () {
     if (Date.now() - lastSave > 2000) saveResume(false);
     fsSync();
     renderCast(false);
+    if (fs.on && api && !api.st.playing && $("fsCtl").className.indexOf(" show") < 0) fsShowCtl();
   }
   function saveResume(force) {
     if (!lib || !api) return;
@@ -3091,6 +3098,7 @@ var ManjiZip = (function () {
   function fsExit() {
     if (!fs.on) return;
     fs.on = false;
+    try { if (api && api.setInsets) api.setInsets(0, 0); } catch (e) {}
     try { localStorage.setItem(LS_FS, "0"); } catch (e) {}
     var d = document;
     if (d.fullscreenElement || d.webkitFullscreenElement) { try { (d.exitFullscreen || d.webkitExitFullscreen).call(d); } catch (e) {} }
@@ -3099,10 +3107,24 @@ var ManjiZip = (function () {
     $("fsLayer").style.display = "none"; document.documentElement.className = document.documentElement.className.replace(/\s*mj-fs/g, "");
     try { window.dispatchEvent(new Event("resize")); } catch (e) {}
   }
+  // 操作ボタン：再生中は 2.5 秒触らなければ隠す（一時停止中は出したまま）。出ている間は舞台の下端をボタンの分だけ空ける
+  function fsHideCtl() { var c = $("fsCtl"); c.className = c.className.replace(/\s*show/g, ""); fsInsets(); }
+  function fsArmHide() {
+    clearTimeout(fs.hideT);
+    fs.hideT = setTimeout(function () { if (api && api.st.playing) fsHideCtl(); else fsArmHide(); }, 2500);
+  }
   function fsShowCtl() {
     var c = $("fsCtl"); if (c.className.indexOf(" show") < 0) c.className += " show";
-    fsSync();
-    clearTimeout(fs.hideT); fs.hideT = setTimeout(function () { c.className = c.className.replace(/\s*show/g, ""); }, 3000);
+    fsSync(); fsInsets(); fsArmHide();
+  }
+  function fsInsets() {
+    if (!api || !api.setInsets) return;
+    var c = $("fsCtl"), on = fs.on && c.className.indexOf(" show") >= 0;
+    if (!on) { api.setInsets(0, 0); return; }
+    var wrap = $("stageWrap"), btns = c.querySelector(".fsBtns"), top = c.querySelector(".fsTop");
+    // 回転していても offset* は回転前（舞台の向き）の座標なのでそのまま使える
+    var H = wrap.offsetHeight || 1, bt = btns.offsetTop, tb = top ? top.offsetTop + top.offsetHeight : 0;
+    api.setInsets(Math.max(0, tb + 4), Math.max(0, H - bt + 6));
   }
   function fsSync() {
     if (!fs.on || !api) return;
@@ -3116,7 +3138,7 @@ var ManjiZip = (function () {
     if (t && t.tagName === "BUTTON") return;
     ev.stopPropagation(); ev.preventDefault();
     var c = $("fsCtl");
-    if (c.className.indexOf(" show") >= 0) { c.className = c.className.replace(/\s*show/g, ""); } else fsShowCtl();
+    if (c.className.indexOf(" show") >= 0) { if (api && !api.st.playing) fsShowCtl(); else fsHideCtl(); } else fsShowCtl();
   }, true);
   $("fsExit").addEventListener("click", function (ev) { ev.stopPropagation(); fsExit(); });
   $("fsFz").addEventListener("click", function (ev) { ev.stopPropagation(); cycleFz(); });
