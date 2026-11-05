@@ -1,0 +1,832 @@
+{
+ "manji": "1.0",
+ "title": "漫字エンジン v2 デモリール",
+ "subtitle": "▶ タップまたは「再生」で開始（約2分半）",
+ "author": "toro meka",
+ "cast": {
+  "熊": {
+   "color": "#7fb4ff",
+   "pos": "left",
+   "side": "left"
+  },
+  "八": {
+   "color": "#f0a8c0",
+   "pos": "right",
+   "side": "right"
+  },
+  "松": {
+   "color": "#ffd84a",
+   "pos": "center",
+   "side": "center"
+  }
+ },
+ "settings": {
+  "charMs": 55,
+  "tempo": 1.3,
+  "endText": "— おしまい —"
+ },
+ "events": [
+  {
+   "type": "fx",
+   "fx": "fade",
+   "to": 1,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "calm",
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 1800,
+   "wait": 200
+  },
+  {
+   "type": "caption",
+   "text": "フェードイン／アウト（任意の色）",
+   "wait": 0,
+   "dur": 6200
+  },
+  {
+   "type": "narr",
+   "text": "黒からふわりと明けて、白へ飛び、赤に沈む。フェードはどんな色でもかけられる。",
+   "wait": 400
+  },
+  {
+   "type": "fx",
+   "fx": "fadeout",
+   "color": "#ffffff",
+   "dur": 900,
+   "wait": 2600
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 900,
+   "wait": 1000
+  },
+  {
+   "type": "fx",
+   "fx": "fadeout",
+   "color": "#600000",
+   "dur": 700,
+   "wait": 1100
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 900,
+   "wait": 900
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "skyline",
+   "sky": "night",
+   "scroll": 40,
+   "dur": 1200,
+   "wait": 1100
+  },
+  {
+   "type": "caption",
+   "text": "グラデーション空（HDMA風）＋多重スクロール",
+   "wait": 300,
+   "dur": 5200
+  },
+  {
+   "type": "narr",
+   "text": "夜の町。屋台のそば屋に、ひとりの男が声をかけた。",
+   "wait": 300
+  },
+  {
+   "type": "say",
+   "who": "熊",
+   "text": "「おう、親方。そば、できるかい？」",
+   "wait": 2600,
+   "dur": 2600
+  },
+  {
+   "type": "say",
+   "who": "八",
+   "text": "「へえ、いらっしゃい。できますよ」",
+   "wait": 2300,
+   "dur": 2600
+  },
+  {
+   "type": "caption",
+   "text": "名前札の色プリセット（characters）",
+   "wait": 200,
+   "dur": 2800
+  },
+  {
+   "type": "caption",
+   "text": "カメラ（パン・ズーム）",
+   "wait": 2600,
+   "dur": 4600
+  },
+  {
+   "type": "fx",
+   "fx": "camera",
+   "who": "熊",
+   "zoom": 1.4,
+   "dur": 1200,
+   "wait": 0
+  },
+  {
+   "type": "say",
+   "who": "熊",
+   "text": "「寒い夜には、あつあつの{r:蕎麦|そば}に限るね」",
+   "wait": 1100,
+   "dur": 2800
+  },
+  {
+   "type": "fx",
+   "fx": "camera",
+   "reset": true,
+   "dur": 1000,
+   "wait": 2900
+  },
+  {
+   "type": "caption",
+   "text": "文字装飾・ルビ・文字送り（インライン記法）",
+   "wait": 1100,
+   "dur": 9400
+  },
+  {
+   "type": "say",
+   "who": "松",
+   "text": "「{c:#ff6b6b}赤い字{/c}、{b}太字{/b}、{s:1.5}大きく{/s}、{w}ゆらゆら{/w}、{sh}ぶるぶる{/sh}」",
+   "wait": 200,
+   "dur": 4400
+  },
+  {
+   "type": "narr",
+   "text": "文字送りは{sp:180}ゆっくり{/sp}にも、{p:700}間を置くことも、{sp:15}一気に早口で流すこともできる。{/sp}{r:漢字|かんじ}にはルビも振れる。",
+   "wait": 4500
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "tension",
+   "wait": 4600
+  },
+  {
+   "type": "caption",
+   "text": "インパクト文字＋画面揺れ＋フラッシュ",
+   "wait": 0,
+   "dur": 4200
+  },
+  {
+   "type": "impact",
+   "text": "ドーン！",
+   "pos": {
+    "x": 0.5,
+    "y": 0.42
+   },
+   "size": 70,
+   "dur": 1700,
+   "wait": 300,
+   "se": "impact"
+  },
+  {
+   "type": "fx",
+   "fx": "shake",
+   "power": 12,
+   "dur": 600,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "flash",
+   "color": "#ffffff",
+   "strength": 0.8,
+   "dur": 350,
+   "wait": 0
+  },
+  {
+   "type": "say",
+   "who": "熊",
+   "text": "「親方、今、何時（なんどき）だい！？」",
+   "eff": "big",
+   "size": 26,
+   "pos": {
+    "x": 0.5,
+    "y": 0.4
+   },
+   "speaker": "center",
+   "wait": 1900,
+   "dur": 2400
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "calm",
+   "wait": 2500
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "town",
+   "sky": "day",
+   "scroll": 12,
+   "dur": 1000,
+   "wait": 0
+  },
+  {
+   "type": "caption",
+   "text": "色演算：夕焼け（加算＋減算）",
+   "wait": 1200,
+   "dur": 3300
+  },
+  {
+   "type": "narr",
+   "text": "同じ町並みでも、色を足したり引いたりするだけで、夕方にも夜にもなる。",
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "sunset",
+   "dur": 2000,
+   "wait": 0
+  },
+  {
+   "type": "caption",
+   "text": "色演算：夜",
+   "wait": 3400,
+   "dur": 3000
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "night",
+   "dur": 1600,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bright",
+   "level": -0.2,
+   "dur": 1600,
+   "wait": 0
+  },
+  {
+   "type": "caption",
+   "text": "色演算：ホラーの赤",
+   "wait": 3100,
+   "dur": 3200
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "horror",
+   "dur": 900,
+   "wait": 0
+  },
+  {
+   "type": "say",
+   "who": "八",
+   "text": "「……へ、へい」",
+   "eff": "shake",
+   "size": 18,
+   "wait": 900,
+   "dur": 2000
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "none",
+   "dur": 1200,
+   "wait": 2300
+  },
+  {
+   "type": "fx",
+   "fx": "bright",
+   "level": 0,
+   "dur": 1200,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "eerie",
+   "wait": 1300
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "room",
+   "dur": 800,
+   "wait": 0
+  },
+  {
+   "type": "caption",
+   "text": "ラスターゆらぎ（走査線ごとの波）",
+   "wait": 900,
+   "dur": 6200
+  },
+  {
+   "type": "fx",
+   "fx": "wave",
+   "amp": 9,
+   "freq": 3,
+   "speed": 0.6,
+   "dur": 1500,
+   "wait": 0
+  },
+  {
+   "type": "narr",
+   "text": "……なんだか、部屋がゆらゆらと揺れて見える。",
+   "wait": 400
+  },
+  {
+   "type": "think",
+   "who": "松",
+   "text": "（夢か、うつつか）",
+   "size": 17,
+   "wait": 1800,
+   "dur": 3200
+  },
+  {
+   "type": "fx",
+   "fx": "wave",
+   "amp": 0,
+   "dur": 1200,
+   "wait": 3300
+  },
+  {
+   "type": "caption",
+   "text": "モザイク転換",
+   "wait": 1300,
+   "dur": 3200
+  },
+  {
+   "type": "narr",
+   "text": "画面がモザイクに砕けて、場面が変わる。",
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "mosaic",
+   "size": 26,
+   "dur": 900,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "sea",
+   "sky": "dawn",
+   "scroll": 10,
+   "wait": 1000
+  },
+  {
+   "type": "fx",
+   "fx": "mosaic",
+   "size": 1,
+   "dur": 900,
+   "wait": 0
+  },
+  {
+   "type": "caption",
+   "text": "アイリス・アウト／イン",
+   "wait": 1900,
+   "dur": 3600
+  },
+  {
+   "type": "fx",
+   "fx": "iris",
+   "dir": "out",
+   "x": 0.5,
+   "y": 0.5,
+   "dur": 1300,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "iris",
+   "dir": "in",
+   "x": 0.5,
+   "y": 0.5,
+   "dur": 1300,
+   "wait": 1700
+  },
+  {
+   "type": "caption",
+   "text": "スポットライト",
+   "wait": 1700,
+   "dur": 3800
+  },
+  {
+   "type": "fx",
+   "fx": "spot",
+   "who": "八",
+   "r": 0.26,
+   "dim": 0.88,
+   "dur": 700,
+   "wait": 0
+  },
+  {
+   "type": "say",
+   "who": "八",
+   "text": "「へい、九（ここのつ）で」",
+   "wait": 600,
+   "dur": 2600
+  },
+  {
+   "type": "fx",
+   "fx": "spot",
+   "dim": 0,
+   "dur": 600,
+   "wait": 2800
+  },
+  {
+   "type": "caption",
+   "text": "ひし形ワイプ",
+   "wait": 700,
+   "dur": 2600
+  },
+  {
+   "type": "fx",
+   "fx": "wipe",
+   "shape": "diamond",
+   "dir": "out",
+   "dur": 900,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "wipe",
+   "shape": "diamond",
+   "dir": "in",
+   "dur": 900,
+   "wait": 1100
+  },
+  {
+   "type": "caption",
+   "text": "ブラインド",
+   "wait": 1200,
+   "dur": 2600
+  },
+  {
+   "type": "fx",
+   "fx": "wipe",
+   "shape": "blinds",
+   "dir": "out",
+   "dur": 900,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "wipe",
+   "shape": "blinds",
+   "dir": "in",
+   "dur": 900,
+   "wait": 1100
+  },
+  {
+   "type": "caption",
+   "text": "走査線ワイプ",
+   "wait": 1200,
+   "dur": 2800
+  },
+  {
+   "type": "fx",
+   "fx": "wipe",
+   "shape": "scan",
+   "dir": "out",
+   "dur": 1000,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "wipe",
+   "shape": "scan",
+   "dir": "in",
+   "dur": 1000,
+   "wait": 1200
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "floor",
+   "c1": "#5a2a6a",
+   "c2": "#12061a",
+   "sky": "#05020a",
+   "spin": 25,
+   "speed": 60,
+   "dur": 800,
+   "wait": 1400
+  },
+  {
+   "type": "caption",
+   "text": "Mode7風：遠近の床＋回転ズーム",
+   "wait": 200,
+   "dur": 7000
+  },
+  {
+   "type": "fx",
+   "fx": "camera",
+   "zoom": 1.35,
+   "rot": 18,
+   "dur": 6000,
+   "wait": 0
+  },
+  {
+   "type": "narr",
+   "text": "床がぐるりと回りはじめ、夢の底へ落ちていく。",
+   "wait": 300
+  },
+  {
+   "type": "shard",
+   "text": "どこ……？",
+   "pos": {
+    "x": 0.3,
+    "y": 0.3
+   },
+   "wait": 1700,
+   "dur": 2600
+  },
+  {
+   "type": "shard",
+   "text": "……",
+   "pos": {
+    "x": 0.72,
+    "y": 0.22
+   },
+   "wait": 900,
+   "dur": 2400
+  },
+  {
+   "type": "fx",
+   "fx": "camera",
+   "reset": true,
+   "dur": 1200,
+   "wait": 3600
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "calm",
+   "wait": 1300
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "hills",
+   "sky": "sunset",
+   "scroll": 18,
+   "dur": 1000,
+   "wait": 0
+  },
+  {
+   "type": "caption",
+   "text": "レターボックス（映画風の黒帯）",
+   "wait": 300,
+   "dur": 4400
+  },
+  {
+   "type": "fx",
+   "fx": "letterbox",
+   "size": 0.12,
+   "dur": 900,
+   "wait": 0
+  },
+  {
+   "type": "narr",
+   "text": "夕暮れの丘。画面の上下に黒い帯が降りてくる。",
+   "wait": 300
+  },
+  {
+   "type": "fx",
+   "fx": "letterbox",
+   "size": 0,
+   "dur": 800,
+   "wait": 3600
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "town",
+   "sky": "night",
+   "scroll": 8,
+   "dur": 1000,
+   "wait": 900
+  },
+  {
+   "type": "caption",
+   "text": "天候：雨＋稲光",
+   "wait": 200,
+   "dur": 5200
+  },
+  {
+   "type": "narr",
+   "text": "急に雨が降りだした。遠くの空が、ぴかりと光る。",
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "rain",
+   "amount": 1,
+   "wind": 0.3,
+   "dur": 1200,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "lightning",
+   "wait": 1800
+  },
+  {
+   "type": "se",
+   "text": "ゴロゴロ……",
+   "pos": "seR",
+   "note": "遠雷",
+   "wait": 300,
+   "dur": 2400
+  },
+  {
+   "type": "fx",
+   "fx": "lightning",
+   "x": 0.7,
+   "wait": 1700
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "rain",
+   "amount": 0,
+   "dur": 1000,
+   "wait": 1500
+  },
+  {
+   "type": "caption",
+   "text": "天候：雪",
+   "wait": 600,
+   "dur": 3200
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "snow",
+   "amount": 1,
+   "wind": 0.2,
+   "dur": 1000,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "snow",
+   "amount": 0,
+   "dur": 900,
+   "wait": 3000
+  },
+  {
+   "type": "caption",
+   "text": "天候：桜の花びら",
+   "wait": 700,
+   "dur": 3200
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "petals",
+   "amount": 1,
+   "wind": 0.3,
+   "dur": 900,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "petals",
+   "amount": 0,
+   "dur": 900,
+   "wait": 3000
+  },
+  {
+   "type": "caption",
+   "text": "天候：ほこり（光の粒）＋霧",
+   "wait": 700,
+   "dur": 3800
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "dust",
+   "amount": 1,
+   "dur": 900,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "fog",
+   "amount": 1,
+   "dur": 1500,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "clear",
+   "dur": 1200,
+   "wait": 3600
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "none",
+   "dur": 1000,
+   "wait": 1300
+  },
+  {
+   "type": "caption",
+   "text": "吹き出し：ポップ／ズーム／バウンス／震え／心の声",
+   "wait": 200,
+   "dur": 9000
+  },
+  {
+   "type": "say",
+   "who": "熊",
+   "text": "「ポップ！」",
+   "eff": "pop",
+   "pos": {
+    "x": 0.2,
+    "y": 0.25
+   },
+   "wait": 300,
+   "dur": 2600
+  },
+  {
+   "type": "say",
+   "who": "八",
+   "text": "「ズーム！」",
+   "eff": "zoom",
+   "pos": {
+    "x": 0.8,
+    "y": 0.25
+   },
+   "wait": 900,
+   "dur": 2600
+  },
+  {
+   "type": "say",
+   "who": "松",
+   "text": "「バウンス！」",
+   "eff": "bounce",
+   "pos": {
+    "x": 0.5,
+    "y": 0.42
+   },
+   "wait": 900,
+   "dur": 2800
+  },
+  {
+   "type": "say",
+   "who": "熊",
+   "text": "「こわいよぉ……」",
+   "eff": "shake",
+   "size": 16,
+   "pos": {
+    "x": 0.25,
+    "y": 0.62
+   },
+   "wait": 1300,
+   "dur": 2600
+  },
+  {
+   "type": "think",
+   "who": "八",
+   "text": "（……心の声は点線で）",
+   "size": 16,
+   "pos": {
+    "x": 0.74,
+    "y": 0.62
+   },
+   "wait": 900,
+   "dur": 3200
+  },
+  {
+   "type": "se",
+   "text": "チーン",
+   "note": "締めの鐘",
+   "pos": "seC",
+   "wait": 3400,
+   "dur": 2600,
+   "se": "chime"
+  },
+  {
+   "type": "fx",
+   "fx": "fadeout",
+   "dur": 2000,
+   "wait": 1800
+  }
+ ]
+}

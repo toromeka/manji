@@ -1,0 +1,896 @@
+{
+ "manji": "1.0",
+ "title": "桃太郎",
+ "subtitle": "昔話より",
+ "author": "昔話より再構成",
+ "source": "日本の昔話「桃太郎」より再構成（漫字オリジナル台本）",
+ "description": "川を流れてきた大きな桃から生まれた桃太郎が、犬・猿・雉をおともに鬼ヶ島へ。にぎやかな演出の見本。",
+ "cast": {
+  "おじいさん": {
+   "color": "#9ee0a0",
+   "pos": "left"
+  },
+  "おばあさん": {
+   "color": "#f0a8c0",
+   "pos": "right"
+  },
+  "桃太郎": {
+   "color": "#ffb070",
+   "pos": "center"
+  },
+  "犬": {
+   "color": "#ffd84a",
+   "pos": "inu",
+   "side": "left"
+  },
+  "猿": {
+   "color": "#c8a8ff",
+   "pos": "saru",
+   "side": "right"
+  },
+  "雉": {
+   "color": "#7fb4ff",
+   "pos": "kiji",
+   "side": "center"
+  },
+  "鬼": {
+   "color": "#ff6b6b",
+   "pos": "oni",
+   "side": "right"
+  }
+ },
+ "settings": {
+  "charMs": 60,
+  "slots": {
+   "inu": {
+    "x": 0.24,
+    "y": 0.5
+   },
+   "saru": {
+    "x": 0.76,
+    "y": 0.5
+   },
+   "kiji": {
+    "x": 0.5,
+    "y": 0.26
+   },
+   "oni": {
+    "x": 0.7,
+    "y": 0.26
+   }
+  },
+  "endText": "— めでたし、めでたし —"
+ },
+ "events": [
+  {
+   "type": "fx",
+   "fx": "fade",
+   "to": 1,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "hills",
+   "sky": "day",
+   "scroll": 0,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "calm",
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 1500,
+   "wait": 200
+  },
+  {
+   "type": "caption",
+   "text": "むかしむかし",
+   "dur": 3000,
+   "wait": 300
+  },
+  {
+   "type": "narr",
+   "text": "むかしむかし、ある山里に、おじいさんとおばあさんが住んでいました。",
+   "wait": 500
+  },
+  {
+   "type": "narr",
+   "text": "おじいさんは山へしば刈りに、おばあさんは川へ洗濯に出かけました。",
+   "wait": 3380
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "sea",
+   "sky": "day",
+   "scroll": 12,
+   "dur": 1500,
+   "wait": 3200
+  },
+  {
+   "type": "fx",
+   "fx": "wave",
+   "amp": 3,
+   "freq": 6,
+   "speed": 2,
+   "dur": 1500,
+   "wait": 0
+  },
+  {
+   "type": "se",
+   "text": "ざぶ、ざぶ……",
+   "dur": 2200,
+   "note": "洗濯の音",
+   "pos": "seL",
+   "se": "pour",
+   "wait": 900
+  },
+  {
+   "type": "narr",
+   "text": "おばあさんが洗濯をしていると、川上から大きな桃が流れてきました。",
+   "wait": 800
+  },
+  {
+   "type": "se",
+   "text": "どんぶらこ、どんぶらこ……",
+   "dur": 4200,
+   "pos": "seR",
+   "size": 19,
+   "drift": "approach",
+   "wait": 2000
+  },
+  {
+   "type": "say",
+   "who": "おばあさん",
+   "text": "「まあ、なんと大きな桃だこと」",
+   "dur": 3450,
+   "eff": "zoom",
+   "wait": 1620
+  },
+  {
+   "type": "say",
+   "who": "おばあさん",
+   "text": "「おじいさんへのおみやげにしましょう」",
+   "dur": 3970,
+   "wait": 3200
+  },
+  {
+   "type": "fx",
+   "fx": "wave",
+   "amp": 0,
+   "dur": 800,
+   "wait": 1500
+  },
+  {
+   "type": "narr",
+   "text": "おばあさんは桃をかかえて、えっちらおっちら家へ帰りました。",
+   "wait": 1980
+  },
+  {
+   "type": "fx",
+   "fx": "iris",
+   "dir": "out",
+   "dur": 1000,
+   "wait": 4200
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "room",
+   "sky": "dusk",
+   "dim": 0.35,
+   "dur": 0,
+   "wait": 1100
+  },
+  {
+   "type": "fx",
+   "fx": "iris",
+   "dir": "in",
+   "dur": 1000,
+   "wait": 200
+  },
+  {
+   "type": "caption",
+   "text": "その晩",
+   "dur": 3000,
+   "wait": 300
+  },
+  {
+   "type": "say",
+   "who": "おじいさん",
+   "text": "「これは見事な桃じゃ。さっそく切ってみよう」",
+   "dur": 4360,
+   "wait": 700
+  },
+  {
+   "type": "narr",
+   "text": "おじいさんが包丁を当てた、そのとき。",
+   "wait": 4140
+  },
+  {
+   "type": "fx",
+   "fx": "flash",
+   "color": "#fff6c0",
+   "strength": 0.9,
+   "dur": 400,
+   "wait": 2200
+  },
+  {
+   "type": "impact",
+   "text": "パッカーン！",
+   "dur": 1600,
+   "pos": "center",
+   "size": 84,
+   "color": "#ffd84a",
+   "stroke": "#7a3a00",
+   "rot": -8,
+   "se": "impact",
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "shake",
+   "power": 8,
+   "dur": 500,
+   "wait": 0
+  },
+  {
+   "type": "se",
+   "text": "おぎゃあ、おぎゃあ",
+   "dur": 2600,
+   "pos": {
+    "x": 0.5,
+    "y": 0.62
+   },
+   "size": 18,
+   "wait": 1200
+  },
+  {
+   "type": "narr",
+   "text": "桃の中から、元気な男の子が飛び出してきたのです。",
+   "wait": 1800
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "dust",
+   "amount": 0.8,
+   "dur": 800,
+   "wait": 0
+  },
+  {
+   "type": "say",
+   "who": "おばあさん",
+   "text": "「{c:gold}桃から生まれた{/c}から、桃太郎と名づけましょう」",
+   "dur": 4490,
+   "eff": "pop",
+   "wait": 2740
+  },
+  {
+   "type": "say",
+   "who": "おじいさん",
+   "text": "「うむ、いい名じゃ」",
+   "dur": 2800,
+   "wait": 3960
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "dust",
+   "amount": 0,
+   "dur": 1200,
+   "wait": 2500
+  },
+  {
+   "type": "fx",
+   "fx": "mosaic",
+   "size": 24,
+   "dur": 700,
+   "wait": 1200
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "hills",
+   "sky": "day",
+   "scroll": 0,
+   "dur": 0,
+   "wait": 800
+  },
+  {
+   "type": "fx",
+   "fx": "mosaic",
+   "size": 1,
+   "dur": 700,
+   "wait": 100
+  },
+  {
+   "type": "caption",
+   "text": "それから幾年",
+   "dur": 3000,
+   "wait": 300
+  },
+  {
+   "type": "narr",
+   "text": "桃太郎はごはんを一杯食べれば一杯分、二杯食べれば二杯分、ぐんぐん大きくなりました。",
+   "wait": 600
+  },
+  {
+   "type": "narr",
+   "text": "ある日、鬼ヶ島の鬼たちが村を荒らしていると聞いた桃太郎は、きっぱりと言いました。",
+   "wait": 3760
+  },
+  {
+   "type": "fx",
+   "fx": "letterbox",
+   "size": 0.12,
+   "dur": 800,
+   "wait": 3500
+  },
+  {
+   "type": "say",
+   "who": "桃太郎",
+   "text": "「{b}鬼ヶ島へ、鬼退治に行ってまいります{/b}」",
+   "dur": 3970,
+   "size": 21,
+   "wait": 1200
+  },
+  {
+   "type": "fx",
+   "fx": "letterbox",
+   "size": 0,
+   "dur": 800,
+   "wait": 3400
+  },
+  {
+   "type": "say",
+   "who": "おばあさん",
+   "text": "「では、日本一のきびだんごをこしらえましょう」",
+   "dur": 4490,
+   "wait": 280
+  },
+  {
+   "type": "narr",
+   "text": "おばあさんは腰に下げる袋いっぱいに、きびだんごを詰めてくれました。",
+   "wait": 3960
+  },
+  {
+   "type": "fx",
+   "fx": "fadeout",
+   "dur": 800,
+   "wait": 4200
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "hills",
+   "sky": "day",
+   "scroll": 40,
+   "dur": 0,
+   "wait": 900
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 800,
+   "wait": 100
+  },
+  {
+   "type": "caption",
+   "text": "旅立ち",
+   "dur": 3000,
+   "wait": 300
+  },
+  {
+   "type": "se",
+   "text": "ザッ、ザッ、ザッ",
+   "dur": 2400,
+   "pos": "seL",
+   "se": "walk",
+   "drift": "leave",
+   "wait": 600
+  },
+  {
+   "type": "say",
+   "who": "犬",
+   "text": "「ワンワン！ 桃太郎さん、お腰につけたきびだんご、ひとつわたしにくださいな」",
+   "dur": 6440,
+   "eff": "bounce",
+   "wait": 1200
+  },
+  {
+   "type": "say",
+   "who": "桃太郎",
+   "text": "「鬼退治についてくるなら、あげましょう」",
+   "dur": 4100,
+   "pos": {
+    "x": 0.55,
+    "y": 0.42
+   },
+   "wait": 5760
+  },
+  {
+   "type": "say",
+   "who": "犬",
+   "text": "「おともします！」",
+   "dur": 2670,
+   "eff": "pop",
+   "wait": 3600
+  },
+  {
+   "type": "se",
+   "text": "もぐもぐ",
+   "dur": 1800,
+   "pos": {
+    "x": 0.24,
+    "y": 0.58
+   },
+   "se": "mogu",
+   "size": 14,
+   "wait": 1500
+  },
+  {
+   "type": "say",
+   "who": "猿",
+   "text": "「キッキー！ わたしにもひとつくださいな」",
+   "dur": 4230,
+   "eff": "bounce",
+   "wait": 1800
+  },
+  {
+   "type": "se",
+   "text": "もぐもぐ",
+   "dur": 1800,
+   "pos": {
+    "x": 0.78,
+    "y": 0.58
+   },
+   "se": "mogu",
+   "size": 14,
+   "wait": 2400
+  },
+  {
+   "type": "say",
+   "who": "雉",
+   "text": "「ケーン！ わたしもおともいたします」",
+   "dur": 3970,
+   "eff": "bounce",
+   "wait": 1800
+  },
+  {
+   "type": "se",
+   "text": "もぐもぐ",
+   "dur": 1800,
+   "pos": {
+    "x": 0.5,
+    "y": 0.28
+   },
+   "se": "mogu",
+   "size": 14,
+   "wait": 2400
+  },
+  {
+   "type": "narr",
+   "text": "こうして犬、猿、雉をおともに、桃太郎は海へ向かいました。",
+   "wait": 1800
+  },
+  {
+   "type": "fx",
+   "fx": "wipe",
+   "shape": "right",
+   "dir": "out",
+   "dur": 900,
+   "wait": 4000
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "sea",
+   "sky": "sunset",
+   "scroll": 30,
+   "dur": 0,
+   "wait": 900
+  },
+  {
+   "type": "fx",
+   "fx": "wipe",
+   "shape": "right",
+   "dir": "in",
+   "dur": 900,
+   "wait": 100
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "sunset",
+   "amount": 0.5,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "se",
+   "text": "ザザーン……",
+   "dur": 2600,
+   "pos": "seC",
+   "se": "wind",
+   "wait": 400
+  },
+  {
+   "type": "narr",
+   "text": "船をこいで、こいで、こぎ進むと、黒い雲の向こうに島が見えてきました。",
+   "wait": 1500
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "tension",
+   "wait": 3000
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "horror",
+   "amount": 0.6,
+   "dur": 2000,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "sea",
+   "sky": "horror",
+   "scroll": 0,
+   "dur": 2000,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "lightning",
+   "x": 0.7,
+   "dur": 900,
+   "se": "thunder",
+   "wait": 1200
+  },
+  {
+   "type": "caption",
+   "text": "鬼ヶ島",
+   "dur": 3000,
+   "wait": 200
+  },
+  {
+   "type": "say",
+   "who": "鬼",
+   "text": "「{sh}だれだ、おれさまの島に来るやつは！{/sh}」",
+   "dur": 3970,
+   "size": 26,
+   "eff": "shake",
+   "wait": 1200
+  },
+  {
+   "type": "say",
+   "who": "桃太郎",
+   "text": "「日本一の桃太郎だ！ 鬼ども、覚悟しろ！」",
+   "dur": 4230,
+   "eff": "big",
+   "size": 24,
+   "wait": 3480
+  },
+  {
+   "type": "narr",
+   "text": "桃太郎たちは、いっせいに鬼へ飛びかかりました。",
+   "wait": 2200
+  },
+  {
+   "type": "fx",
+   "fx": "camera",
+   "zoom": 1.15,
+   "rot": -3,
+   "dur": 300,
+   "wait": 1800
+  },
+  {
+   "type": "say",
+   "who": "犬",
+   "text": "「ワンッ！」",
+   "dur": 1200,
+   "eff": "pop",
+   "pos": {
+    "x": 0.3,
+    "y": 0.5
+   },
+   "size": 22,
+   "wait": 500
+  },
+  {
+   "type": "say",
+   "who": "猿",
+   "text": "「キキーッ！」",
+   "dur": 1200,
+   "eff": "pop",
+   "pos": {
+    "x": 0.68,
+    "y": 0.52
+   },
+   "size": 22,
+   "wait": 450
+  },
+  {
+   "type": "say",
+   "who": "雉",
+   "text": "「ケーン！」",
+   "dur": 1200,
+   "eff": "pop",
+   "pos": {
+    "x": 0.5,
+    "y": 0.22
+   },
+   "size": 22,
+   "wait": 450
+  },
+  {
+   "type": "fx",
+   "fx": "flash",
+   "color": "#ffffff",
+   "strength": 0.9,
+   "dur": 350,
+   "wait": 500
+  },
+  {
+   "type": "impact",
+   "text": "ドカーン！",
+   "dur": 1500,
+   "pos": {
+    "x": 0.52,
+    "y": 0.36
+   },
+   "size": 78,
+   "color": "#ff6b6b",
+   "stroke": "#2a0000",
+   "rot": 10,
+   "se": "impact",
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "shake",
+   "power": 12,
+   "dur": 800,
+   "wait": 0
+  },
+  {
+   "type": "se",
+   "text": "ポカッ！",
+   "dur": 1000,
+   "pos": {
+    "x": 0.24,
+    "y": 0.3
+   },
+   "size": 22,
+   "wait": 700
+  },
+  {
+   "type": "se",
+   "text": "ガブッ！",
+   "dur": 1000,
+   "pos": {
+    "x": 0.78,
+    "y": 0.22
+   },
+   "size": 22,
+   "wait": 350
+  },
+  {
+   "type": "se",
+   "text": "ツンツンッ！",
+   "dur": 1000,
+   "pos": {
+    "x": 0.5,
+    "y": 0.6
+   },
+   "size": 22,
+   "wait": 350
+  },
+  {
+   "type": "fx",
+   "fx": "shake",
+   "power": 6,
+   "dur": 400,
+   "wait": 200
+  },
+  {
+   "type": "fx",
+   "fx": "camera",
+   "reset": true,
+   "dur": 600,
+   "wait": 900
+  },
+  {
+   "type": "say",
+   "who": "鬼",
+   "text": "「{tr}ま、まいった！ もう悪さはいたしません。宝物はみんなお返しします{/tr}」",
+   "dur": 5920,
+   "eff": "shake",
+   "size": 17,
+   "wait": 900
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "calm",
+   "wait": 4800
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "none",
+   "dur": 1500,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "sea",
+   "sky": "day",
+   "dur": 1500,
+   "wait": 0
+  },
+  {
+   "type": "impact",
+   "text": "めでたし！",
+   "dur": 1600,
+   "pos": {
+    "x": 0.5,
+    "y": 0.3
+   },
+   "size": 64,
+   "color": "#ffd84a",
+   "stroke": "#5a3a00",
+   "rot": 0,
+   "lines": false,
+   "se": "kira",
+   "wait": 600
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "dust",
+   "amount": 1,
+   "dur": 600,
+   "wait": 0
+  },
+  {
+   "type": "narr",
+   "text": "桃太郎たちは、金銀さんごの宝物を車に積んで、意気ようようと村へ帰りました。",
+   "wait": 1600
+  },
+  {
+   "type": "se",
+   "text": "エンヤラヤー",
+   "dur": 2600,
+   "pos": "seR",
+   "drift": "leave",
+   "size": 15,
+   "wait": 2600
+  },
+  {
+   "type": "fx",
+   "fx": "fadeout",
+   "dur": 900,
+   "wait": 3200
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "clear",
+   "dur": 0,
+   "wait": 900
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "hills",
+   "sky": "sunset",
+   "scroll": 0,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "sunset",
+   "amount": 0.4,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 1200,
+   "wait": 100
+  },
+  {
+   "type": "caption",
+   "text": "ふるさと",
+   "dur": 3000,
+   "wait": 300
+  },
+  {
+   "type": "say",
+   "who": "おじいさん",
+   "text": "「おお、桃太郎！ よう無事で帰ってきた」",
+   "dur": 4100,
+   "eff": "zoom",
+   "wait": 900
+  },
+  {
+   "type": "say",
+   "who": "おばあさん",
+   "text": "「おかえり、桃太郎」",
+   "dur": 2800,
+   "wait": 3600
+  },
+  {
+   "type": "say",
+   "who": "桃太郎",
+   "text": "「ただいま帰りました」",
+   "dur": 2930,
+   "wait": 2600
+  },
+  {
+   "type": "narr",
+   "text": "それから、おじいさんとおばあさんと桃太郎は、犬と猿と雉といっしょに、いつまでも仲よく暮らしましたとさ。",
+   "wait": 2520
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "petals",
+   "amount": 0.6,
+   "wind": 0.4,
+   "dur": 1200,
+   "wait": 1500
+  },
+  {
+   "type": "narr",
+   "text": "めでたし、めでたし。",
+   "wait": 3260
+  },
+  {
+   "type": "fx",
+   "fx": "iris",
+   "dir": "out",
+   "x": 0.5,
+   "y": 0.45,
+   "dur": 2000,
+   "wait": 2400
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "none",
+   "wait": 2200
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "clear",
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "none",
+   "dur": 0,
+   "wait": 0
+  }
+ ]
+}

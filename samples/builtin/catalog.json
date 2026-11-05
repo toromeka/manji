@@ -1,0 +1,71 @@
+{
+ "catalog": "1.0",
+ "title": "内蔵サンプル",
+ "works": [
+  {
+   "id": "tokisoba",
+   "file": "tokisoba.manji",
+   "title": "時そば",
+   "genre": "落語",
+   "credit": "古典落語より再構成",
+   "description": "寒い夜の二八そば。勘定の途中で時を尋ねて一文をごまかす、江戸っ子の早業。",
+   "duration": 75,
+   "chapters": 1,
+   "events": 45,
+   "tagline": "数える声と割り込みの間で見せる一文の早業",
+   "size": 9409
+  },
+  {
+   "id": "manjuu_kowai",
+   "file": "manjuu_kowai.manji",
+   "title": "まんじゅうこわい",
+   "genre": "落語",
+   "credit": "古典落語より再構成",
+   "description": "こわいもの自慢の輪で強がり松公が白状した弱点は、なんと「まんじゅう」。",
+   "duration": 158,
+   "chapters": 1,
+   "events": 69,
+   "tagline": "四隅のひそひそ声と、震えながらのモグモグ",
+   "size": 13853
+  },
+  {
+   "id": "momotaro",
+   "file": "momotaro.manji",
+   "title": "桃太郎",
+   "genre": "昔話",
+   "credit": "昔話より再構成",
+   "description": "大きな桃から生まれた桃太郎が、犬・猿・雉をおともに鬼ヶ島へ向かう。",
+   "duration": 154,
+   "chapters": 1,
+   "events": 106,
+   "tagline": "どんぶらこから鬼退治まで、演出てんこもり",
+   "size": 15132
+  },
+  {
+   "id": "kaguyahime",
+   "file": "kaguyahime.manji",
+   "title": "かぐや姫",
+   "genre": "古典",
+   "credit": "昔話より再構成（竹取物語）",
+   "description": "光る竹から見つかった姫が、求婚を退け、十五夜の月へ帰っていく。",
+   "duration": 189,
+   "chapters": 1,
+   "events": 92,
+   "tagline": "夜空と光の粒で描く、静かな別れの物語",
+   "size": 12851
+  },
+  {
+   "id": "botchan",
+   "file": "botchan.manjiz",
+   "title": "坊っちゃん",
+   "genre": "文学",
+   "credit": "夏目漱石（青空文庫）",
+   "description": "無鉄砲な江戸っ子が四国の中学校へ赴任する。第一章から第三章までを七話で。",
+   "duration": 1208,
+   "chapters": 7,
+   "events": 613,
+   "tagline": "親譲りの無鉄砲、四国の中学校へ赴任す",
+   "size": 26540
+  }
+ ]
+}

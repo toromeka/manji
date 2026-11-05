@@ -1,0 +1,143 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "https://manji.example/manji-archive-1.0.schema.json",
+ "title": "漫字アーカイブ manifest.json 1.0",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "manji_archive",
+  "title",
+  "chapters"
+ ],
+ "properties": {
+  "manji_archive": {
+   "const": "1.0"
+  },
+  "unit": {
+   "type": "string",
+   "minLength": 1,
+   "maxLength": 3,
+   "description": "目次と題名カードの単位（既定は「章」。例：「話」「幕」）"
+  },
+  "title": {
+   "type": "string",
+   "minLength": 1,
+   "maxLength": 120
+  },
+  "author": {
+   "type": "string",
+   "maxLength": 120
+  },
+  "description": {
+   "type": "string",
+   "maxLength": 2000
+  },
+  "source": {
+   "type": "string",
+   "maxLength": 500
+  },
+  "cast": {
+   "type": "object",
+   "maxProperties": 30,
+   "propertyNames": {
+    "minLength": 1,
+    "maxLength": 30
+   },
+   "additionalProperties": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+     "name": {
+      "type": "string",
+      "maxLength": 30
+     },
+     "color": {
+      "type": "string",
+      "pattern": "^(#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6}|#[0-9a-fA-F]{8}|[a-z]+)$",
+      "description": "#rgb / #rrggbb / 色名"
+     },
+     "textColor": {
+      "type": "string",
+      "pattern": "^(#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6}|#[0-9a-fA-F]{8}|[a-z]+)$",
+      "description": "#rgb / #rrggbb / 色名"
+     },
+     "pos": {
+      "anyOf": [
+       {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 40
+       },
+       {
+        "$ref": "#/definitions/xy"
+       }
+      ]
+     },
+     "side": {
+      "enum": [
+       "left",
+       "right",
+       "center"
+      ]
+     },
+     "showName": {
+      "type": "boolean"
+     }
+    }
+   }
+  },
+  "chapters": {
+   "type": "array",
+   "minItems": 1,
+   "maxItems": 500,
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "file"
+    ],
+    "properties": {
+     "file": {
+      "type": "string",
+      "pattern": "^[^/\\\\][^\\\\]*\\.manji$",
+      "maxLength": 200
+     },
+     "title": {
+      "type": "string",
+      "maxLength": 120
+     }
+    }
+   }
+  },
+  "assets": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "bgm": {
+     "type": "object",
+     "maxProperties": 100,
+     "propertyNames": {
+      "pattern": "^[A-Za-z0-9_.-]{1,40}$"
+     },
+     "additionalProperties": {
+      "type": "string",
+      "pattern": "\\.([mM]4[aA]|[mM][pP]3|[aA][aA][cC]|[wW][aA][vV]|[oO][gG][gG]|[cC][aA][fF])$",
+      "maxLength": 200
+     }
+    },
+    "se": {
+     "type": "object",
+     "maxProperties": 100,
+     "propertyNames": {
+      "pattern": "^[A-Za-z0-9_.-]{1,40}$"
+     },
+     "additionalProperties": {
+      "type": "string",
+      "pattern": "\\.([mM]4[aA]|[mM][pP]3|[aA][aA][cC]|[wW][aA][vV]|[oO][gG][gG]|[cC][aA][fF])$",
+      "maxLength": 200
+     }
+    }
+   }
+  }
+ }
+}

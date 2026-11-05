@@ -1,0 +1,550 @@
+{
+ "manji": "1.0",
+ "title": "時そば",
+ "subtitle": "古典落語より",
+ "author": "古典落語より再構成",
+ "source": "古典落語「時そば」より再構成（漫字プロトタイプ版の台本を移植）",
+ "description": "寒い夜の二八そば。勘定の途中で「今、何時だい」と聞いた男の、一文ごまかしの早業。",
+ "cast": {
+  "客": {
+   "color": "#ffd84a",
+   "pos": "kyaku",
+   "side": "right"
+  },
+  "親方": {
+   "color": "#7fb4ff",
+   "pos": "oyakata",
+   "side": "left"
+  }
+ },
+ "settings": {
+  "charMs": 75,
+  "endText": "— おあとがよろしいようで —",
+  "slots": {
+   "kyaku": {
+    "x": 0.72,
+    "y": 0.32
+   },
+   "oyakata": {
+    "x": 0.27,
+    "y": 0.44
+   },
+   "warikomi": {
+    "x": 0.58,
+    "y": 0.42
+   },
+   "seC": {
+    "x": 0.5,
+    "y": 0.9
+   },
+   "seR": {
+    "x": 0.8,
+    "y": 0.9
+   },
+   "seTL": {
+    "x": 0.18,
+    "y": 0.1
+   }
+  }
+ },
+ "events": [
+  {
+   "type": "fx",
+   "fx": "fade",
+   "to": 1,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "sky",
+   "sky": "night",
+   "stars": true,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "night",
+   "amount": 0.5,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "calm",
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 1600,
+   "wait": 200
+  },
+  {
+   "type": "caption",
+   "text": "深夜の江戸",
+   "dur": 3200,
+   "wait": 300
+  },
+  {
+   "type": "se",
+   "text": "カラコロ、カラコロ……",
+   "pos": "seR",
+   "size": 14,
+   "note": "下駄の音が近づいてくる",
+   "se": "geta-in",
+   "drift": "approach",
+   "wait": 200,
+   "dur": 4600
+  },
+  {
+   "type": "narr",
+   "text": "深夜の江戸。冷たい風が吹く中、ポツンと灯る二八そばの屋台。一人の男が、暖簾をくぐってきた。",
+   "wait": 2600
+  },
+  {
+   "type": "se",
+   "text": "ヒュウ……",
+   "note": "木枯らし",
+   "pos": "seTL",
+   "size": 13,
+   "se": "wind",
+   "drift": "leave",
+   "dur": 2400,
+   "wait": 1800
+  },
+  {
+   "type": "say",
+   "text": "「おう、親方。そば、できるかい？」",
+   "who": "客",
+   "speaker": "right",
+   "pos": "kyaku",
+   "size": 19,
+   "wait": 3800,
+   "dur": 3300
+  },
+  {
+   "type": "say",
+   "text": "「へえ、いらっしゃい。できますよ」",
+   "who": "親方",
+   "speaker": "left",
+   "pos": "oyakata",
+   "size": 18,
+   "wait": 2900,
+   "dur": 3000
+  },
+  {
+   "type": "say",
+   "text": "「そうかい、じゃあ一杯こしらえてくんな。寒い夜には、あつあつのそばに限るね」",
+   "who": "客",
+   "speaker": "right",
+   "pos": "kyaku",
+   "size": 18,
+   "wait": 3000,
+   "dur": 5600
+  },
+  {
+   "type": "se",
+   "text": "チャッ、カチャ",
+   "pos": "seC",
+   "size": 13,
+   "note": "どんぶりを置く音",
+   "se": "bowl",
+   "wait": 5300,
+   "dur": 2000
+  },
+  {
+   "type": "say",
+   "text": "「お待ち遠さま、へい、どうぞ」",
+   "who": "親方",
+   "speaker": "left",
+   "pos": {
+    "x": 0.27,
+    "y": 0.38
+   },
+   "size": 18,
+   "wait": 1100,
+   "dur": 2800
+  },
+  {
+   "type": "say",
+   "text": "「おっ、いい匂いだ。割り箸じゃねえか。",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.7,
+    "y": 0.26
+   },
+   "size": 18,
+   "wait": 2600,
+   "dur": 3600
+  },
+  {
+   "type": "say",
+   "text": "ズズッ、ズズズッ……」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.78,
+    "y": 0.6
+   },
+   "size": 14,
+   "eff": "shake",
+   "wait": 1900,
+   "dur": 2600
+  },
+  {
+   "type": "narr",
+   "text": "男は気持ちのいい音を立てて、勢いよくそばをすする。",
+   "wait": 2400
+  },
+  {
+   "type": "say",
+   "text": "「うめえな！ 汁もいいダシが出てる。ちくわも分厚いや。……ズズッ。ごちそうさん。いくらだい？」",
+   "who": "客",
+   "speaker": "right",
+   "pos": "kyaku",
+   "size": 18,
+   "wait": 4000,
+   "dur": 6600
+  },
+  {
+   "type": "say",
+   "text": "「へえ、十六文で」",
+   "who": "親方",
+   "speaker": "left",
+   "pos": "oyakata",
+   "size": 19,
+   "wait": 6300,
+   "dur": 2500
+  },
+  {
+   "type": "narr",
+   "text": "男は懐から小銭を取り出し、親方の手に一枚ずつ落とし始めた。",
+   "wait": 2800
+  },
+  {
+   "type": "se",
+   "text": "チャリン。",
+   "pos": {
+    "x": 0.5,
+    "y": 0.88
+   },
+   "size": 14,
+   "se": "coin",
+   "wait": 5000,
+   "dur": 1700
+  },
+  {
+   "type": "say",
+   "text": "「ひい」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.62,
+    "y": 0.16
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 1000,
+   "dur": 1500
+  },
+  {
+   "type": "say",
+   "text": "「ふう」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.75,
+    "y": 0.22
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 540,
+   "dur": 1500
+  },
+  {
+   "type": "say",
+   "text": "「みい」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.88,
+    "y": 0.14
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 540,
+   "dur": 1500
+  },
+  {
+   "type": "say",
+   "text": "「よお」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.67,
+    "y": 0.4
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 540,
+   "dur": 1500
+  },
+  {
+   "type": "say",
+   "text": "「いつ」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.81,
+    "y": 0.45
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 540,
+   "dur": 1500
+  },
+  {
+   "type": "say",
+   "text": "「むう」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.63,
+    "y": 0.63
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 540,
+   "dur": 1500
+  },
+  {
+   "type": "say",
+   "text": "「なな」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.77,
+    "y": 0.68
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 540,
+   "dur": 1500
+  },
+  {
+   "type": "say",
+   "text": "「やあ」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.9,
+    "y": 0.58
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 540,
+   "dur": 1500
+  },
+  {
+   "type": "fx",
+   "fx": "camera",
+   "x": 0.58,
+   "y": 0.42,
+   "zoom": 1.18,
+   "dur": 260,
+   "wait": 200
+  },
+  {
+   "type": "say",
+   "text": "「親方、今、{r:何時|なんどき}だい！？」",
+   "who": "客",
+   "speaker": "center",
+   "pos": "warikomi",
+   "size": 30,
+   "eff": "big",
+   "wait": 180,
+   "dur": 2700
+  },
+  {
+   "type": "say",
+   "text": "「へ？ ああ、{r:九|ここのつ}で」",
+   "who": "親方",
+   "speaker": "left",
+   "pos": {
+    "x": 0.25,
+    "y": 0.5
+   },
+   "size": 18,
+   "eff": "shake",
+   "wait": 2500,
+   "dur": 2300
+  },
+  {
+   "type": "fx",
+   "fx": "camera",
+   "reset": true,
+   "dur": 700,
+   "wait": 900
+  },
+  {
+   "type": "say",
+   "text": "「とお」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.64,
+    "y": 0.14
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 900,
+   "dur": 1300
+  },
+  {
+   "type": "say",
+   "text": "「じゅういち」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.8,
+    "y": 0.2
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 430,
+   "dur": 1300
+  },
+  {
+   "type": "say",
+   "text": "「じゅうに」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.66,
+    "y": 0.36
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 430,
+   "dur": 1300
+  },
+  {
+   "type": "say",
+   "text": "「じゅうさん」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.84,
+    "y": 0.4
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 430,
+   "dur": 1300
+  },
+  {
+   "type": "say",
+   "text": "「じゅうよん」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.65,
+    "y": 0.58
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 430,
+   "dur": 1300
+  },
+  {
+   "type": "say",
+   "text": "「じゅうご」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.83,
+    "y": 0.62
+   },
+   "size": 13,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 430,
+   "dur": 1300
+  },
+  {
+   "type": "say",
+   "text": "「じゅうろく。ごちそうさん！」",
+   "who": "客",
+   "speaker": "right",
+   "pos": {
+    "x": 0.72,
+    "y": 0.38
+   },
+   "size": 18,
+   "eff": "pop",
+   "se": "coin-soft",
+   "wait": 430,
+   "dur": 2300
+  },
+  {
+   "type": "se",
+   "text": "カラコロ、カラコロ……",
+   "pos": {
+    "x": 0.74,
+    "y": 0.9
+   },
+   "size": 14,
+   "note": "慌ただしく遠ざかる足音",
+   "se": "geta-out",
+   "drift": "leave",
+   "wait": 1700,
+   "dur": 3800
+  },
+  {
+   "type": "narr",
+   "text": "男は風のように去っていった。手元に残された小銭を見つめ、親方は首を傾げた。",
+   "wait": 2400
+  },
+  {
+   "type": "fx",
+   "fx": "iris",
+   "dir": "out",
+   "x": 0.27,
+   "y": 0.44,
+   "dur": 2200,
+   "wait": 6200
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "none",
+   "wait": 2400
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "none",
+   "dur": 0,
+   "wait": 0
+  }
+ ]
+}

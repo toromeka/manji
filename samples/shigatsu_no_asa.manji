@@ -1,0 +1,571 @@
+{
+ "manji": "1.0",
+ "title": "漫字：四月の朝",
+ "author": "toro meka",
+ "settings": {
+  "charMs": 60,
+  "endText": "……",
+  "slots": {
+   "toro": {
+    "x": 0.5,
+    "y": 0.66
+   },
+   "michiko": {
+    "x": 0.22,
+    "y": 0.3
+   },
+   "yui": {
+    "x": 0.76,
+    "y": 0.34
+   },
+   "yuiNext": {
+    "x": 0.86,
+    "y": 0.1
+   },
+   "yuiBehind": {
+    "x": 0.66,
+    "y": 0.5
+   },
+   "seL": {
+    "x": 0.25,
+    "y": 0.88
+   },
+   "seC": {
+    "x": 0.5,
+    "y": 0.9
+   },
+   "seR": {
+    "x": 0.76,
+    "y": 0.88
+   }
+  }
+ },
+ "events": [
+  {
+   "type": "narr",
+   "text": "四月の朝は、まだ少し肌寒い。",
+   "wait": 600
+  },
+  {
+   "type": "narr",
+   "text": "とろは枕元のスマホが鳴る前に目を覚ました。時計は七時十五分。いつもより十分ほど早かった。",
+   "wait": 2050
+  },
+  {
+   "type": "narr",
+   "text": "ベッドから起き上がり、窓を開ける。",
+   "wait": 4850
+  },
+  {
+   "type": "se",
+   "text": "カラ……",
+   "pos": "seC",
+   "wait": 950,
+   "dur": 2100,
+   "size": 17,
+   "se": "window",
+   "note": "窓が開く"
+  },
+  {
+   "type": "narr",
+   "text": "春の空気が部屋に流れ込んできた。隣の部屋から、結衣が動く音が聞こえる。",
+   "wait": 1000
+  },
+  {
+   "type": "se",
+   "text": "ごそ……",
+   "pos": "seR",
+   "wait": 1900,
+   "dur": 1900,
+   "size": 13,
+   "se": "rustle",
+   "note": "隣の部屋",
+   "drift": "leave"
+  },
+  {
+   "type": "narr",
+   "text": "義姉さんは毎朝、とろより少しだけ早く起きる。誕生日がひと月早いせいで「義姉さん」になった。再婚して一緒に暮らし始めてから、もう三年が経つ。",
+   "wait": 2450
+  },
+  {
+   "type": "se",
+   "text": "トン、トン、トン",
+   "pos": "seC",
+   "wait": 6700,
+   "dur": 2100,
+   "size": 15,
+   "se": "steps",
+   "note": "階段を下りる"
+  },
+  {
+   "type": "narr",
+   "text": "階段を下りると、リビングから紅茶の匂いがした。美智子が台所に立っている。エプロンの紐を結び直しながら、振り返った。",
+   "wait": 750
+  },
+  {
+   "type": "say",
+   "speaker": "left",
+   "text": "「おはよう。早いね」",
+   "pos": "michiko",
+   "wait": 5000,
+   "dur": 2400,
+   "size": 19
+  },
+  {
+   "type": "say",
+   "speaker": "center",
+   "text": "「……うん、義母さん」",
+   "pos": "toro",
+   "wait": 2300,
+   "dur": 2400,
+   "size": 16
+  },
+  {
+   "type": "narr",
+   "text": "とろが短く返すと、美智子の視線が一瞬泳いだ。すぐに笑顔に戻るが、その動きは普段よりわずかにぎこちない。",
+   "wait": 2200
+  },
+  {
+   "type": "say",
+   "speaker": "center",
+   "text": "「結衣は？」",
+   "pos": "toro",
+   "wait": 4850,
+   "dur": 1900,
+   "size": 18
+  },
+  {
+   "type": "say",
+   "speaker": "left",
+   "text": "「もう起きてるよ。今、髪を結んでるみたい」",
+   "pos": "michiko",
+   "wait": 1650,
+   "dur": 2900,
+   "size": 18
+  },
+  {
+   "type": "narr",
+   "text": "美智子はそう言いながら、紅茶をカップに注いだ。その手が、少しだけ止まっている。",
+   "wait": 2450
+  },
+  {
+   "type": "se",
+   "text": "とぽ、とぽ……",
+   "pos": {
+    "x": 0.28,
+    "y": 0.56
+   },
+   "wait": 650,
+   "dur": 2400,
+   "size": 14,
+   "se": "pour",
+   "note": "紅茶を注ぐ"
+  },
+  {
+   "type": "narr",
+   "text": "美智子は何かを言いかけて、口を閉じた。",
+   "wait": 3600,
+   "dur": 3350
+  },
+  {
+   "type": "say",
+   "speaker": "center",
+   "text": "「……どうしたの、義母さん」",
+   "pos": "toro",
+   "wait": 3600,
+   "dur": 2400,
+   "size": 16
+  },
+  {
+   "type": "say",
+   "speaker": "left",
+   "text": "「ううん、なんでもない。最近、変な夢ばっかり見るのよね」",
+   "pos": {
+    "x": 0.24,
+    "y": 0.26
+   },
+   "wait": 2450,
+   "dur": 3500,
+   "size": 17
+  },
+  {
+   "type": "narr",
+   "text": "美智子は視線をとろから逸らした。夢の内容については何も言わない。ただ、カップを置く音がいつもより小さく聞こえた。",
+   "wait": 2950
+  },
+  {
+   "type": "se",
+   "text": "……かちゃ",
+   "pos": {
+    "x": 0.3,
+    "y": 0.6
+   },
+   "wait": 3350,
+   "dur": 1750,
+   "size": 11,
+   "se": "cup",
+   "note": "カップを置く"
+  },
+  {
+   "type": "se",
+   "text": "トン、トン、トン",
+   "pos": "seR",
+   "wait": 2050,
+   "dur": 2100,
+   "size": 15,
+   "se": "steps",
+   "note": "階段を下りてくる足音",
+   "drift": "approach"
+  },
+  {
+   "type": "narr",
+   "text": "結衣がリビングに入ってきた。髪を一つに結んで、制服のリボンを直している。",
+   "wait": 1300
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「おはよう」",
+   "pos": "yui",
+   "wait": 3350,
+   "dur": 2100,
+   "size": 18
+  },
+  {
+   "type": "narr",
+   "text": "結衣がそう言ったとき、とろと目が合った。結衣はすぐに視線を落とした。いつもなら「遅いよ」と軽く突いてくるのに、今日はそれがない。",
+   "wait": 1550
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「……なんか、変な夢見た気がする」",
+   "pos": {
+    "x": 0.8,
+    "y": 0.4
+   },
+   "wait": 5650,
+   "dur": 2900,
+   "size": 14
+  },
+  {
+   "type": "say",
+   "speaker": "center",
+   "text": "「どんな夢？」",
+   "pos": "toro",
+   "wait": 2700,
+   "dur": 1900,
+   "size": 17
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「……よく覚えてない。とろが、なんか……年上の人たちに囲まれてる、みたいな？」",
+   "pos": {
+    "x": 0.76,
+    "y": 0.3
+   },
+   "wait": 2200,
+   "dur": 4150,
+   "size": 15
+  },
+  {
+   "type": "narr",
+   "text": "美智子が、紅茶を運ぶ手を止めた。二人の視線が、一瞬だけ重なる。",
+   "wait": 3350,
+   "dur": 4500
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「夢だから変なこと思っただけかも」",
+   "pos": {
+    "x": 0.82,
+    "y": 0.44
+   },
+   "wait": 3050,
+   "dur": 2400,
+   "size": 14
+  },
+  {
+   "type": "narr",
+   "text": "その言葉は、どこか浮いていた。",
+   "wait": 1550
+  },
+  {
+   "type": "narr",
+   "text": "朝食は静かだった。結衣は時折、とろの方を見てはすぐに視線を戻している。美智子も、席に着いてからほとんど喋らない。",
+   "wait": 2800
+  },
+  {
+   "type": "narr",
+   "text": "食事が終わると、とろは二階に戻って鞄を取った。部屋を出るとき、隣の部屋から結衣の声が聞こえた。",
+   "wait": 6550
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「……とろ」",
+   "pos": "yuiNext",
+   "wait": 5500,
+   "dur": 2250,
+   "size": 12
+  },
+  {
+   "type": "say",
+   "speaker": "center",
+   "text": "「ん？」",
+   "pos": "toro",
+   "wait": 2300,
+   "dur": 1600,
+   "size": 16
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「……なんでもない」",
+   "pos": "yuiNext",
+   "wait": 2950,
+   "dur": 2250,
+   "size": 12
+  },
+  {
+   "type": "narr",
+   "text": "二人で階段を下りると、美智子が玄関で靴を揃えていた。",
+   "wait": 2800
+  },
+  {
+   "type": "say",
+   "speaker": "left",
+   "text": "「行ってらっしゃい。気をつけてね」",
+   "pos": "michiko",
+   "wait": 2950,
+   "dur": 2550,
+   "size": 18
+  },
+  {
+   "type": "say",
+   "speaker": "center",
+   "text": "「行ってきます、義母さん」",
+   "pos": "toro",
+   "wait": 2300,
+   "dur": 2250,
+   "size": 16
+  },
+  {
+   "type": "narr",
+   "text": "美智子の指が、わずかに動いた。",
+   "wait": 1000,
+   "dur": 2900
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「行ってきます、お母さん」",
+   "pos": "yui",
+   "wait": 2700,
+   "dur": 2400,
+   "size": 15
+  },
+  {
+   "type": "narr",
+   "text": "結衣は、美智子の方を少し長く見ていた。",
+   "wait": 1150
+  },
+  {
+   "type": "se",
+   "text": "ガチャ……",
+   "pos": "seC",
+   "wait": 2450,
+   "dur": 1750,
+   "size": 15,
+   "se": "door",
+   "note": "玄関の扉"
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "petals",
+   "amount": 0.55,
+   "dur": 3000,
+   "wait": 0,
+   "delay": 1500
+  },
+  {
+   "type": "narr",
+   "text": "春の朝の道を歩き始める。桜はもう散りかけで、花びらが風に乗って舞っていた。結衣はとろの半歩後ろを歩いている。",
+   "wait": 1650
+  },
+  {
+   "type": "se",
+   "text": "さあ……",
+   "pos": "seL",
+   "wait": 400,
+   "dur": 3200,
+   "size": 14,
+   "se": "wind",
+   "note": "風",
+   "drift": "approach"
+  },
+  {
+   "type": "narr",
+   "text": "普段なら横に並んで話をするのに、今日は沈黙が長い。",
+   "wait": 5250
+  },
+  {
+   "type": "say",
+   "speaker": "center",
+   "text": "「……義姉さん」",
+   "pos": "toro",
+   "wait": 3600,
+   "dur": 2100,
+   "size": 16
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「なに」",
+   "pos": "yuiBehind",
+   "wait": 1650,
+   "dur": 1450,
+   "size": 15
+  },
+  {
+   "type": "say",
+   "speaker": "center",
+   "text": "「さっきの夢、本当に覚えてないの？」",
+   "pos": "toro",
+   "wait": 1650,
+   "dur": 2550,
+   "size": 17
+  },
+  {
+   "type": "narr",
+   "text": "結衣は少し間を置いてから答えた。",
+   "wait": 2300,
+   "dur": 3350
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「……覚えてない。ただ、なんか……とろのことが、妙に気になった」",
+   "pos": {
+    "x": 0.64,
+    "y": 0.46
+   },
+   "wait": 3200,
+   "dur": 4000,
+   "size": 14
+  },
+  {
+   "type": "narr",
+   "text": "その言葉のあと、結衣は自分の口を押さえた。",
+   "wait": 3450,
+   "dur": 3350
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「変なこと言った」",
+   "pos": {
+    "x": 0.68,
+    "y": 0.54
+   },
+   "wait": 1650,
+   "dur": 1900,
+   "size": 11,
+   "eff": "shake"
+  },
+  {
+   "type": "narr",
+   "text": "とろは何も言えず、ただ前を向いて歩いた。後ろから、結衣の足音が続く。",
+   "wait": 2050
+  },
+  {
+   "type": "se",
+   "text": "コツ、コツ、コツ",
+   "pos": {
+    "x": 0.62,
+    "y": 0.86
+   },
+   "wait": 1650,
+   "dur": 4000,
+   "size": 14,
+   "se": "walk",
+   "note": "半歩後ろの足音",
+   "drift": "approach"
+  },
+  {
+   "type": "narr",
+   "text": "その足音が、いつもより少しだけ近い気がした。",
+   "wait": 3350
+  },
+  {
+   "type": "narr",
+   "text": "信号が青に変わるのを待ちながら、結衣がぽつりと言った。",
+   "wait": 4600
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「……お母さんも、変な夢見たって言ってた」",
+   "pos": {
+    "x": 0.62,
+    "y": 0.42
+   },
+   "wait": 3200,
+   "dur": 3200,
+   "size": 14
+  },
+  {
+   "type": "say",
+   "speaker": "center",
+   "text": "「うん」",
+   "pos": "toro",
+   "wait": 2800,
+   "dur": 1750,
+   "size": 15
+  },
+  {
+   "type": "say",
+   "speaker": "right",
+   "text": "「……なんか、変だよね」",
+   "pos": {
+    "x": 0.6,
+    "y": 0.48
+   },
+   "wait": 2450,
+   "dur": 3200,
+   "size": 13,
+   "eff": "shake"
+  },
+  {
+   "type": "narr",
+   "text": "結衣の声は小さく、自分に言い聞かせるような調子だった。",
+   "wait": 2200,
+   "dur": 5300
+  },
+  {
+   "type": "se",
+   "text": "ピッ……",
+   "pos": "seR",
+   "wait": 4850,
+   "dur": 2100,
+   "size": 12,
+   "se": "signal",
+   "note": "信号が青に変わる"
+  },
+  {
+   "type": "say",
+   "speaker": "center",
+   "text": "「……」",
+   "pos": {
+    "x": 0.5,
+    "y": 0.5
+   },
+   "wait": 1650,
+   "dur": 3050,
+   "size": 15
+  }
+ ]
+}

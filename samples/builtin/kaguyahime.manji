@@ -1,0 +1,708 @@
+{
+ "manji": "1.0",
+ "title": "かぐや姫",
+ "subtitle": "竹取物語より",
+ "author": "昔話より再構成",
+ "source": "『竹取物語』より再構成（漫字オリジナル台本。使者の言葉のみ原文から）",
+ "description": "光る竹から見つかった姫は、求婚を退け、十五夜の月へ帰っていく。夜空と光の粒で描く静かな物語。",
+ "cast": {
+  "翁": {
+   "color": "#9ee0a0",
+   "pos": "left"
+  },
+  "媼": {
+   "color": "#f0a8c0",
+   "pos": "right"
+  },
+  "かぐや姫": {
+   "color": "#f4e6a8",
+   "pos": "center"
+  },
+  "帝": {
+   "color": "#c8a8ff",
+   "pos": "right"
+  },
+  "使者": {
+   "color": "#fff3c4",
+   "pos": "tsukai",
+   "side": "center"
+  }
+ },
+ "settings": {
+  "charMs": 82,
+  "endText": "— 了 —",
+  "endHold": 5000,
+  "slots": {
+   "tsukai": {
+    "x": 0.5,
+    "y": 0.34
+   }
+  }
+ },
+ "events": [
+  {
+   "type": "fx",
+   "fx": "fade",
+   "to": 1,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "hills",
+   "sky": "dusk",
+   "stars": true,
+   "scroll": 0,
+   "dim": 0.2,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "calm",
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 2000,
+   "wait": 200
+  },
+  {
+   "type": "caption",
+   "text": "竹取の翁",
+   "dur": 3000,
+   "wait": 400
+  },
+  {
+   "type": "narr",
+   "text": "今は昔、竹取の翁という者がおりました。",
+   "wait": 700
+  },
+  {
+   "type": "narr",
+   "text": "野山にわけ入っては竹を取り、さまざまな物を作って暮らしておりました。",
+   "wait": 2958
+  },
+  {
+   "type": "narr",
+   "text": "ある夕暮れのこと。竹林の奥に、根もとの光る竹が一本ありました。",
+   "wait": 4488
+  },
+  {
+   "type": "fx",
+   "fx": "spot",
+   "x": 0.5,
+   "y": 0.5,
+   "r": 0.16,
+   "dim": 0.75,
+   "dur": 1800,
+   "wait": 2600
+  },
+  {
+   "type": "se",
+   "text": "きらり……",
+   "dur": 2600,
+   "pos": {
+    "x": 0.5,
+    "y": 0.62
+   },
+   "se": "kira",
+   "color": "#ffe9a8",
+   "size": 15,
+   "wait": 600
+  },
+  {
+   "type": "say",
+   "who": "翁",
+   "text": "「はて、不思議な竹じゃ」",
+   "dur": 3060,
+   "wait": 2100
+  },
+  {
+   "type": "narr",
+   "text": "寄って見ると、筒の中が光っています。{p:500}三寸ほどの、それはそれは美しい人が座っておりました。",
+   "wait": 3240
+  },
+  {
+   "type": "fx",
+   "fx": "flash",
+   "color": "#fff3c4",
+   "strength": 0.45,
+   "dur": 500,
+   "wait": 3000
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "dust",
+   "amount": 0.6,
+   "dur": 1200,
+   "wait": 0
+  },
+  {
+   "type": "say",
+   "who": "翁",
+   "text": "「わしらの子になる人に、ちがいあるまい」",
+   "dur": 4100,
+   "wait": 3108
+  },
+  {
+   "type": "fx",
+   "fx": "spot",
+   "dim": 0,
+   "dur": 1500,
+   "wait": 2600
+  },
+  {
+   "type": "fx",
+   "fx": "fadeout",
+   "dur": 1200,
+   "wait": 1200
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "dust",
+   "amount": 0,
+   "dur": 0,
+   "wait": 1200
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "room",
+   "sky": "day",
+   "dim": 0.3,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 1500,
+   "wait": 200
+  },
+  {
+   "type": "caption",
+   "text": "翁の家",
+   "dur": 3000,
+   "wait": 300
+  },
+  {
+   "type": "narr",
+   "text": "翁は小さな人を家へ連れ帰り、媼とふたり、大切に育てました。",
+   "wait": 600
+  },
+  {
+   "type": "say",
+   "who": "媼",
+   "text": "「なんとまあ、かわいらしい」",
+   "dur": 3320,
+   "wait": 3678
+  },
+  {
+   "type": "narr",
+   "text": "それからというもの、竹を取るたびに、節と節のあいだに黄金が見つかり、翁はしだいに豊かになりました。",
+   "wait": 3180
+  },
+  {
+   "type": "se",
+   "text": "きら",
+   "dur": 1600,
+   "pos": "seL",
+   "se": "kira",
+   "color": "#ffd84a",
+   "size": 14,
+   "wait": 2500
+  },
+  {
+   "type": "se",
+   "text": "きら",
+   "dur": 1600,
+   "pos": "seR",
+   "color": "#ffd84a",
+   "size": 13,
+   "wait": 900
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "petals",
+   "amount": 0.5,
+   "wind": 0.3,
+   "dur": 1500,
+   "wait": 4200
+  },
+  {
+   "type": "narr",
+   "text": "子はすくすくと育ち、わずか三月ほどで、光り輝くばかりの娘になりました。",
+   "wait": 600
+  },
+  {
+   "type": "narr",
+   "text": "名を、なよ竹の{c:gold}かぐや姫{/c}といいます。",
+   "wait": 4370
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "petals",
+   "amount": 0,
+   "dur": 1500,
+   "wait": 3200
+  },
+  {
+   "type": "fx",
+   "fx": "mosaic",
+   "size": 20,
+   "dur": 700,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "room",
+   "sky": "dusk",
+   "dim": 0.3,
+   "dur": 0,
+   "wait": 800
+  },
+  {
+   "type": "fx",
+   "fx": "mosaic",
+   "size": 1,
+   "dur": 700,
+   "wait": 100
+  },
+  {
+   "type": "caption",
+   "text": "五人の貴公子",
+   "dur": 3000,
+   "wait": 300
+  },
+  {
+   "type": "narr",
+   "text": "うわさを聞きつけ、五人の貴公子が、姫を妻にと願い出ました。",
+   "wait": 600
+  },
+  {
+   "type": "say",
+   "who": "かぐや姫",
+   "text": "「わたしの望む品を持ってきてくださった方に、お仕えいたしましょう」",
+   "dur": 5790,
+   "wait": 3778
+  },
+  {
+   "type": "shard",
+   "text": "仏の御石の鉢",
+   "dur": 3200,
+   "pos": {
+    "x": 0.2,
+    "y": 0.18
+   },
+   "size": 16,
+   "color": "#e8d9ff",
+   "wait": 4600
+  },
+  {
+   "type": "shard",
+   "text": "蓬莱の玉の枝",
+   "dur": 3200,
+   "pos": {
+    "x": 0.8,
+    "y": 0.2
+   },
+   "size": 16,
+   "color": "#e8d9ff",
+   "wait": 650
+  },
+  {
+   "type": "shard",
+   "text": "火鼠の皮衣",
+   "dur": 3200,
+   "pos": {
+    "x": 0.22,
+    "y": 0.52
+   },
+   "size": 16,
+   "color": "#e8d9ff",
+   "wait": 650
+  },
+  {
+   "type": "shard",
+   "text": "龍の首の珠",
+   "dur": 3200,
+   "pos": {
+    "x": 0.78,
+    "y": 0.5
+   },
+   "size": 16,
+   "color": "#e8d9ff",
+   "wait": 650
+  },
+  {
+   "type": "shard",
+   "text": "燕の子安貝",
+   "dur": 3200,
+   "pos": {
+    "x": 0.5,
+    "y": 0.12
+   },
+   "size": 16,
+   "color": "#e8d9ff",
+   "wait": 650
+  },
+  {
+   "type": "narr",
+   "text": "ある者は偽物をこしらえて見破られ、ある者は嵐の海に迷い、ある者は大けがを負いました。",
+   "wait": 1800
+  },
+  {
+   "type": "narr",
+   "text": "だれ一人、姫の望みをかなえることはできませんでした。",
+   "wait": 4844
+  },
+  {
+   "type": "fx",
+   "fx": "fadeout",
+   "dur": 900,
+   "wait": 3600
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "room",
+   "sky": "night",
+   "dim": 0.35,
+   "dur": 0,
+   "wait": 900
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 1200,
+   "wait": 100
+  },
+  {
+   "type": "caption",
+   "text": "帝",
+   "dur": 3000,
+   "wait": 300
+  },
+  {
+   "type": "narr",
+   "text": "うわさは、ついに帝のお耳にも届きました。",
+   "wait": 600
+  },
+  {
+   "type": "say",
+   "who": "帝",
+   "text": "「一目、会うてみたいものだ」",
+   "dur": 3320,
+   "wait": 3040
+  },
+  {
+   "type": "say",
+   "who": "かぐや姫",
+   "text": "「この国に生まれた身でございましたら、お仕えもいたしましょう。けれど、わたしは……」",
+   "dur": 6960,
+   "wait": 3380
+  },
+  {
+   "type": "narr",
+   "text": "姫は宮仕えを断りましたが、帝とは歌を交わし、静かに心を通わせるようになりました。",
+   "wait": 6840
+  },
+  {
+   "type": "fx",
+   "fx": "fadeout",
+   "dur": 1200,
+   "wait": 5600
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "hills",
+   "sky": "dusk",
+   "stars": true,
+   "dim": 0.2,
+   "dur": 0,
+   "wait": 1300
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "cold",
+   "amount": 0.35,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 1600,
+   "wait": 100
+  },
+  {
+   "type": "caption",
+   "text": "三年ののち",
+   "dur": 3000,
+   "wait": 300
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "hills",
+   "sky": "night",
+   "stars": true,
+   "dim": 0.2,
+   "dur": 6000,
+   "wait": 200
+  },
+  {
+   "type": "narr",
+   "text": "三年ほどたった春のころから、姫は月を見ては、もの思いにしずむようになりました。",
+   "wait": 600
+  },
+  {
+   "type": "narr",
+   "text": "八月十五夜が近づくと、姫はとうとう声をあげて泣きました。",
+   "wait": 4898
+  },
+  {
+   "type": "say",
+   "who": "かぐや姫",
+   "text": "「わたしは、この国の人ではありません。{p:600}月の都の者です」",
+   "dur": 5610,
+   "size": 17,
+   "wait": 4996
+  },
+  {
+   "type": "say",
+   "who": "かぐや姫",
+   "text": "「この十五夜に、迎えが参ります」",
+   "dur": 3580,
+   "size": 17,
+   "wait": 5440
+  },
+  {
+   "type": "say",
+   "who": "翁",
+   "text": "「{sh}なんの、そのようなこと、させるものか！{/sh}」",
+   "dur": 4230,
+   "eff": "shake",
+   "wait": 3320
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "tension",
+   "wait": 2600
+  },
+  {
+   "type": "narr",
+   "text": "帝は二千人の兵を遣わし、屋根の上にまで弓矢を構えさせました。",
+   "wait": 200
+  },
+  {
+   "type": "fx",
+   "fx": "fadeout",
+   "dur": 1000,
+   "wait": 5000
+  },
+  {
+   "type": "fx",
+   "fx": "tint",
+   "preset": "none",
+   "dur": 0,
+   "wait": 1000
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "sky",
+   "sky": "night",
+   "stars": true,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "letterbox",
+   "size": 0.12,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 1600,
+   "wait": 200
+  },
+  {
+   "type": "caption",
+   "text": "八月十五夜",
+   "dur": 3000,
+   "wait": 300
+  },
+  {
+   "type": "narr",
+   "text": "夜もふけたころ。{p:500}家のまわりが、昼よりも明るく光りはじめました。",
+   "wait": 900
+  },
+  {
+   "type": "fx",
+   "fx": "bright",
+   "level": 0.12,
+   "dur": 2500,
+   "wait": 4200
+  },
+  {
+   "type": "fx",
+   "fx": "flash",
+   "color": "#fff3c4",
+   "strength": 0.35,
+   "dur": 600,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "dust",
+   "amount": 2,
+   "wind": 0,
+   "dur": 2500,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "none",
+   "wait": 0
+  },
+  {
+   "type": "narr",
+   "text": "空から雲に乗った人々が降りてきて、地面から五尺ほどの高さに、ずらりと立ち並びました。",
+   "wait": 1800
+  },
+  {
+   "type": "narr",
+   "text": "兵たちは物に酔ったようになり、だれ一人、弓を引くことができません。",
+   "wait": 4844
+  },
+  {
+   "type": "say",
+   "who": "使者",
+   "text": "「いざ、かぐや姫。穢き所に、いかでか久しくおはせむ」",
+   "dur": 4880,
+   "size": 16,
+   "color": "#5a4a20",
+   "bubble": "#fff8e0",
+   "wait": 5306
+  },
+  {
+   "type": "say",
+   "who": "かぐや姫",
+   "text": "「月の出た夜には、どうぞ空を見上げてくださいませ」",
+   "dur": 4750,
+   "size": 16,
+   "wait": 5520
+  },
+  {
+   "type": "narr",
+   "text": "姫は帝への文と不死の薬を残し、{c:cream}天の羽衣{/c}をまといました。",
+   "wait": 4500
+  },
+  {
+   "type": "narr",
+   "text": "羽衣を着たとたん、姫の心から、地上のもの思いはすっと消えていきました。",
+   "wait": 3614
+  },
+  {
+   "type": "se",
+   "text": "ふわり……",
+   "dur": 3000,
+   "pos": {
+    "x": 0.5,
+    "y": 0.55
+   },
+   "drift": "leave",
+   "color": "#fff3c4",
+   "size": 15,
+   "wait": 4800
+  },
+  {
+   "type": "fx",
+   "fx": "iris",
+   "dir": "out",
+   "x": 0.5,
+   "y": 0.14,
+   "dur": 3200,
+   "wait": 1200
+  },
+  {
+   "type": "fx",
+   "fx": "bright",
+   "level": 0,
+   "dur": 0,
+   "wait": 3500
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "clear",
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "letterbox",
+   "size": 0,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "hills",
+   "sky": "dawn",
+   "dim": 0.25,
+   "dur": 0,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "iris",
+   "dir": "in",
+   "x": 0.5,
+   "y": 0.14,
+   "dur": 2200,
+   "wait": 1500
+  },
+  {
+   "type": "caption",
+   "text": "のちのこと",
+   "dur": 3000,
+   "wait": 600
+  },
+  {
+   "type": "narr",
+   "text": "帝は、姫の残した不死の薬を、天にいちばん近い山の頂で焼かせました。",
+   "wait": 1200
+  },
+  {
+   "type": "narr",
+   "text": "その煙は、いまも雲の中へ立ちのぼっていると言い伝えられています。",
+   "wait": 4606
+  },
+  {
+   "type": "fx",
+   "fx": "fadeout",
+   "dur": 3000,
+   "wait": 6200
+  }
+ ]
+}
