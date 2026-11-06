@@ -130,7 +130,7 @@
 | `bright` | level -1〜1（0） | 明るさ。-0.4 で薄暗く、0 で戻す |
 | `wave` | amp 0〜40, freq 0〜20, speed 0〜10 | 走査線のゆらぎ（陽炎・めまい・夢・水中）。amp 4〜10。止めるのは amp 0 |
 | `mosaic` | size 1〜64 | モザイク。24 で粗く、1 で戻す。場面転換に |
-| `letterbox` | size 0〜0.4 | 上下の黒帯（映画的な重要場面）。0.1〜0.14、戻すのは 0 |
+| `letterbox` | size 0〜0.4 | 上側だけの黒帯（映画的な重要場面）。下側は描かないので、地の文と吹き出しは隠れない。0.1〜0.14、戻すのは 0 |
 | `iris` | dir `out`/`in`, x, y, color | 丸く閉じる（out）・開く（in）。古典的な場面転換。out の後は閉じたまま→ bg を変えて in |
 | `wipe` | shape, dir, count 1〜40, color, x, y | shape：`circle` `diamond` `blinds` `vblinds` `scan` `left` `right` |
 | `spot` | who/at/x,y, r 0.02〜1（0.25）, dim 0〜1 | 一人だけ照らす。dim 0.8 前後、解除は dim 0 |

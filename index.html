@@ -1700,7 +1700,8 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       if (winCur >= 1) drawWindow(ctx, started ? t : -1, w, hW, hW - winCur, s, Math.min(1, winCur / (baseWin * 0.6)));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       var Lb = evalCh("letterbox", tt);
-      if (Lb.v > 0.001) { ctx.fillStyle = "black"; ctx.fillRect(0, 0, w, Lb.v * h); ctx.fillRect(0, upperH - Lb.v * h * 0.6, w, Lb.v * h * 0.6 + 1); }
+      // 上の黒帯だけ。下帯は文字「特大」で地の文の窓が伸びると枠と文字に重なるため描かない。
+      if (Lb.v > 0.001) { ctx.fillStyle = "black"; ctx.fillRect(0, 0, w, Lb.v * h); }
       if (started) { L = byType.caption; for (k = 0; k < L.length; k++) if (t >= L[k].start && t < L[k].end) drawCaption(ctx, L[k], t, w, h, s); }
       var Mo = evalCh("mosaic", tt);
       if (Mo.v > 1.05) {
@@ -2060,7 +2061,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       }
     }
   }
-  root.Manji = { run: run, parseRich: parseRich, version: "3.3.1",
+  root.Manji = { run: run, parseRich: parseRich, version: "3.3.2",
     audio: function () { try { if (!root.__manjiAc) { var A = root.AudioContext || root.webkitAudioContext; if (A) root.__manjiAc = new A(); } var a = root.__manjiAc; if (a && a.state === "suspended") a.resume(); return a || null; } catch (err) { return null; } } };
 })(window);
 
