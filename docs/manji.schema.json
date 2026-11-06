@@ -864,6 +864,15 @@
        "lines": {
         "type": "boolean"
        },
+       "band": {
+        "type": "boolean",
+        "description": "true で斜めの帯（既定は白）の上に全文を収めて描く。飛び出す縮尺や集中線は使わない"
+       },
+       "bandColor": {
+        "type": "string",
+        "pattern": "^(#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6}|#[0-9a-fA-F]{8}|[a-z]+)$",
+        "description": "帯の色。初期値は白"
+       },
        "lineColor": {
         "type": "string",
         "pattern": "^(#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6}|#[0-9a-fA-F]{8}|[a-z]+)$",

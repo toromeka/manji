@@ -82,7 +82,7 @@
 | `think` | 心の声（点線吹き出し） | text | `say` と同じ（eff 以外） |
 | `shard` | 漂う言葉の断片（夢・回想・幻聴） | text | pos, size, color, se |
 | `se` | 効果音の文字（小さめの斜体） | text | note, pos, size, se, drift, color |
-| `impact` | 漫画の大きな擬音（ズームで飛び出す） | text | pos, size(16〜160), color, stroke, rot(-90〜90), lines, lineColor, se |
+| `impact` | 漫画の大きな擬音（ズームで飛び出す）。`band:true` で斜めの帯 | text | pos, size(16〜160), color, stroke, rot(-90〜90), lines, lineColor, band, bandColor, se |
 | `caption` | 左上テロップ（場面名・時刻） | text | pos(`top`/`bottom`), color |
 | `fx` | 画面演出 | fx | 7章 |
 
@@ -100,7 +100,7 @@
 - `se`（音）：下表のキー。音を鳴らさないなら省略。
 - `note`（se のみ）：小さな注記（例 `"戸が開く"`）。≤60字。
 - `drift`（se のみ）：`approach`（近づく）/`leave`（遠ざかる）。
-- `color`：文字色。`bubble`：吹き出しの地の色。`stroke`：impact の縁色。`lines:false`：集中線なし。
+- `color`：文字色。`bubble`：吹き出しの地の色。`stroke`：impact の縁色。`lines:false`：集中線なし。`band:true`：白い斜め帯の上に全文を収める（狭い画面や文字「特大」でも帯の中に縮む。点滅や集中線はしない）。`bandColor` で帯の色。傾きは `rot`（帯の初期値は −14 度）。帯は舞台の中で切れる。
 
 **効果音キー（se）**：`steps` `walk` 足音／`door` 扉／`window` 窓／`fusuma` ふすま／`pour` 注ぐ／`cup` 器を置く／`rustle` 衣ずれ・物音／`wind` 風／`heart` 鼓動／`ring` 耳鳴り／`signal` 電子音・スマホ／`thunder` 雷／`rain` 雨音／`chime` 鐘・チャイム／`impact` ドーン／`kira` キラッ／`dosa` ドサッ（倒れる）／`mogu` 食べる／`bowl` どんぶり／`coin` `coin-soft` 小銭／`geta-in` `geta-out` 下駄（来る・去る）／`biwa` 琵琶の一撥／`kane` 寺の鐘（ゴーン）／`taiko` 和太鼓／`dodon` ドドン（決め）／`tsukkomi` ツッコミ（ペシッ）／`pon` 鼓（ポン）／`boing` ボヨーン／`jan` ジャン！（ブラス）
 
