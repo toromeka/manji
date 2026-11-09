@@ -74,9 +74,9 @@
 
 ## キット（manji_kit.zip）
 
-- `manji_kit/player.html` は `index.html` と**バイト単位で一致**が必須（CI で検査される）。`index.html` を変えたら必ず差し替える
-- キット内の他のコピー（`README_ja.md`、`MANJI_AI_GUIDE.md`、スキーマ、`tools/`、`samples/`）は、キットを再配布するタイミングで一括して差し替える
-- キットにだけあるファイル（生成スクリプト `tools/gen_*.py`、サンプルのソース一式 `samples/*_src/`）はリポジトリ側に無い。消したり移したりするときはキット側の扱いも決める
+- キット内のファイルは、リポジトリ側に対応物があるものは**すべてバイト単位で一致**が必須（CI で検査される）。`index.html` を変えたら player を、ドキュメントや `tools/`、`samples/` を変えたら対応するキット側コピーも差し替える
+  - 対応表：`player.html`＝`index.html`、`README_ja.md`／`MANJI_AI_GUIDE.md`／`*.schema.json`＝`docs/` 配下、それ以外は同名パス
+- キットにだけあるファイル（生成スクリプト `tools/gen_*.py`、サンプルのソース一式 `samples/*_src/`）はリポジトリ側に無いので CI の対象外。消したり移したりするときはキット側の扱いも決める
 
 ## 検証コマンド（push 前に全部通す）
 
@@ -90,5 +90,5 @@ done
 for f in samples/builtin/*.manji samples/*.manji; do
   python3 -m jsonschema -i "$f" docs/manji.schema.json
 done
-# catalog と埋め込みメタの一致、キット player の一致は validate.yml の後半2ステップを参照
+# catalog と埋め込みメタの一致、バージョン表記2箇所の一致、キット内ファイルの一致は validate.yml の後半3ステップを参照
 ```
