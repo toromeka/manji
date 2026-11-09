@@ -19,7 +19,17 @@ AUDIO_OK = (".m4a", ".mp3", ".aac", ".wav", ".caf")
 AUDIO_ALL = AUDIO_OK + (".ogg",)
 
 def load_schema(name):
-    for d in (ROOT, HERE, os.getcwd()):
+    # スキーマの置き場所は構成によって違う:
+    #   リポジトリ: docs/*.schema.json（tools/ の親の docs/）
+    #   配布キット:   *.schema.json が tools/ の親に直置き
+    #   単体利用:     このスクリプトと同じフォルダ／カレントフォルダ
+    # どの構成・どのカレントフォルダから実行しても見つかるよう、候補をすべて探す。
+    dirs = (
+        os.path.join(ROOT, "docs"), ROOT,
+        os.path.join(HERE, "docs"), HERE,
+        os.path.join(os.getcwd(), "docs"), os.getcwd(),
+    )
+    for d in dirs:
         p = os.path.join(d, name)
         if os.path.exists(p):
             return json.load(open(p, encoding="utf-8"))
@@ -53,7 +63,12 @@ def check(files, rep):
     """files: {相対パス: bytes}。manifest を返す（自動生成した場合も）。"""
     vm, vc = validator("manifest.schema.json"), validator("manji.schema.json")
     if vm is None or vc is None:
-        rep.warn("jsonschema が無いかスキーマが見つからないため、スキーマ検査を省略しました（pip install jsonschema）")
+        # 省略の理由を取り違えないよう、原因別に知らせる
+        try:
+            import jsonschema  # noqa: F401
+            rep.warn("スキーマファイル（manji.schema.json / manifest.schema.json）が見つからないため、スキーマ検査を省略しました。リポジトリでは docs/ にあります")
+        except ImportError:
+            rep.warn("jsonschema が無いため、スキーマ検査を省略しました（pip install jsonschema）")
     names = [n for n in files if not re.search(r"(^|/)(__MACOSX/|\._|\.DS_Store$)", n)]
     if "manifest.json" in files:
         try:
