@@ -124,12 +124,12 @@ html.mj-sheet,html.mj-sheet body{overflow:hidden}
   </div>
 
   <div class="card" id="drop">
-    <label class="bigbtn" id="loadLabel">📂 漫字スクリプトを読み込む<span class="sub">.manji ／ .manjiz ／ .zip</span>
+    <label class="bigbtn" id="loadLabel">📂 漫字スクリプトを読み込む<span class="sub">.manji ／ .manjiz ／ .zip ／ .txt</span>
       <input type="file" id="fileIn" class="fileIn" aria-label="漫字スクリプトを読み込む">
     </label>
     <div class="libRow"><button class="btn libBtn" type="button" id="btnFavs">★ お気に入り<span id="favCount"></span></button><button class="btn libBtn" type="button" id="btnHist">🕘 履歴<span id="histCount"></span></button></div>
     <div id="libNote" class="hint" style="display:none">この端末（プライベートブラウズなど）では本体を保存できないため、履歴には題名と再生位置だけを残します。開き直すときは、もう一度ファイルを選んでください。</div>
-    <p class="hint">「.manji」（1話）か「.manjiz」「.zip」（複数の章をまとめたもの）を選んでください。iPhone では「ファイル」アプリの中から選べます（ファイル名が灰色で選べないときは「ブラウズ」から選び直してください）。パソコンでは、この枠にファイルをドラッグ＆ドロップしても読み込めます。</p>
+    <p class="hint">「.manji」（1話）か「.manjiz」「.zip」（複数の章をまとめたもの）、または「.txt」（演出なしで文章だけ流す）を選んでください。iPhone では「ファイル」アプリの中から選べます（ファイル名が灰色で選べないときは「ブラウズ」から選び直してください）。パソコンでは、この枠にファイルをドラッグ＆ドロップしても読み込めます。</p>
     <div class="row">
     </div>
     <div id="msg"></div>
@@ -1350,7 +1350,9 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       var pad = 12 * s, ipx = 16 * s, ipy = 10 * s, fs = 21 * s, lay = null;
       var base = h * 0.23 * Math.max(1, Math.min(1.4, TS)), need = base;
       if (cur) { lay = layoutRich(ctx, cur.glyphs, w - pad * 2 - ipx * 2, fs, "500", MINCHO, false, 1.55); need = lay.h + ipy * 2 + pad * 1.2; }
-      var v = { cur: cur, lay: lay, ipx: ipx, ipy: ipy, base: base, winH: cur ? Math.min(h * 0.45, Math.max(base, need)) : 0 };
+      var winH = cur ? Math.min(h * 0.45, Math.max(base, need)) : 0;
+      if (cfg.plain) winH = Math.max(base, h - INS.top);
+      var v = { cur: cur, lay: lay, ipx: ipx, ipy: ipy, base: base, winH: winH };
       narrCache.key = key; narrCache.v = v; return v;
     }
     function windowH(ctx, t, w, h, s) {
@@ -1383,6 +1385,14 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
         if (nv.clip) {
           var crx = wx + 4 * s, cry = wy + ipy, crw = ww - 8 * s;
           narrState.clip = { x: crx, y: cry, w: crw, h: capH, winY: wy, winH: wh }; narrState.textRect = { x: crx, y: cry, w: crw, h: capH };
+          if (cfg.plain && lay.lines.length > 24) {
+            var vis = [], y0 = nv.off - lay.fs * 2, y1 = nv.off + capH + lay.fs * 2, li;
+            for (li = 0; li < lay.lines.length; li++) {
+              var ln = lay.lines[li];
+              if (ln.top + ln.h >= y0 && ln.top <= y1) vis.push(ln);
+            }
+            lay = { lines: vis, w: lay.w, h: lay.h, fs: lay.fs };
+          }
           ctx.save(); ctx.beginPath(); ctx.rect(crx, cry, crw, capH); ctx.clip();
           drawRich(ctx, lay, wx + ipx, cry - nv.off, "left", nopt, t);
           if (nv.off > 0.5) { ctx.globalAlpha = 1; topFade(ctx, crx, cry, crw, lay.fs * 0.6, "0,0,0"); }
@@ -2130,7 +2140,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       }
     }
   }
-  root.Manji = { run: run, parseRich: parseRich, version: "3.3.4",
+  root.Manji = { run: run, parseRich: parseRich, version: "3.3.5",
     audio: function () { try { if (!root.__manjiAc) { var A = root.AudioContext || root.webkitAudioContext; if (A) root.__manjiAc = new A(); } var a = root.__manjiAc; if (a && a.state === "suspended") a.resume(); return a || null; } catch (err) { return null; } } };
 })(window);
 
@@ -2581,6 +2591,7 @@ var ManjiZip = (function () {
   }
   function renderCast(force) {
     if (!lib) return;
+    if (lib.kind === "plain") { castKey = "plain"; $("infoCast").innerHTML = ""; return; }
     var ch = lib.chapters[cur], cast = ch && ch.doc ? ch.doc.cast : lib.cast, ids = revealedCast(), key = ids.join("\u0001");
     if (!force && key === castKey) return; castKey = key;
     var cb = $("infoCast"); cb.innerHTML = "";
@@ -2591,7 +2602,7 @@ var ManjiZip = (function () {
   function toCfg(d, isLast) {
     var chars = {};
     for (var id in d.cast) { var c = d.cast[id]; chars[id] = { name: c.name || id, color: c.color, textColor: c.textColor, slot: c.pos, side: c.side || sideOf(c.pos), showName: c.showName }; }
-    var s = d.settings, cfg = { textScale: FZ[fzI].v, title: d.title, subtitle: d.subtitle || "▶ タップまたは「再生」で開演", characters: chars, script: d.events, mount: "manji" };
+    var s = d.settings, cfg = { textScale: FZ[fzI].v, title: d.title, subtitle: d.subtitle || "▶ タップまたは「再生」で開演", characters: chars, script: d.events, mount: "manji", plain: !!d.plain };
     ["charMs", "tempo", "endHold", "endText", "showNames", "glow", "window", "slots", "bgmPresets", "narrationOverflow"].forEach(function (k) { if (s[k] != null) cfg[k] = s[k]; });
     if (!isLast) { cfg.endHold = 1200; if (s.endText == null) cfg.endText = "……"; }
     cfg.audioAssets = { se: function (id) { return assetBuf("se", id); }, bgm: function (id) { return assetBuf("bgm", id); } };
@@ -2694,7 +2705,8 @@ var ManjiZip = (function () {
     [["chkSound", "sound"], ["chkBgm", "bgm"]].forEach(function (p) {
       var el = $(p[0]);
       el.addEventListener("change", function () { toggles[p[1]] = el.checked; if (el.checked) unlockAudio(); });
-      if (toggles[p[1]]) { el.checked = true; var ev = document.createEvent("HTMLEvents"); ev.initEvent("change", true, false); el.dispatchEvent(ev); }
+      if (ch.doc.plain) { el.checked = false; }
+      else if (toggles[p[1]]) { el.checked = true; var ev = document.createEvent("HTMLEvents"); ev.initEvent("change", true, false); el.dispatchEvent(ev); }
     });
     var multi = lib.chapters.length > 1;
     $("btnPrev").style.display = multi ? "" : "none"; $("btnNext").style.display = multi ? "" : "none";
@@ -2750,7 +2762,7 @@ var ManjiZip = (function () {
     if (lib.chapters.length > 1) meta.push("全" + lib.chapters.length + U());
     var ch = lib.chapters[cur];
     if (lib.chapters.length > 1) { var tot = 0; lib.chapters.forEach(function (c) { tot += countChars(c.doc); }); meta.push("合計 " + fmtChars(tot)); }
-    if (ch && ch.doc) meta.push((lib.chapters.length > 1 ? "第" + kan(cur + 1) + U() + " " : "") + "約" + fmt(api ? api.total : 0) + " · " + fmtChars(countChars(ch.doc)) + " · " + ch.doc.events.length + "イベント");
+    if (ch && ch.doc) meta.push((lib.chapters.length > 1 ? "第" + kan(cur + 1) + U() + " " : "") + "約" + fmt(api ? api.total : 0) + " · " + fmtChars(countChars(ch.doc)) + (lib.kind === "plain" ? "" : " · " + ch.doc.events.length + "イベント"));
     $("infoMeta").textContent = meta.join("　·　") + (lib.description ? "\n" + lib.description : "");
     renderCast(true);
   }
@@ -2884,6 +2896,37 @@ var ManjiZip = (function () {
     L.bad = bad;
     return L;
   }
+  function decodeUtf8Strict(u8) {
+    if (typeof TextDecoder !== "undefined") return new TextDecoder("utf-8", { fatal: true }).decode(u8);
+    var i = 0, s = "";
+    while (i < u8.length) {
+      var c = u8[i++];
+      if (c < 0x80) s += String.fromCharCode(c);
+      else if ((c & 0xe0) === 0xc0 && i < u8.length) { var c2 = u8[i++]; if ((c2 & 0xc0) !== 0x80 || c < 0xc2) throw new Error("bad"); s += String.fromCharCode(((c & 31) << 6) | (c2 & 63)); }
+      else if ((c & 0xf0) === 0xe0 && i + 1 < u8.length) { var c3 = u8[i++], c4 = u8[i++]; if ((c3 & 0xc0) !== 0x80 || (c4 & 0xc0) !== 0x80) throw new Error("bad"); s += String.fromCharCode(((c & 15) << 12) | ((c3 & 63) << 6) | (c4 & 63)); }
+      else if ((c & 0xf8) === 0xf0 && i + 2 < u8.length) {
+        var c5 = u8[i++], c6 = u8[i++], c7 = u8[i++];
+        if ((c5 & 0xc0) !== 0x80 || (c6 & 0xc0) !== 0x80 || (c7 & 0xc0) !== 0x80) throw new Error("bad");
+        var cp = ((c & 7) << 18) | ((c5 & 63) << 12) | ((c6 & 63) << 6) | (c7 & 63);
+        if (cp < 0x10000 || cp > 0x10ffff) throw new Error("bad");
+        cp -= 0x10000; s += String.fromCharCode(0xd800 + (cp >> 10), 0xdc00 + (cp & 1023));
+      }
+      else throw new Error("bad");
+    }
+    return s;
+  }
+  function openPlain(u8, name) {
+    var text;
+    try { text = decodeUtf8Strict(u8); }
+    catch (e) { throw new Error("この .txt は UTF-8 として読めません。文字コードを UTF-8 にして保存し直してください。"); }
+    if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
+    text = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+    var shown = "", i;
+    for (i = 0; i < text.length; i++) shown += text.charAt(i) === "{" ? "{{" : text.charAt(i);
+    var title = String(name || "テキスト").replace(/\.txt$/i, "");
+    var doc = { manji: "1.0", title: title, subtitle: "▶ 再生で読み始めます", plain: true, cast: {}, settings: { charMs: 80, glow: false, showNames: false, narrationOverflow: "scroll", endHold: 1600, endText: "" }, events: shown.length ? [{ type: "narr", text: shown }] : [] };
+    return { kind: "plain", name: name, key: name + ":" + u8.length, title: title, author: "", description: "", cast: {}, chapters: [{ file: name, title: title, doc: doc }], assets: { bgm: {}, se: {} }, warns: text.length ? [] : ["この .txt は空です。"], bad: [], readFile: function () { return null; }, empty: !text.length };
+  }
   function openSingle(text, name) {
     var r = chapterFromText(text, name, {});
     if (r.error) { var e = new Error(r.error); e.warns = r.warns; throw e; }
@@ -2896,7 +2939,8 @@ var ManjiZip = (function () {
     var u8 = toU8(data), L;
     showWarnings([]); runtimeWarns = [];
     try {
-      if (ManjiZip.isZip(u8)) L = openArchive(u8, name);
+      if (/\.txt$/i.test(name)) L = openPlain(u8, name);
+      else if (ManjiZip.isZip(u8)) L = openArchive(u8, name);
       else if (/\.(zip|manjiz)$/i.test(name) && u8.length) throw new Error("zip ファイルとして読めませんでした（先頭が zip の形式ではありません）。ファイルが壊れているか、別の形式です。");
       else L = openSingle(ManjiZip.utf8(u8), name);
     } catch (e) {
