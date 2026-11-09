@@ -100,6 +100,18 @@
    "duration": 122,
    "events": 67,
    "size": 10406
+  },
+  {
+   "id": "demo",
+   "file": "demo.manji",
+   "title": "演出デモ",
+   "genre": "演出",
+   "credit": "漫字エンジンの全演出を紹介",
+   "description": "フェード、色演算、ラスター、Mode7風、天候、BGMなど、漫字で使える演出を一通り見せるデモリール。",
+   "duration": 154,
+   "chapters": 1,
+   "tagline": "スーファミ風の演出をひと通り",
+   "size": 13297
   }
  ]
 }

@@ -1,0 +1,55 @@
+name: Validate samples
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install jsonschema
+        run: python -m pip install jsonschema
+      - name: Check bundled archives (.manjiz)
+        run: |
+          for f in samples/builtin/*.manjiz samples/manji_sample_archive.manjiz; do
+            echo "== $f"
+            python3 tools/pack_manji.py --check "$f"
+          done
+      - name: Validate standalone scripts (.manji)
+        run: |
+          for f in samples/builtin/*.manji samples/*.manji; do
+            echo "== $f"
+            python3 -m jsonschema -i "$f" docs/manji.schema.json
+          done
+      - name: Check catalog matches embedded samples
+        run: |
+          python3 - <<'EOF'
+          import json, re
+          html = open("index.html", encoding="utf-8").read()
+          m = re.search(r'<script type="application/json" id="builtinData">(.*?)</script>', html, re.S)
+          assert m, "builtinData not found in index.html"
+          embedded = [{k: v for k, v in w.items() if k != "data"} for w in json.loads(m.group(1))["works"]]
+          catalog = json.load(open("samples/builtin/catalog.json", encoding="utf-8"))["works"]
+          assert catalog == embedded, (
+              "catalog.json and builtinData differ:\n"
+              f"catalog ids: {[w['id'] for w in catalog]}\n"
+              f"embedded ids: {[w['id'] for w in embedded]}"
+          )
+          print(f"OK: catalog matches embedded samples ({len(catalog)} works)")
+          EOF
+      - name: Check kit player matches index.html
+        run: |
+          python3 -c "import zipfile; zipfile.ZipFile('manji_kit.zip').extractall('/tmp/kit')"
+          cmp /tmp/kit/manji_kit/player.html index.html && echo "OK: kit player matches index.html"
