@@ -2130,7 +2130,7 @@ if (typeof window !== "undefined") window.ManjiMusic = ManjiMusic;
       }
     }
   }
-  root.Manji = { run: run, parseRich: parseRich, version: "3.3.3",
+  root.Manji = { run: run, parseRich: parseRich, version: "3.3.4",
     audio: function () { try { if (!root.__manjiAc) { var A = root.AudioContext || root.webkitAudioContext; if (A) root.__manjiAc = new A(); } var a = root.__manjiAc; if (a && a.state === "suspended") a.resume(); return a || null; } catch (err) { return null; } } };
 })(window);
 
@@ -2165,11 +2165,17 @@ var ManjiZip = (function () {
     var d = new Uint8Array(30); for (i = 0; i < 30; i++) d[i] = 5;
     FIXD = huff(d, 30);
   })();
+  var EXPAND_MAX = 48 * 1024 * 1024;
   function inflate(src, outSize) {
+    if (outSize > EXPAND_MAX) throw new Error("展開後のサイズが大きすぎます（48MB まで）。");
     var pos = 0, bit = 0, bits = 0, out = new Uint8Array(outSize > 0 ? outSize : Math.max(1024, src.length * 4)), op = 0;
     function need(n) { while (bits < n) { if (pos >= src.length) throw new Error("圧縮データが途中で切れています"); bit |= src[pos++] << bits; bits += 8; } }
     function get(n) { need(n); var v = bit & ((1 << n) - 1); bit >>>= n; bits -= n; return v; }
-    function grow(n) { if (op + n <= out.length) return; var nb = new Uint8Array(Math.max(out.length * 2, op + n)); nb.set(out); out = nb; }
+    function grow(n) {
+      if (op + n > EXPAND_MAX) throw new Error("展開後のサイズが大きすぎます（48MB まで）。");
+      if (op + n <= out.length) return;
+      var nb = new Uint8Array(Math.max(out.length * 2, op + n)); nb.set(out); out = nb;
+    }
     function decode(h) {
       var code = 0, first = 0, index = 0, len, c;
       for (len = 1; len < 16; len++) {
@@ -2243,6 +2249,7 @@ var ManjiZip = (function () {
     for (i = n - 22; i >= Math.max(0, n - 22 - 65535); i--) if (dv.getUint32(i, true) === 0x06054b50) { e = i; break; }
     if (e < 0) throw new Error("zip の目次が見つかりません（ファイルが壊れているか、途中までしか保存されていません）");
     var cnt = dv.getUint16(e + 10, true), cdOff = dv.getUint32(e + 16, true), p = cdOff, out = {}, order = [];
+    if (cnt > 4000) throw new Error("zip の中のファイルが多すぎます（4000 まで）。");
     if (cdOff >= n) throw new Error("zip の目次の位置が不正です（ファイルが壊れています）");
     for (i = 0; i < cnt; i++) {
       if (p + 46 > n || dv.getUint32(p, true) !== 0x02014b50) throw new Error("zip の目次が壊れています");
@@ -2263,7 +2270,10 @@ var ManjiZip = (function () {
     var start = p + 30 + dv.getUint16(p + 26, true) + dv.getUint16(p + 28, true), data = u8.subarray(start, start + ent.csize);
     if (data.length < ent.csize) throw new Error("「" + ent.name + "」が途中で切れています");
     if (ent.method === 0) return data;
-    if (ent.method === 8) return inflate(data, ent.size);
+    if (ent.method === 8) {
+      if (ent.size > EXPAND_MAX) throw new Error("「" + ent.name + "」の展開後サイズが大きすぎます（48MB まで）。");
+      return inflate(data, ent.size);
+    }
     throw new Error("「" + ent.name + "」は未対応の圧縮方式（" + ent.method + "）です。通常の zip で圧縮してください");
   }
   return { isZip: isZip, list: list, read: read, inflate: inflate, utf8: utf8 };
@@ -2770,8 +2780,38 @@ var ManjiZip = (function () {
     return { doc: r.doc, warns: w };
   }
   function natural(a, b) { try { return a.localeCompare(b, "ja", { numeric: true }); } catch (e) { return a < b ? -1 : a > b ? 1 : 0; } }
-  function openArchive(u8, name) {
-    var z = ManjiZip.list(u8), names = z.names.filter(function (n) { return !/(^|\/)(__MACOSX\/|\._|\.DS_Store$)/.test(n); });
+  function unwrapArchives(u8, z, nests, name, depth) {
+    if (nests.length > 8) throw new Error("zip の中の作品候補が多すぎます（8 まで）。1つの .manjiz だけを入れた zip にしてください。");
+    var works = [], failed = [], i;
+    for (i = 0; i < nests.length; i++) {
+      var n = nests[i], ent = z.entries[n];
+      if (!ent) continue;
+      if (ent.size > 48 * 1024 * 1024) throw new Error("「" + baseName(n) + "」が大きすぎます（48MB まで）。");
+      var bytes;
+      try { bytes = ManjiZip.read(u8, ent); }
+      catch (e1) { throw new Error("「" + baseName(n) + "」を展開できませんでした。\n" + (e1 && e1.message ? e1.message : e1)); }
+      if (!ManjiZip.isZip(bytes)) { failed.push(baseName(n) + "：中身が zip ではありません"); continue; }
+      try {
+        var inner = openArchive(bytes, baseName(n), depth + 1);
+        var playable = inner.chapters.filter(function (c) { return !!c.doc; }).length;
+        if (playable) works.push({ name: baseName(n), L: inner });
+        else failed.push(baseName(n) + "：再生できる章がありません");
+      } catch (e2) {
+        var msg = e2 && e2.message ? e2.message : String(e2);
+        if (/複数の作品|入れ子が深すぎ|大きすぎ|多すぎ/.test(msg)) throw e2;
+        failed.push(baseName(n) + "：" + msg.split("\n")[0]);
+      }
+    }
+    if (works.length === 1) return works[0].L;
+    if (works.length > 1) throw new Error("zip の中に作品が複数あります。開くファイルを1つだけ選んでください。\n・" + works.map(function (w) { return w.name; }).join("\n・"));
+    throw new Error("zip の中に開ける漫字作品が見つかりません。\n・" + (failed.length ? failed.slice(0, 6).join("\n・") : "manifest.json も .manji もありません"));
+  }
+  function zipJunk(n) { return /(^|\/)(__MACOSX\/|\._|\.DS_Store$)/.test(n); }
+  function baseName(n) { var s = String(n).replace(/\\/g, "/"), k = s.lastIndexOf("/"); return k >= 0 ? s.slice(k + 1) : s; }
+  function openArchive(u8, name, depth) {
+    if (depth == null) depth = 1;
+    if (depth > 3) throw new Error("zip の入れ子が深すぎます（3段まで）。中の .manjiz を直接選んでください。");
+    var z = ManjiZip.list(u8), names = z.names.filter(function (n) { return !zipJunk(n); });
     var warns = [], mf = null, base = "";
     names.filter(function (n) { return /(^|\/)manifest\.json$/i.test(n); }).sort(function (a, b) { return a.length - b.length; }).slice(0, 1).forEach(function (n) { mf = n; base = n.slice(0, n.length - "manifest.json".length); });
     var lower = {}; names.forEach(function (n) { lower[n.toLowerCase()] = n; });
@@ -2806,7 +2846,26 @@ var ManjiZip = (function () {
       L.chapters = man.chapters.map(function (c) { return typeof c === "string" ? { file: c } : { file: c && c.file, title: c && c.title }; });
     } else {
       var ms = names.filter(function (n) { return /\.manji$/i.test(n); }).sort(natural);
-      if (!ms.length) throw new Error("zip の中に manifest.json も .manji ファイルも見つかりません。");
+      var nests = names.filter(function (n) { return /\.(manjiz|zip)$/i.test(n); });
+      if (!ms.length) {
+        if (!nests.length) throw new Error("zip の中に manifest.json も .manji ファイルも見つかりません。");
+        return unwrapArchives(u8, z, nests, name, depth);
+      }
+      var workNests = nests.filter(function (n) {
+        var ent = z.entries[n];
+        if (!ent || ent.size > 48 * 1024 * 1024) return true;
+        try {
+          var bytes = ManjiZip.read(u8, ent);
+          if (!ManjiZip.isZip(bytes)) return false;
+          var inner = ManjiZip.list(bytes).names.filter(function (x) { return !zipJunk(x); });
+          for (var j = 0; j < inner.length; j++) if (/(^|\/)manifest\.json$/i.test(inner[j]) || /\.manji$/i.test(inner[j]) || /\.(manjiz|zip)$/i.test(inner[j])) return true;
+        } catch (e3) { return true; }
+        return false;
+      });
+      if (workNests.length) {
+        var both = ms.map(baseName).concat(workNests.map(baseName));
+        throw new Error("zip の中に .manji と別の作品（.manjiz / .zip）が両方あります。開くファイルを1つだけ選んでください。\n・" + both.slice(0, 8).join("\n・"));
+      }
       warns.push("manifest.json がないため、.manji ファイルを名前の順に並べて章にしました。");
       L.chapters = ms.map(function (n) { return { file: n }; });
     }
