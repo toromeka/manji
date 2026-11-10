@@ -64,13 +64,14 @@
    "title": "坊っちゃん",
    "genre": "文学",
    "credit": "夏目漱石（青空文庫）",
-   "description": "無鉄砲な江戸っ子が四国の中学校へ赴任する。第一章から第三章までを七話で。",
-   "duration": 1208,
-   "chapters": 7,
-   "events": 613,
+   "description": "無鉄砲な江戸っ子が四国の中学校へ赴任する。第一章から最終章まで、原文全文を六十話で。",
+   "duration": 10038,
+   "chapters": 60,
+   "events": 4123,
    "tagline": "親譲りの無鉄砲、四国の中学校へ赴任す",
-   "size": 26540,
-   "chars": 10179
+   "size": 184425,
+   "chars": 88274,
+   "unit": "話"
   },
   {
    "id": "hoichi",
