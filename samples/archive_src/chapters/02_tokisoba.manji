@@ -1,0 +1,287 @@
+{
+ "manji": "1.0",
+ "title": "時そば（後半）",
+ "author": "古典落語",
+ "description": "一文得をする手口を真似した与太郎の、早すぎた晩。",
+ "settings": {
+  "charMs": 65,
+  "endText": "— おあとがよろしいようで —"
+ },
+ "events": [
+  {
+   "type": "fx",
+   "fx": "fade",
+   "to": 1,
+   "dur": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "town",
+   "sky": "night",
+   "dur": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "calm"
+  },
+  {
+   "type": "fx",
+   "fx": "fadein",
+   "dur": 1500,
+   "wait": 200
+  },
+  {
+   "type": "caption",
+   "text": "時そば（後半）",
+   "wait": 300,
+   "dur": 3000
+  },
+  {
+   "type": "narr",
+   "text": "その一部始終を、屋台の陰から見ていた男がいた。与太郎である。",
+   "wait": 500
+  },
+  {
+   "type": "say",
+   "who": "与太郎",
+   "text": "「なるほどねえ。途中で時を聞けば、一文得をするってわけだ」",
+   "wait": 5200,
+   "dur": 5300
+  },
+  {
+   "type": "narr",
+   "text": "与太郎は感心して、明日の晩は自分もやってみようと決めた。",
+   "wait": 5600
+  },
+  {
+   "type": "fx",
+   "fx": "iris",
+   "dir": "out",
+   "dur": 1200,
+   "wait": 4800
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "town",
+   "sky": "dusk",
+   "scroll": 20,
+   "dur": 0,
+   "wait": 1400
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "dust",
+   "amount": 0.4,
+   "wind": 0.6,
+   "dur": 0
+  },
+  {
+   "type": "fx",
+   "fx": "iris",
+   "dir": "in",
+   "dur": 1200,
+   "wait": 200
+  },
+  {
+   "type": "caption",
+   "text": "翌晩",
+   "wait": 300,
+   "dur": 3000
+  },
+  {
+   "type": "narr",
+   "text": "翌晩。与太郎は小銭を握りしめて、まだ早い時刻にそば屋の屋台を探して歩いた。",
+   "wait": 600
+  },
+  {
+   "type": "narr",
+   "text": "風は冷たく、通りには人影もまばらだった。",
+   "wait": 5800
+  },
+  {
+   "type": "se",
+   "text": "カラコロ、カラコロ……",
+   "pos": "seL",
+   "se": "geta-in",
+   "drift": "approach",
+   "wait": 3200,
+   "dur": 3000
+  },
+  {
+   "type": "fx",
+   "fx": "bg",
+   "bg": "town",
+   "sky": "dusk",
+   "scroll": 0,
+   "dur": 1200,
+   "wait": 0
+  },
+  {
+   "type": "say",
+   "who": "与太郎",
+   "text": "「おう、そば屋さん。一杯こしらえてくんな」",
+   "wait": 3000,
+   "dur": 4200
+  },
+  {
+   "type": "say",
+   "who": "そば屋",
+   "text": "「へい、いらっしゃい」",
+   "wait": 3600,
+   "dur": 2800
+  },
+  {
+   "type": "narr",
+   "text": "出てきたそばは、汁がぬるく、麺はのびていた。",
+   "wait": 3000
+  },
+  {
+   "type": "se",
+   "text": "コトッ",
+   "note": "どんぶり",
+   "pos": "seC",
+   "se": "bowl",
+   "wait": 600,
+   "dur": 2000
+  },
+  {
+   "type": "narr",
+   "text": "ちくわは向こうが透けて見えるほど薄い。",
+   "wait": 3400
+  },
+  {
+   "type": "say",
+   "who": "与太郎",
+   "text": "「……{p:500}うん、まあ、なんだな。寒い晩にはこれがいいや」",
+   "wait": 4200,
+   "dur": 5000
+  },
+  {
+   "type": "narr",
+   "text": "与太郎は顔をしかめながらも、ゆうべの男の真似をして、どうにか褒めてみせた。",
+   "wait": 5400
+  },
+  {
+   "type": "say",
+   "who": "与太郎",
+   "text": "「勘定だ。いくらだい」",
+   "wait": 6000,
+   "dur": 2800
+  },
+  {
+   "type": "say",
+   "who": "そば屋",
+   "text": "「へい、十六文で」",
+   "wait": 3000,
+   "dur": 2600
+  },
+  {
+   "type": "say",
+   "who": "与太郎",
+   "text": "「細けえから、手を出しな。{sp:180}ひい、ふう、みい、よう、いつ、むう、なな、やあ……{/sp}」",
+   "wait": 3000,
+   "dur": 7000
+  },
+  {
+   "type": "se",
+   "text": "チャリン、チャリン",
+   "pos": "seR",
+   "se": "coin",
+   "wait": 2500,
+   "dur": 2600
+  },
+  {
+   "type": "narr",
+   "text": "与太郎は胸を張って声を上げた。",
+   "wait": 4200
+  },
+  {
+   "type": "fx",
+   "fx": "camera",
+   "who": "与太郎",
+   "zoom": 1.25,
+   "dur": 900,
+   "wait": 2200
+  },
+  {
+   "type": "say",
+   "who": "与太郎",
+   "text": "「そば屋さん、今、{b}{r:何時|なんどき}{/b}だい？」",
+   "eff": "pop",
+   "size": 20,
+   "wait": 300,
+   "dur": 3600
+  },
+  {
+   "type": "fx",
+   "fx": "camera",
+   "reset": true,
+   "dur": 600,
+   "wait": 3400
+  },
+  {
+   "type": "say",
+   "who": "そば屋",
+   "text": "「へい、{b}四つ{/b}で」",
+   "wait": 900,
+   "dur": 2800
+  },
+  {
+   "type": "fx",
+   "fx": "shake",
+   "power": 6,
+   "dur": 500,
+   "wait": 1800
+  },
+  {
+   "type": "say",
+   "who": "与太郎",
+   "text": "「{tr}いつ、むう、なな、やあ……{/tr}」",
+   "eff": "shake",
+   "size": 17,
+   "wait": 200,
+   "dur": 3800
+  },
+  {
+   "type": "se",
+   "text": "チャリン……",
+   "pos": "seR",
+   "se": "coin-soft",
+   "wait": 1800,
+   "dur": 2400
+  },
+  {
+   "type": "narr",
+   "text": "与太郎は首をひねりながら、もう一度数え始めた。",
+   "wait": 2600
+  },
+  {
+   "type": "narr",
+   "text": "早い時刻に来たばかりに、損をしたのは与太郎のほうだった。",
+   "wait": 4000
+  },
+  {
+   "type": "fx",
+   "fx": "weather",
+   "kind": "clear",
+   "dur": 1500,
+   "wait": 4600
+  },
+  {
+   "type": "fx",
+   "fx": "fadeout",
+   "dur": 2000,
+   "wait": 0
+  },
+  {
+   "type": "fx",
+   "fx": "bgm",
+   "preset": "none",
+   "wait": 2200
+  }
+ ]
+}

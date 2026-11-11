@@ -1,0 +1,292 @@
+{
+ "manji_archive": "1.0",
+ "title": "坊っちゃん",
+ "author": "夏目漱石",
+ "description": "夏目漱石『坊っちゃん』の全文を漫字にしたもの（全60話）。本文は青空文庫（図書カード752、底本：ちくま日本文学全集）より。セリフも地の文も原文のまま全文収録。",
+ "source": "青空文庫　夏目漱石『坊っちゃん』（図書カード752、入力：真先芳秋、校正：柳沢成雄）",
+ "cast": {
+  "おれ": {
+   "color": "#ffb070",
+   "pos": "near"
+  },
+  "清": {
+   "color": "#f0a8c0",
+   "pos": "right"
+  },
+  "狸": {
+   "color": "#b0a080",
+   "pos": "left"
+  },
+  "赤シャツ": {
+   "color": "#ff6b6b",
+   "pos": "right"
+  },
+  "山嵐": {
+   "color": "#7fb4ff",
+   "pos": "right"
+  },
+  "うらなり": {
+   "color": "#c8e0a0",
+   "pos": "left"
+  },
+  "野だいこ": {
+   "color": "#ffd84a",
+   "pos": "left"
+  },
+  "おやじ": {
+   "color": "#a8a8a8",
+   "pos": "left"
+  },
+  "母": {
+   "color": "#e0b0a0",
+   "pos": "right"
+  },
+  "兄": {
+   "color": "#d0d0f0",
+   "pos": "left"
+  }
+ },
+ "chapters": [
+  {
+   "file": "chapters/01_ichi_1.manji",
+   "title": "一（その一）　親譲りの無鉄砲"
+  },
+  {
+   "file": "chapters/02_ichi_2.manji",
+   "title": "一（その二）　三人暮らし"
+  },
+  {
+   "file": "chapters/03_ichi_3.manji",
+   "title": "一（その三）　立身出世"
+  },
+  {
+   "file": "chapters/04_ichi_4.manji",
+   "title": "一（その四）　物理学校"
+  },
+  {
+   "file": "chapters/05_ichi_5.manji",
+   "title": "一（その五）　越後の笹飴"
+  },
+  {
+   "file": "chapters/06_ni_1.manji",
+   "title": "二（その一）　港屋と山城屋"
+  },
+  {
+   "file": "chapters/07_ni_2.manji",
+   "title": "二（その二）　五円の茶代"
+  },
+  {
+   "file": "chapters/08_ni_3.manji",
+   "title": "二（その三）　赤シャツと山嵐"
+  },
+  {
+   "file": "chapters/09_ni_4.manji",
+   "title": "二（その四）　いい下宿を周旋"
+  },
+  {
+   "file": "chapters/10_san_1.manji",
+   "title": "三（その一）　初めての教場"
+  },
+  {
+   "file": "chapters/11_san_2.manji",
+   "title": "三（その二）　お茶を入れましょう"
+  },
+  {
+   "file": "chapters/12_san_3.manji",
+   "title": "三（その三）　天麩羅先生"
+  },
+  {
+   "file": "chapters/13_san_4.manji",
+   "title": "三（その四）　湯の中で泳ぐべからず"
+  },
+  {
+   "file": "chapters/14_shi_1.manji",
+   "title": "四（その一）　強者の権利"
+  },
+  {
+   "file": "chapters/15_shi_2.manji",
+   "title": "四（その二）　バッタが五六十"
+  },
+  {
+   "file": "chapters/16_shi_3.manji",
+   "title": "四（その三）　なもしと菜飯"
+  },
+  {
+   "file": "chapters/17_shi_4.manji",
+   "title": "四（その四）　拍子を取って"
+  },
+  {
+   "file": "chapters/18_shi_5.manji",
+   "title": "四（その五）　大分元気ですね"
+  },
+  {
+   "file": "chapters/19_go_1.manji",
+   "title": "五（その一）　釣りに行きませんか"
+  },
+  {
+   "file": "chapters/20_go_2.manji",
+   "title": "五（その二）　ターナー島"
+  },
+  {
+   "file": "chapters/21_go_3.manji",
+   "title": "五（その三）　ゴルキ"
+  },
+  {
+   "file": "chapters/22_go_4.manji",
+   "title": "五（その四）　バッタの内所話"
+  },
+  {
+   "file": "chapters/23_go_5.manji",
+   "title": "五（その五）　込み入った事情"
+  },
+  {
+   "file": "chapters/24_roku_1.manji",
+   "title": "六（その一）　百万両より尊い礼"
+  },
+  {
+   "file": "chapters/25_roku_2.manji",
+   "title": "六（その二）　汗をかいた一銭五厘"
+  },
+  {
+   "file": "chapters/26_roku_3.manji",
+   "title": "六（その三）　下宿は出てくれ"
+  },
+  {
+   "file": "chapters/27_roku_4.manji",
+   "title": "六（その四）　教育の生霊"
+  },
+  {
+   "file": "chapters/28_roku_5.manji",
+   "title": "六（その五）　徹頭徹尾賛成"
+  },
+  {
+   "file": "chapters/29_roku_6.manji",
+   "title": "六（その六）　徹頭徹尾反対"
+  },
+  {
+   "file": "chapters/30_roku_7.manji",
+   "title": "六（その七）　精神的娯楽ですか"
+  },
+  {
+   "file": "chapters/31_shichi_1.manji",
+   "title": "七（その一）　下宿引き払い"
+  },
+  {
+   "file": "chapters/32_shichi_2.manji",
+   "title": "七（その二）　マドンナの噂"
+  },
+  {
+   "file": "chapters/33_shichi_3.manji",
+   "title": "七（その三）　どっちがいい人"
+  },
+  {
+   "file": "chapters/34_shichi_4.manji",
+   "title": "七（その四）　清からの手紙"
+  },
+  {
+   "file": "chapters/35_shichi_5.manji",
+   "title": "七（その五）　マドンナ現る"
+  },
+  {
+   "file": "chapters/36_shichi_6.manji",
+   "title": "七（その六）　月夜の散歩"
+  },
+  {
+   "file": "chapters/37_shichi_7.manji",
+   "title": "七（その七）　二つの影法師"
+  },
+  {
+   "file": "chapters/38_hachi_1.manji",
+   "title": "八（その一）　一銭五厘が祟った"
+  },
+  {
+   "file": "chapters/39_hachi_2.manji",
+   "title": "八（その二）　実は古賀君です"
+  },
+  {
+   "file": "chapters/40_hachi_3.manji",
+   "title": "八（その三）　大違いの勘五郎"
+  },
+  {
+   "file": "chapters/41_hachi_4.manji",
+   "title": "八（その四）　断わりに来た"
+  },
+  {
+   "file": "chapters/42_hachi_5.manji",
+   "title": "八（その五）　天の川が一筋"
+  },
+  {
+   "file": "chapters/43_ku_1.manji",
+   "title": "九（その一）　山嵐の謝罪"
+  },
+  {
+   "file": "chapters/44_ku_2.manji",
+   "title": "九（その二）　赤シャツの策略"
+  },
+  {
+   "file": "chapters/45_ku_3.manji",
+   "title": "九（その三）　花晨亭の広間"
+  },
+  {
+   "file": "chapters/46_ku_4.manji",
+   "title": "九（その四）　山嵐の演説"
+  },
+  {
+   "file": "chapters/47_ku_5.manji",
+   "title": "九（その五）　いかさま師"
+  },
+  {
+   "file": "chapters/48_ku_6.manji",
+   "title": "九（その六）　日清談判"
+  },
+  {
+   "file": "chapters/49_juu_1.manji",
+   "title": "十（その一）　天麩羅と団子"
+  },
+  {
+   "file": "chapters/50_juu_2.manji",
+   "title": "十（その二）　清への返事"
+  },
+  {
+   "file": "chapters/51_juu_3.manji",
+   "title": "十（その三）　赤シャツ退治の計略"
+  },
+  {
+   "file": "chapters/52_juu_4.manji",
+   "title": "十（その四）　抜き身の踊り"
+  },
+  {
+   "file": "chapters/53_juu_5.manji",
+   "title": "十（その五）　中学と師範の決戦"
+  },
+  {
+   "file": "chapters/54_juuichi_1.manji",
+   "title": "十一（その一）　生意気なる某"
+  },
+  {
+   "file": "chapters/55_juuichi_2.manji",
+   "title": "十一（その二）　赤シャツは臭い"
+  },
+  {
+   "file": "chapters/56_juuichi_3.manji",
+   "title": "十一（その三）　義理が大切"
+  },
+  {
+   "file": "chapters/57_juuichi_4.manji",
+   "title": "十一（その四）　枡屋の二階"
+  },
+  {
+   "file": "chapters/58_juuichi_5.manji",
+   "title": "十一（その五）　とうとう来た"
+  },
+  {
+   "file": "chapters/59_juuichi_6.manji",
+   "title": "十一（その六）　天誅を加える"
+  },
+  {
+   "file": "chapters/60_juuichi_7.manji",
+   "title": "十一（その七）　小日向の養源寺"
+  }
+ ],
+ "unit": "話"
+}

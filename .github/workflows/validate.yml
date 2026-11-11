@@ -64,6 +64,8 @@ jobs:
           )
           print(f"OK: engine version strings agree ({code.group(1)})")
           EOF
+      - name: Check kit can be rebuilt from the repository
+        run: python3 tools/build_kit.py --check
       - name: Check kit files match the repository
         run: |
           python3 - <<'EOF'

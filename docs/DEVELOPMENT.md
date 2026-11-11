@@ -76,7 +76,7 @@
 
 - キット内のファイルは、リポジトリ側に対応物があるものは**すべてバイト単位で一致**が必須（CI で検査される）。`index.html` を変えたら player を、ドキュメントや `tools/`、`samples/` を変えたら対応するキット側コピーも差し替える
   - 対応表：`player.html`＝`index.html`、`README_ja.md`／`MANJI_AI_GUIDE.md`／`*.schema.json`＝`docs/` 配下、それ以外は同名パス
-- キットにだけあるファイル（生成スクリプト `tools/gen_*.py`、サンプルのソース一式 `samples/*_src/`）はリポジトリ側に無いので CI の対象外。消したり移したりするときはキット側の扱いも決める
+- キットの材料はすべてリポジトリ側にある（生成スクリプトは `tools/gen_*.py`、サンプルのソース一式は `samples/*_src/`）。キットは `python3 tools/build_kit.py` でリポジトリから再構築でき、再現できることが CI でも検査される。zip を直接編集しない
 
 ## 検証コマンド（push 前に全部通す）
 
@@ -84,6 +84,8 @@ CI（`.github/workflows/validate.yml`）と同じ内容：
 
 ```sh
 pip install jsonschema
+python3 -m unittest discover -s tools -p "test_*.py"
+python3 tools/build_kit.py --check
 for f in samples/builtin/*.manjiz samples/manji_sample_archive.manjiz; do
   python3 tools/pack_manji.py --check "$f"
 done

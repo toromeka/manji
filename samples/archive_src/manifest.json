@@ -1,0 +1,53 @@
+{
+ "manji_archive": "1.0",
+ "title": "漫字アーカイブ見本",
+ "author": "toro meka",
+ "description": "3章の見本。第三章でアーカイブ内の音声ファイル（BGM・効果音）を使います。",
+ "cast": {
+  "与太郎": {
+   "color": "#ffd84a",
+   "pos": "left"
+  },
+  "そば屋": {
+   "color": "#7fb4ff",
+   "pos": "right"
+  },
+  "熊": {
+   "color": "#7fb4ff",
+   "pos": "left",
+   "side": "left"
+  },
+  "八": {
+   "color": "#f0a8c0",
+   "pos": "right",
+   "side": "right"
+  },
+  "松": {
+   "color": "#ffd84a",
+   "pos": "center",
+   "side": "center"
+  }
+ },
+ "chapters": [
+  {
+   "file": "chapters/01_shigatsu_no_asa.manji",
+   "title": "四月の朝"
+  },
+  {
+   "file": "chapters/02_tokisoba.manji",
+   "title": "時そば（後半）"
+  },
+  {
+   "file": "chapters/03_demo_excerpt.manji",
+   "title": "演出の見本（抜粋）"
+  }
+ ],
+ "assets": {
+  "bgm": {
+   "night_pad": "assets/night_pad.mp3"
+  },
+  "se": {
+   "chime": "assets/chime.m4a"
+  }
+ }
+}

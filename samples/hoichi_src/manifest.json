@@ -1,0 +1,56 @@
+{
+ "manji_archive": "1.0",
+ "title": "耳無芳一の話",
+ "author": "小泉八雲（戸川明三 訳）",
+ "unit": "話",
+ "description": "壇ノ浦に沈んだ平家の怨霊に招かれ、夜ごと琵琶を語る盲目の法師・芳一。住職は芳一の身体じゅうに経文を書くが……。本文は青空文庫の戸川明三訳をそのまま使用（全6話）。",
+ "source": "青空文庫　小泉八雲「耳無芳一の話」戸川明三訳（図書カード42927、底本：「小泉八雲全集第八卷家庭版」第一書房 1937年、入力：京都大学電子テクスト研究会入力班、校正：京都大学電子テクスト研究会校正班（大久保ゆう））",
+ "cast": {
+  "芳一": {
+   "color": "#e8d8a8",
+   "pos": "left"
+  },
+  "侍": {
+   "color": "#ff5a5a",
+   "pos": "right"
+  },
+  "老女": {
+   "color": "#c8a0ff",
+   "pos": "right"
+  },
+  "住職": {
+   "color": "#8fd0ff",
+   "pos": "right"
+  },
+  "下男": {
+   "color": "#b8c8a0",
+   "pos": "right"
+  }
+ },
+ "chapters": [
+  {
+   "file": "chapters/01.manji",
+   "title": "壇ノ浦の怨霊"
+  },
+  {
+   "file": "chapters/02.manji",
+   "title": "夏の夜の訪問者"
+  },
+  {
+   "file": "chapters/03.manji",
+   "title": "七夜の約束"
+  },
+  {
+   "file": "chapters/04.manji",
+   "title": "雨の墓地"
+  },
+  {
+   "file": "chapters/05.manji",
+   "title": "般若心経"
+  },
+  {
+   "file": "chapters/06.manji",
+   "title": "耳無芳一"
+  }
+ ]
+}
