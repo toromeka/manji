@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<title>漫字プレーヤーの使い方</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#111;color:#eee;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;-webkit-text-size-adjust:100%;line-height:1.75}
+.wrap{max-width:820px;margin:0 auto;padding:14px 12px calc(30px + env(safe-area-inset-bottom))}
+h1{font-size:20px;margin:4px 0 4px;letter-spacing:.05em}
+h1 small{font-size:12px;color:#999;font-weight:normal;margin-left:6px}
+h2{font-size:16px;margin:0 0 8px;letter-spacing:.03em}
+p{margin:6px 0;font-size:14.5px}
+.card{background:#1c1c1c;border:1px solid #333;border-radius:12px;padding:14px;margin-bottom:12px}
+a{color:#e0b040}
+.back{display:inline-block;margin-bottom:12px;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid #333;padding:7px 6px;text-align:left;vertical-align:top}
+tr:last-child th,tr:last-child td{border-bottom:none}
+th{white-space:nowrap;color:#ccc;font-weight:600}
+ul{margin:6px 0;padding-left:20px;font-size:14.5px}
+li{margin:3px 0}
+code{background:#2a2a2a;border-radius:4px;padding:1px 5px;font-size:13px}
+.note{font-size:12.5px;color:#aaa}
+.foot{font-size:11.5px;color:#777;text-align:center;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← 漫字プレーヤーに戻る</a>
+  <h1>漫字プレーヤーの使い方<small>はじめての方へ</small></h1>
+
+  <div class="card">
+    <h2>漫字（まんじ）とは</h2>
+    <p>小説・漫画・サウンドドラマのあいだにある、自動再生の映像メディアです。台本を選ぶと、文字と演出が音楽のように流れていきます。読むというより、眺めて聞いて楽しむものだと思ってください。</p>
+    <p>このページでは、プレーヤーの基本的な使い方を説明します。</p>
+  </div>
+
+  <div class="card">
+    <h2>1. すぐ読む（サンプル作品）</h2>
+    <p>プレーヤーの最初の画面にある「サンプル作品」から、読みたい作品をタップするだけですぐに再生が始まります。まずはここからどうぞ。</p>
+    <ul>
+      <li>短い昔話や落語から、長編小説の全文（『坊っちゃん』全60話など）まで入っています。</li>
+      <li>複数章の作品では、作品情報の下に「目次」が出ます。章をタップするとその章から再生できます。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>2. 自分のファイルを読み込む</h2>
+    <p>「漫字スクリプトを読み込む」のボタンから、手持ちのファイルを選んで再生できます。</p>
+    <table>
+      <tr><th>.manji</th><td>1話分の台本ファイルです。</td></tr>
+      <tr><th>.manjiz / .zip</th><td>複数の章をまとめたアーカイブです。目次から章を選べます。</td></tr>
+      <tr><th>.txt</th><td>演出なしで、文章だけを流して再生します。</td></tr>
+    </table>
+    <ul>
+      <li>iPhone では「ファイル」アプリの中から選べます。ファイル名が灰色で選べないときは、「ブラウズ」から選び直してください。</li>
+      <li>パソコンでは、読み込みの枠にファイルをドラッグ＆ドロップしても読み込めます。</li>
+      <li>読み込んだ本体は、この端末の中（ブラウザ）に保存されます。お気に入りや履歴から開き直せます。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>3. 再生中の操作</h2>
+    <table>
+      <tr><th>舞台をタップ</th><td>再生 / 一時停止</td></tr>
+      <tr><th>スライダー</th><td>再生位置の移動（シーク）</td></tr>
+      <tr><th>最初から</th><td>その章の先頭に戻ります</td></tr>
+      <tr><th>◀ 前の章 / 次の章 ▶</th><td>章の移動（複数章の作品だけ表示されます）</td></tr>
+      <tr><th>0.75x〜2x</th><td>再生速度の変更</td></tr>
+      <tr><th>文字：標準</th><td>タップするたびに文字サイズが切り替わります</td></tr>
+      <tr><th>⛶ 全画面（横向き）</th><td>画面いっぱいに広げて再生します。戻るときは「✕ 戻る」</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>4. 音について</h2>
+    <p>効果音とBGMは、初期状態では<strong>オフ</strong>になっています。音を出したいときは、再生画面の「効果音」「BGM」のチェックを入れてください。BGMはプレーヤー内蔵のチップチューンで、その場で合成して鳴らしています。</p>
+    <p class="note">音が出ないときは、チェックが入っているかと、端末の音量を確認してください。</p>
+  </div>
+
+  <div class="card">
+    <h2>5. お気に入りと履歴</h2>
+    <ul>
+      <li>作品情報の「☆ お気に入りに追加」で登録でき、読み込み画面の「★ お気に入り」からいつでも開けます。</li>
+      <li>「🕘 履歴」には、最近読んだ作品と再生位置が残ります。途中から続きを読むときにどうぞ。</li>
+      <li>どちらもこの端末の中だけに保存されます。プライベートブラウズなどでは本体を保存できないため、履歴には題名と再生位置だけが残ります。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>6. うまくいかないとき</h2>
+    <ul>
+      <li>ファイルが選べない：iPhone では「ブラウズ」から選び直してみてください。</li>
+      <li>エラーが表示される：台本ファイルの形式に問題があるときは、画面に理由が表示されます。その文言が手がかりになります。</li>
+      <li>再生が止まったように見える：舞台をタップすると再生/一時停止が切り替わります。一時停止になっていないか確認してください。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>7. 自分で台本を作りたい方へ</h2>
+    <p>漫字の台本は <code>.manji</code> というJSON形式で書きます。書き方のガイドと、配布用キット（プレーヤー・ツール・サンプル一式）を用意しています。</p>
+    <ul>
+      <li><a href="https://github.com/toromeka/manji/blob/main/docs/MANJI_AI_GUIDE.md">AI向けオーサリングガイド（MANJI_AI_GUIDE.md）</a> — 台本の書き方</li>
+      <li><a href="https://github.com/toromeka/manji/blob/main/docs/README_ja.md">解説ドキュメント（README_ja.md）</a> — 形式と演出の詳細</li>
+      <li><a href="https://github.com/toromeka/manji">GitHubリポジトリ</a> — 本体・ツール・キットの配布元</li>
+    </ul>
+  </div>
+
+  <a class="back" href="index.html">← 漫字プレーヤーに戻る</a>
+  <div class="foot">漫字プレーヤー · 効果音とBGMは初期状態でオフです</div>
+</div>
+</body>
+</html>

@@ -11,6 +11,8 @@
 - `docs/` — スキーマと解説
 - `samples/` — サンプル作品（同梱作は `samples/builtin/`）
 - `tools/pack_manji.py` — `.manji` を `.manjiz` に固める・検査するツール
+- `tools/build_kit.py` — 配布用キット `manji_kit.zip` をリポジトリから再構築するツール
+- `guide.html` — プレーヤーの使い方ページ（公開サイトでプレーヤーからリンク）
 - `manji_kit.zip` — 配布用キット
 - `LICENSE` — ライセンス（MIT License）
 

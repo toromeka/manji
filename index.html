@@ -15,6 +15,9 @@ body{margin:0;background:#111;color:#eee;font-family:-apple-system,BlinkMacSyste
 .wrap{max-width:820px;margin:0 auto;padding:14px 12px calc(30px + env(safe-area-inset-bottom))}
 h1{font-size:calc(20px*var(--fz,1));margin:4px 0 12px;letter-spacing:.05em}
 h1 small{font-size:calc(12px*var(--fz,1));color:#999;font-weight:normal;margin-left:6px}
+.guideLink{margin:-4px 0 12px;font-size:calc(13.5px*var(--fz,1));color:#aaa}
+.guideLink a{color:#e0b040}
+.foot a{color:#999}
 .card{background:#1c1c1c;border:1px solid #333;border-radius:12px;padding:14px;margin-bottom:12px}
 #drop.over{border-color:#e0b040;background:#2a2410}
 .bigbtn{display:block;position:relative;overflow:hidden;width:100%;text-align:center;font-size:calc(19px*var(--fz,1));font-weight:700;padding:18px 12px;border-radius:12px;background:#c0392b;color:#fff;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:60px}
@@ -117,6 +120,7 @@ html.mj-sheet,html.mj-sheet body{overflow:hidden}
 <body>
 <div class="wrap">
   <h1>漫字プレーヤー<small>.manji 再生アプリ</small></h1>
+  <p class="guideLink"><a href="guide.html">📖 使い方</a> ― 漫字の読み方・操作・ファイルの読み込み方</p>
 
   <div class="card" id="samples">
     <h3 class="secH">サンプル作品<small>タップですぐに再生</small></h3>
@@ -168,7 +172,7 @@ html.mj-sheet,html.mj-sheet body{overflow:hidden}
       <div id="sheetFoot"></div>
     </div>
   </div>
-  <div class="foot">漫字プレーヤー · 効果音とBGMは初期状態でオフです</div>
+  <div class="foot">漫字プレーヤー · <a href="guide.html">使い方</a> · 効果音とBGMは初期状態でオフです</div>
 </div>
 
 <script>
