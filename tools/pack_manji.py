@@ -32,7 +32,8 @@ def load_schema(name):
     for d in dirs:
         p = os.path.join(d, name)
         if os.path.exists(p):
-            return json.load(open(p, encoding="utf-8"))
+            with open(p, encoding="utf-8") as fh:
+                return json.load(fh)
     return None
 
 def validator(name):
@@ -128,7 +129,8 @@ def read_folder(folder):
             full = os.path.join(root, f)
             rel = os.path.relpath(full, folder).replace(os.sep, "/")
             if re.search(r"(^|/)(\.DS_Store|\._)", rel): continue
-            files[rel] = open(full, "rb").read()
+            with open(full, "rb") as fh:
+                files[rel] = fh.read()
     return files
 
 def pack(files, man, out):
