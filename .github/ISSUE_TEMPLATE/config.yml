@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 使い方ページ
+    url: https://toromeka.github.io/manji/guide.html
+    about: プレーヤーの操作方法はこちら

@@ -1,0 +1,63 @@
+name: 不具合の報告
+description: 公開サイトやプレーヤーで見つけた不具合を報告する
+title: "[不具合] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        公開サイト（https://toromeka.github.io/manji/）やプレーヤーで見つけた不具合を報告してください。
+        再現できる手順があると、修正担当（Cursor / Claude）がすぐ着手できます。
+  - type: dropdown
+    id: reporter
+    attributes:
+      label: 起票者
+      options:
+        - 人間
+        - Muse
+        - Cursor
+        - Claude
+        - その他
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: 発生したページ・作品
+      description: URL、または作品名（例：坊っちゃん 第3話）
+      placeholder: https://toromeka.github.io/manji/
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+      placeholder: |
+        1. 作品「〜」を開く
+        2. 〜秒あたりまでシークする
+        3. 〜をクリックする
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待した動き
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 実際の動き
+      description: エラーメッセージやスクリーンショットがあれば貼ってください
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: ブラウザと端末
+      placeholder: 例）Chrome 140 / Windows 11、Safari / iPhone 15
+  - type: input
+    id: version
+    attributes:
+      label: エンジンのバージョン
+      description: わかれば記入（プレーヤーの表示、または index.html の Manji.version）
